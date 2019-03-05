@@ -1,30 +1,37 @@
-INCLUDE_DIR = -Isrc/core/Box2D2
-LIBS_BOX2D = -Lsrc/core/Box2D2 -lBox2D
+
+CORE_DIR = src/core/
+INCLUDE_DIR = -I$(CORE_DIR)Box2D2
+LIBS_BOX2D = -L$(CORE_DIR)Box2D2 -lBox2D
 CPPFLAGS = -Wall 
 
-all: gameTxt
+OBJ_DIR = obj/
+BIN_DIR = bin/
+TXT_DIR = src/txt/
 
-gameTxt: Game.o mainTxt.o txtGame.o winTxt.o Player.o
-	g++ Game.o mainTxt.o txtGame.o winTxt.o Player.o -o gameTxt $(LIBS_BOX2D) 
+all: $(BIN_DIR)gameTxt
 
-Game.o: src/core/Game.cpp src/core/Game.h
-	g++ $(CPPFLAGS) -c src/core/Game.cpp $(INCLUDE_DIR)
+$(BIN_DIR)gameTxt: $(OBJ_DIR)Game.o $(OBJ_DIR)mainTxt.o $(OBJ_DIR)txtGame.o $(OBJ_DIR)winTxt.o $(OBJ_DIR)Player.o
+	g++ $(OBJ_DIR)Game.o $(OBJ_DIR)mainTxt.o $(OBJ_DIR)txtGame.o $(OBJ_DIR)winTxt.o $(OBJ_DIR)Player.o $(LIBS_BOX2D) -o $(BIN_DIR)gameTxt 
 
-Player.o: src/core/Player.cpp src/core/Player.h
-	g++ $(CPPFLAGS) -c src/core/Player.cpp $(INCLUDE_DIR)
+$(OBJ_DIR)Game.o: $(CORE_DIR)Game.cpp $(CORE_DIR)Game.h
+	g++ $(CPPFLAGS) -c $(CORE_DIR)Game.cpp $(INCLUDE_DIR) -o $(OBJ_DIR)Game.o
 
-Terrain.o: src/core/Terrain.cpp
-	g++ $(CPPFLAGS) -c src/core/Terrain.cpp  
+$(OBJ_DIR)Player.o: $(CORE_DIR)Player.cpp $(CORE_DIR)Player.h
+	g++ $(CPPFLAGS) -c $(CORE_DIR)Player.cpp $(INCLUDE_DIR) -o $(OBJ_DIR)Player.o
 
-mainTxt.o: src/txt/mainTxt.cpp src/txt/txtGame.h src/txt/winTxt.h
-	g++ $(CPPFLAGS) -c src/txt/mainTxt.cpp $(INCLUDE_DIR) 
+$(OBJ_DIR)Terrain.o: $(CORE_DIR)Terrain.cpp
+	g++ $(CPPFLAGS) -c $(CORE_DIR)Terrain.cpp  -o $(OBJ_DIR)Terrain.o
 
-txtGame.o: src/txt/txtGame.cpp src/txt/winTxt.h src/core/Game.h
-	g++ $(CPPFLAGS) -c src/txt/txtGame.cpp $(INCLUDE_DIR) 
+$(OBJ_DIR)mainTxt.o: $(TXT_DIR)mainTxt.cpp $(TXT_DIR)txtGame.h $(TXT_DIR)winTxt.h
+	g++ $(CPPFLAGS) -c $(TXT_DIR)mainTxt.cpp $(INCLUDE_DIR) -o $(OBJ_DIR)mainTxt.o
 
-winTxt.o: src/txt/winTxt.cpp src/txt/winTxt.h
-	g++ $(CPPFLAGS) -c src/txt/winTxt.cpp $(INCLUDE_DIR) 
+$(OBJ_DIR)txtGame.o: $(TXT_DIR)txtGame.cpp $(TXT_DIR)winTxt.h $(CORE_DIR)Game.h
+	g++ $(CPPFLAGS) -c $(TXT_DIR)txtGame.cpp $(INCLUDE_DIR) -o $(OBJ_DIR)txtGame.o  
 
+$(OBJ_DIR)winTxt.o: $(TXT_DIR)winTxt.cpp $(TXT_DIR)winTxt.h
+	g++ $(CPPFLAGS) -c $(TXT_DIR)winTxt.cpp $(INCLUDE_DIR) -o $(OBJ_DIR)winTxt.o   
 
+clean:
+	rm $(OBJ_DIR)* $(BIN_DIR)* 
 
 
