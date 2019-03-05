@@ -1,0 +1,490 @@
+# depslib dependency file v1.0
+1551274637 source:/home/feras/ProjetAP4/TinyWings/winTxt.cpp
+	"winTxt.h"
+	<cassert>
+	<stdlib.h>
+	<stdarg.h>
+	<iostream>
+	<stdio.h>
+	<windef.h>
+	<winbase.h>
+	<wincon.h>
+	<windows.h>
+	<conio.h>
+	<unistd.h>
+	<termios.h>
+	<unistd.h>
+
+1551274625 /home/feras/ProjetAP4/TinyWings/winTxt.h
+
+1551274832 source:/home/feras/ProjetAP4/TinyWings/main.cpp
+	"winTxt.h"
+	<iostream>
+
+1551274832 source:/home/feras/ProjetAP4/TinyWings/src/txt/main.cpp
+	"winTxt.h"
+	<iostream>
+
+1551274625 /home/feras/ProjetAP4/TinyWings/src/txt/winTxt.h
+
+1551303734 source:/home/feras/ProjetAP4/TinyWings/src/core/Jeu.cpp
+	"Jeu.h"
+
+1551303752 /home/feras/ProjetAP4/TinyWings/src/core/Jeu.h
+	"Personnage.h"
+	"Terrain.h"
+
+1551303835 /home/feras/ProjetAP4/TinyWings/src/core/Terrain.h
+
+1551303809 source:/home/feras/ProjetAP4/TinyWings/src/core/Terrain.cpp
+
+1551293070 source:/home/feras/ProjetAP4/TinyWings/src/txt/txtJeu.cpp
+	<iostream>
+	<windows.h>
+	<unistd.h>
+	"winTxt.h"
+	"../core/Jeu.h"
+
+1551274637 source:/home/feras/ProjetAP4/TinyWings/src/txt/winTxt.cpp
+	"winTxt.h"
+	<cassert>
+	<stdlib.h>
+	<stdarg.h>
+	<iostream>
+	<stdio.h>
+	<windef.h>
+	<winbase.h>
+	<wincon.h>
+	<windows.h>
+	<conio.h>
+	<unistd.h>
+	<termios.h>
+	<unistd.h>
+
+1551303853 source:/home/feras/ProjetAP4/TinyWings/src/txt/mainTxt.cpp
+	"txtJeu.h"
+	"winTxt.h"
+	<Box2D/Box2D.h>
+
+1551303889 /home/feras/ProjetAP4/TinyWings/src/txt/txtJeu.h
+	"../core/Jeu.h"
+
+1551303908 source:/home/feras/ProjetAP4/TinyWings/src/core/Personnage.cpp
+	"Personnage.h"
+	"Jeu.h"
+
+1551303788 /home/feras/ProjetAP4/TinyWings/src/core/Personnage.h
+	<Box2D/Box2D.h>
+
+1551294160 /home/feras/ProjetAP4/TinyWings/src/Box2D/Box2D/Box2D.h
+	"Box2D/Common/b2Settings.h"
+	"Box2D/Common/b2Draw.h"
+	"Box2D/Common/b2Timer.h"
+	"Box2D/Collision/Shapes/b2CircleShape.h"
+	"Box2D/Collision/Shapes/b2EdgeShape.h"
+	"Box2D/Collision/Shapes/b2ChainShape.h"
+	"Box2D/Collision/Shapes/b2PolygonShape.h"
+	"Box2D/Collision/b2BroadPhase.h"
+	"Box2D/Collision/b2Distance.h"
+	"Box2D/Collision/b2DynamicTree.h"
+	"Box2D/Collision/b2TimeOfImpact.h"
+	"Box2D/Dynamics/b2Body.h"
+	"Box2D/Dynamics/b2Fixture.h"
+	"Box2D/Dynamics/b2WorldCallbacks.h"
+	"Box2D/Dynamics/b2TimeStep.h"
+	"Box2D/Dynamics/b2World.h"
+	"Box2D/Dynamics/Contacts/b2Contact.h"
+	"Box2D/Dynamics/Joints/b2DistanceJoint.h"
+	"Box2D/Dynamics/Joints/b2FrictionJoint.h"
+	"Box2D/Dynamics/Joints/b2GearJoint.h"
+	"Box2D/Dynamics/Joints/b2MotorJoint.h"
+	"Box2D/Dynamics/Joints/b2MouseJoint.h"
+	"Box2D/Dynamics/Joints/b2PrismaticJoint.h"
+	"Box2D/Dynamics/Joints/b2PulleyJoint.h"
+	"Box2D/Dynamics/Joints/b2RevoluteJoint.h"
+	"Box2D/Dynamics/Joints/b2RopeJoint.h"
+	"Box2D/Dynamics/Joints/b2WeldJoint.h"
+	"Box2D/Dynamics/Joints/b2WheelJoint.h"
+
+1551294160 /home/feras/ProjetAP4/TinyWings/src/core/Box2D/Box2D/Box2D.h
+	"Box2D/Common/b2Settings.h"
+	"Box2D/Common/b2Draw.h"
+	"Box2D/Common/b2Timer.h"
+	"Box2D/Collision/Shapes/b2CircleShape.h"
+	"Box2D/Collision/Shapes/b2EdgeShape.h"
+	"Box2D/Collision/Shapes/b2ChainShape.h"
+	"Box2D/Collision/Shapes/b2PolygonShape.h"
+	"Box2D/Collision/b2BroadPhase.h"
+	"Box2D/Collision/b2Distance.h"
+	"Box2D/Collision/b2DynamicTree.h"
+	"Box2D/Collision/b2TimeOfImpact.h"
+	"Box2D/Dynamics/b2Body.h"
+	"Box2D/Dynamics/b2Fixture.h"
+	"Box2D/Dynamics/b2WorldCallbacks.h"
+	"Box2D/Dynamics/b2TimeStep.h"
+	"Box2D/Dynamics/b2World.h"
+	"Box2D/Dynamics/Contacts/b2Contact.h"
+	"Box2D/Dynamics/Joints/b2DistanceJoint.h"
+	"Box2D/Dynamics/Joints/b2FrictionJoint.h"
+	"Box2D/Dynamics/Joints/b2GearJoint.h"
+	"Box2D/Dynamics/Joints/b2MotorJoint.h"
+	"Box2D/Dynamics/Joints/b2MouseJoint.h"
+	"Box2D/Dynamics/Joints/b2PrismaticJoint.h"
+	"Box2D/Dynamics/Joints/b2PulleyJoint.h"
+	"Box2D/Dynamics/Joints/b2RevoluteJoint.h"
+	"Box2D/Dynamics/Joints/b2RopeJoint.h"
+	"Box2D/Dynamics/Joints/b2WeldJoint.h"
+	"Box2D/Dynamics/Joints/b2WheelJoint.h"
+
+1551295163 /home/feras/ProjetAP4/TinyWings/src/core/Box2D/Box2D.h
+	"Box2D/Common/b2Settings.h"
+	"Box2D/Common/b2Draw.h"
+	"Box2D/Common/b2Timer.h"
+	"Box2D/Collision/Shapes/b2CircleShape.h"
+	"Box2D/Collision/Shapes/b2EdgeShape.h"
+	"Box2D/Collision/Shapes/b2ChainShape.h"
+	"Box2D/Collision/Shapes/b2PolygonShape.h"
+	"Box2D/Collision/b2BroadPhase.h"
+	"Box2D/Collision/b2Distance.h"
+	"Box2D/Collision/b2DynamicTree.h"
+	"Box2D/Collision/b2TimeOfImpact.h"
+	"Box2D/Dynamics/b2Body.h"
+	"Box2D/Dynamics/b2Fixture.h"
+	"Box2D/Dynamics/b2WorldCallbacks.h"
+	"Box2D/Dynamics/b2TimeStep.h"
+	"Box2D/Dynamics/b2World.h"
+	"Box2D/Dynamics/Contacts/b2Contact.h"
+	"Box2D/Dynamics/Joints/b2DistanceJoint.h"
+	"Box2D/Dynamics/Joints/b2FrictionJoint.h"
+	"Box2D/Dynamics/Joints/b2GearJoint.h"
+	"Box2D/Dynamics/Joints/b2MotorJoint.h"
+	"Box2D/Dynamics/Joints/b2MouseJoint.h"
+	"Box2D/Dynamics/Joints/b2PrismaticJoint.h"
+	"Box2D/Dynamics/Joints/b2PulleyJoint.h"
+	"Box2D/Dynamics/Joints/b2RevoluteJoint.h"
+	"Box2D/Dynamics/Joints/b2RopeJoint.h"
+	"Box2D/Dynamics/Joints/b2WeldJoint.h"
+	"Box2D/Dynamics/Joints/b2WheelJoint.h"
+
+1551295163 /home/feras/ProjetAP4/TinyWings/src/core/Box2D/Box2D/Common/b2Settings.h
+	<stddef.h>
+	<assert.h>
+	<float.h>
+
+1551295163 /home/feras/ProjetAP4/TinyWings/src/core/Box2D/Box2D/Common/b2Draw.h
+	"Box2D/Common/b2Math.h"
+
+1551295163 /home/feras/ProjetAP4/TinyWings/src/core/Box2D/Box2D/Common/b2Timer.h
+	"Box2D/Common/b2Settings.h"
+
+1551295163 /home/feras/ProjetAP4/TinyWings/src/core/Box2D/Box2D/Collision/Shapes/b2CircleShape.h
+	"Box2D/Collision/Shapes/b2Shape.h"
+
+1551295163 /home/feras/ProjetAP4/TinyWings/src/core/Box2D/Box2D/Collision/Shapes/b2EdgeShape.h
+	"Box2D/Collision/Shapes/b2Shape.h"
+
+1551295163 /home/feras/ProjetAP4/TinyWings/src/core/Box2D/Box2D/Collision/Shapes/b2ChainShape.h
+	"Box2D/Collision/Shapes/b2Shape.h"
+
+1551295163 /home/feras/ProjetAP4/TinyWings/src/core/Box2D/Box2D/Collision/Shapes/b2PolygonShape.h
+	"Box2D/Collision/Shapes/b2Shape.h"
+
+1551295163 /home/feras/ProjetAP4/TinyWings/src/core/Box2D/Box2D/Collision/b2BroadPhase.h
+	"Box2D/Common/b2Settings.h"
+	"Box2D/Collision/b2Collision.h"
+	"Box2D/Collision/b2DynamicTree.h"
+	<algorithm>
+
+1551295163 /home/feras/ProjetAP4/TinyWings/src/core/Box2D/Box2D/Collision/b2Distance.h
+	"Box2D/Common/b2Math.h"
+
+1551295163 /home/feras/ProjetAP4/TinyWings/src/core/Box2D/Box2D/Collision/b2DynamicTree.h
+	"Box2D/Collision/b2Collision.h"
+	"Box2D/Common/b2GrowableStack.h"
+
+1551295163 /home/feras/ProjetAP4/TinyWings/src/core/Box2D/Box2D/Collision/b2TimeOfImpact.h
+	"Box2D/Common/b2Math.h"
+	"Box2D/Collision/b2Distance.h"
+
+1551295163 /home/feras/ProjetAP4/TinyWings/src/core/Box2D/Box2D/Dynamics/b2Body.h
+	"Box2D/Common/b2Math.h"
+	"Box2D/Collision/Shapes/b2Shape.h"
+	<memory>
+
+1551295163 /home/feras/ProjetAP4/TinyWings/src/core/Box2D/Box2D/Dynamics/b2Fixture.h
+	"Box2D/Dynamics/b2Body.h"
+	"Box2D/Collision/b2Collision.h"
+	"Box2D/Collision/Shapes/b2Shape.h"
+
+1551295163 /home/feras/ProjetAP4/TinyWings/src/core/Box2D/Box2D/Dynamics/b2WorldCallbacks.h
+	"Box2D/Common/b2Settings.h"
+
+1551295163 /home/feras/ProjetAP4/TinyWings/src/core/Box2D/Box2D/Dynamics/b2TimeStep.h
+	"Box2D/Common/b2Math.h"
+
+1551295163 /home/feras/ProjetAP4/TinyWings/src/core/Box2D/Box2D/Dynamics/b2World.h
+	"Box2D/Common/b2Math.h"
+	"Box2D/Common/b2BlockAllocator.h"
+	"Box2D/Common/b2StackAllocator.h"
+	"Box2D/Dynamics/b2ContactManager.h"
+	"Box2D/Dynamics/b2WorldCallbacks.h"
+	"Box2D/Dynamics/b2TimeStep.h"
+
+1551295163 /home/feras/ProjetAP4/TinyWings/src/core/Box2D/Box2D/Dynamics/Contacts/b2Contact.h
+	"Box2D/Common/b2Math.h"
+	"Box2D/Collision/b2Collision.h"
+	"Box2D/Collision/Shapes/b2Shape.h"
+	"Box2D/Dynamics/b2Fixture.h"
+
+1551295163 /home/feras/ProjetAP4/TinyWings/src/core/Box2D/Box2D/Dynamics/Joints/b2DistanceJoint.h
+	"Box2D/Dynamics/Joints/b2Joint.h"
+
+1551295163 /home/feras/ProjetAP4/TinyWings/src/core/Box2D/Box2D/Dynamics/Joints/b2FrictionJoint.h
+	"Box2D/Dynamics/Joints/b2Joint.h"
+
+1551295163 /home/feras/ProjetAP4/TinyWings/src/core/Box2D/Box2D/Dynamics/Joints/b2GearJoint.h
+	"Box2D/Dynamics/Joints/b2Joint.h"
+
+1551295163 /home/feras/ProjetAP4/TinyWings/src/core/Box2D/Box2D/Dynamics/Joints/b2MotorJoint.h
+	"Box2D/Dynamics/Joints/b2Joint.h"
+
+1551295163 /home/feras/ProjetAP4/TinyWings/src/core/Box2D/Box2D/Dynamics/Joints/b2MouseJoint.h
+	"Box2D/Dynamics/Joints/b2Joint.h"
+
+1551295163 /home/feras/ProjetAP4/TinyWings/src/core/Box2D/Box2D/Dynamics/Joints/b2PrismaticJoint.h
+	"Box2D/Dynamics/Joints/b2Joint.h"
+
+1551295163 /home/feras/ProjetAP4/TinyWings/src/core/Box2D/Box2D/Dynamics/Joints/b2PulleyJoint.h
+	"Box2D/Dynamics/Joints/b2Joint.h"
+
+1551295163 /home/feras/ProjetAP4/TinyWings/src/core/Box2D/Box2D/Dynamics/Joints/b2RevoluteJoint.h
+	"Box2D/Dynamics/Joints/b2Joint.h"
+
+1551295163 /home/feras/ProjetAP4/TinyWings/src/core/Box2D/Box2D/Dynamics/Joints/b2RopeJoint.h
+	"Box2D/Dynamics/Joints/b2Joint.h"
+
+1551295163 /home/feras/ProjetAP4/TinyWings/src/core/Box2D/Box2D/Dynamics/Joints/b2WeldJoint.h
+	"Box2D/Dynamics/Joints/b2Joint.h"
+
+1551295163 /home/feras/ProjetAP4/TinyWings/src/core/Box2D/Box2D/Dynamics/Joints/b2WheelJoint.h
+	"Box2D/Dynamics/Joints/b2Joint.h"
+
+1551297889 /home/feras/ProjetAP4/TinyWings/Box2D/Box2D/Box2D.h
+	"Box2D/Common/b2Settings.h"
+	"Box2D/Common/b2Draw.h"
+	"Box2D/Common/b2Timer.h"
+	"Box2D/Collision/Shapes/b2CircleShape.h"
+	"Box2D/Collision/Shapes/b2EdgeShape.h"
+	"Box2D/Collision/Shapes/b2ChainShape.h"
+	"Box2D/Collision/Shapes/b2PolygonShape.h"
+	"Box2D/Collision/b2BroadPhase.h"
+	"Box2D/Collision/b2Distance.h"
+	"Box2D/Collision/b2DynamicTree.h"
+	"Box2D/Collision/b2TimeOfImpact.h"
+	"Box2D/Dynamics/b2Body.h"
+	"Box2D/Dynamics/b2Fixture.h"
+	"Box2D/Dynamics/b2WorldCallbacks.h"
+	"Box2D/Dynamics/b2TimeStep.h"
+	"Box2D/Dynamics/b2World.h"
+	"Box2D/Dynamics/Contacts/b2Contact.h"
+	"Box2D/Dynamics/Joints/b2DistanceJoint.h"
+	"Box2D/Dynamics/Joints/b2FrictionJoint.h"
+	"Box2D/Dynamics/Joints/b2GearJoint.h"
+	"Box2D/Dynamics/Joints/b2MotorJoint.h"
+	"Box2D/Dynamics/Joints/b2MouseJoint.h"
+	"Box2D/Dynamics/Joints/b2PrismaticJoint.h"
+	"Box2D/Dynamics/Joints/b2PulleyJoint.h"
+	"Box2D/Dynamics/Joints/b2RevoluteJoint.h"
+	"Box2D/Dynamics/Joints/b2RopeJoint.h"
+	"Box2D/Dynamics/Joints/b2WeldJoint.h"
+	"Box2D/Dynamics/Joints/b2WheelJoint.h"
+
+1551367787 source:/home/feras/projetap4/TinyWings/src/core/Jeu.cpp
+	"Jeu.h"
+	<iostream>
+
+1551370031 /home/feras/projetap4/TinyWings/src/core/Jeu.h
+	"Player.h"
+	"Terrain.h"
+
+1551367844 /home/feras/projetap4/TinyWings/src/core/Personnage.h
+	<Box2D/Box2D.h>
+
+1551303835 /home/feras/projetap4/TinyWings/src/core/Terrain.h
+
+1551368181 source:/home/feras/projetap4/TinyWings/src/core/Personnage.cpp
+	"Personnage.h"
+	"Jeu.h"
+
+1551303809 source:/home/feras/projetap4/TinyWings/src/core/Terrain.cpp
+
+1551478054 source:/home/feras/projetap4/TinyWings/src/txt/mainTxt.cpp
+	"txtGame.h"
+	"winTxt.h"
+	<iostream>
+	<Box2D/Box2D.h>
+
+1551303889 /home/feras/projetap4/TinyWings/src/txt/txtJeu.h
+	"../core/Jeu.h"
+
+1551473788 /home/feras/projetap4/TinyWings/src/txt/winTxt.h
+
+1551366875 source:/home/feras/projetap4/TinyWings/src/txt/txtJeu.cpp
+	<iostream>
+	<windows.h>
+	<unistd.h>
+	"winTxt.h"
+	"../core/Jeu.h"
+
+1551274637 source:/home/feras/projetap4/TinyWings/src/txt/winTxt.cpp
+	"winTxt.h"
+	<cassert>
+	<stdlib.h>
+	<stdarg.h>
+	<iostream>
+	<stdio.h>
+	<windef.h>
+	<winbase.h>
+	<wincon.h>
+	<windows.h>
+	<conio.h>
+	<unistd.h>
+	<termios.h>
+	<unistd.h>
+
+1551479895 /home/feras/projetap4/TinyWings/src/core/Player.h
+	<Box2D/Box2D.h>
+
+1551479792 source:/home/feras/projetap4/TinyWings/src/core/Game.cpp
+	"Game.h"
+	<iostream>
+
+1551473293 /home/feras/projetap4/TinyWings/src/core/Game.h
+	"Player.h"
+	"Terrain.h"
+
+1551476596 source:/home/feras/projetap4/TinyWings/src/core/Player.cpp
+	"Player.h"
+
+1551370705 /home/feras/projetap4/TinyWings/src/txt/txtGame.h
+	"../core/Game.h"
+
+1551479724 source:/home/feras/projetap4/TinyWings/src/txt/txtGame.cpp
+	<iostream>
+	<windows.h>
+	<unistd.h>
+	"winTxt.h"
+	"../core/Game.h"
+
+1551770171 source:/home/etu/p1601442/projetap4/TinyWings/src/core/Game.cpp
+	"Game.h"
+	<iostream>
+
+1551770171 /home/etu/p1601442/projetap4/TinyWings/src/core/Game.h
+	"Player.h"
+	"Terrain.h"
+
+1551776097 /home/etu/p1601442/projetap4/TinyWings/src/core/Player.h
+	"Box2D/Box2D/Box2D.h"
+
+1551770171 /home/etu/p1601442/projetap4/TinyWings/src/core/Terrain.h
+
+1551770171 source:/home/etu/p1601442/projetap4/TinyWings/src/core/Player.cpp
+	"Player.h"
+
+1551770171 source:/home/etu/p1601442/projetap4/TinyWings/src/core/Terrain.cpp
+
+1551770171 source:/home/etu/p1601442/projetap4/TinyWings/src/txt/mainTxt.cpp
+	"txtGame.h"
+	"winTxt.h"
+	<iostream>
+	<Box2D/Box2D.h>
+
+1551770171 /home/etu/p1601442/projetap4/TinyWings/src/txt/txtGame.h
+	"../core/Game.h"
+
+1551770171 /home/etu/p1601442/projetap4/TinyWings/src/txt/winTxt.h
+
+1551770171 source:/home/etu/p1601442/projetap4/TinyWings/src/txt/txtGame.cpp
+	<iostream>
+	<windows.h>
+	<unistd.h>
+	"winTxt.h"
+	"../core/Game.h"
+
+1551770171 source:/home/etu/p1601442/projetap4/TinyWings/src/txt/winTxt.cpp
+	"winTxt.h"
+	<cassert>
+	<stdlib.h>
+	<stdarg.h>
+	<iostream>
+	<stdio.h>
+	<windef.h>
+	<winbase.h>
+	<wincon.h>
+	<windows.h>
+	<conio.h>
+	<unistd.h>
+	<termios.h>
+	<unistd.h>
+
+1551770175 /home/etu/p1601442/projetap4/TinyWings/Box2D/Box2D/Box2D.h
+	"Box2D/Common/b2Settings.h"
+	"Box2D/Common/b2Draw.h"
+	"Box2D/Common/b2Timer.h"
+	"Box2D/Collision/Shapes/b2CircleShape.h"
+	"Box2D/Collision/Shapes/b2EdgeShape.h"
+	"Box2D/Collision/Shapes/b2ChainShape.h"
+	"Box2D/Collision/Shapes/b2PolygonShape.h"
+	"Box2D/Collision/b2BroadPhase.h"
+	"Box2D/Collision/b2Distance.h"
+	"Box2D/Collision/b2DynamicTree.h"
+	"Box2D/Collision/b2TimeOfImpact.h"
+	"Box2D/Dynamics/b2Body.h"
+	"Box2D/Dynamics/b2Fixture.h"
+	"Box2D/Dynamics/b2WorldCallbacks.h"
+	"Box2D/Dynamics/b2TimeStep.h"
+	"Box2D/Dynamics/b2World.h"
+	"Box2D/Dynamics/Contacts/b2Contact.h"
+	"Box2D/Dynamics/Joints/b2DistanceJoint.h"
+	"Box2D/Dynamics/Joints/b2FrictionJoint.h"
+	"Box2D/Dynamics/Joints/b2GearJoint.h"
+	"Box2D/Dynamics/Joints/b2MotorJoint.h"
+	"Box2D/Dynamics/Joints/b2MouseJoint.h"
+	"Box2D/Dynamics/Joints/b2PrismaticJoint.h"
+	"Box2D/Dynamics/Joints/b2PulleyJoint.h"
+	"Box2D/Dynamics/Joints/b2RevoluteJoint.h"
+	"Box2D/Dynamics/Joints/b2RopeJoint.h"
+	"Box2D/Dynamics/Joints/b2WeldJoint.h"
+	"Box2D/Dynamics/Joints/b2WheelJoint.h"
+
+1551770175 /home/etu/p1601442/projetap4/TinyWings/src/core/Box2D/Box2D/Box2D.h
+	"Box2D/Common/b2Settings.h"
+	"Box2D/Common/b2Draw.h"
+	"Box2D/Common/b2Timer.h"
+	"Box2D/Collision/Shapes/b2CircleShape.h"
+	"Box2D/Collision/Shapes/b2EdgeShape.h"
+	"Box2D/Collision/Shapes/b2ChainShape.h"
+	"Box2D/Collision/Shapes/b2PolygonShape.h"
+	"Box2D/Collision/b2BroadPhase.h"
+	"Box2D/Collision/b2Distance.h"
+	"Box2D/Collision/b2DynamicTree.h"
+	"Box2D/Collision/b2TimeOfImpact.h"
+	"Box2D/Dynamics/b2Body.h"
+	"Box2D/Dynamics/b2Fixture.h"
+	"Box2D/Dynamics/b2WorldCallbacks.h"
+	"Box2D/Dynamics/b2TimeStep.h"
+	"Box2D/Dynamics/b2World.h"
+	"Box2D/Dynamics/Contacts/b2Contact.h"
+	"Box2D/Dynamics/Joints/b2DistanceJoint.h"
+	"Box2D/Dynamics/Joints/b2FrictionJoint.h"
+	"Box2D/Dynamics/Joints/b2GearJoint.h"
+	"Box2D/Dynamics/Joints/b2MotorJoint.h"
+	"Box2D/Dynamics/Joints/b2MouseJoint.h"
+	"Box2D/Dynamics/Joints/b2PrismaticJoint.h"
+	"Box2D/Dynamics/Joints/b2PulleyJoint.h"
+	"Box2D/Dynamics/Joints/b2RevoluteJoint.h"
+	"Box2D/Dynamics/Joints/b2RopeJoint.h"
+	"Box2D/Dynamics/Joints/b2WeldJoint.h"
+	"Box2D/Dynamics/Joints/b2WheelJoint.h"
+
