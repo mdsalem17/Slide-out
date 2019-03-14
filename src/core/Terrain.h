@@ -6,9 +6,19 @@
 
 class Terrain {
     public:
-
-
+	Terrain();
+	~Terrain();
+	
     private:
+	float *tabHeight;
+	float slop;
+	float *hills;
+	unsigned int pixelScale;
+	
+	
+	void initTerrain();
+	float getHeight() const;
+	float getSlop() const;
 
 
 };
