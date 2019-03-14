@@ -1,14 +1,14 @@
-
+MKDIRS=obj bin
 CORE_DIR = src/core/
-INCLUDE_DIR = -I$(CORE_DIR)Box2D
-LIBS_BOX2D = -L$(CORE_DIR)Box2D -lBox2D
+INCLUDE_DIR = -I Box2D
+LIBS_BOX2D = -L Box2D -lBox2D
 CPPFLAGS = -Wall 
 
 OBJ_DIR = obj/
 BIN_DIR = bin/
 TXT_DIR = src/txt/
 
-all: $(BIN_DIR)gameTxt
+all: $(shell mkdir -p $(MKDIRS)) $(BIN_DIR)gameTxt
 
 $(BIN_DIR)gameTxt: $(OBJ_DIR)Game.o $(OBJ_DIR)mainTxt.o $(OBJ_DIR)txtGame.o $(OBJ_DIR)winTxt.o $(OBJ_DIR)Player.o $(OBJ_DIR)Terrain.o
 	g++ $(OBJ_DIR)Game.o $(OBJ_DIR)mainTxt.o $(OBJ_DIR)txtGame.o $(OBJ_DIR)winTxt.o $(OBJ_DIR)Player.o $(OBJ_DIR)Terrain.o $(LIBS_BOX2D) -o $(BIN_DIR)gameTxt 

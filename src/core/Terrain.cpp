@@ -21,8 +21,10 @@
 	
 	float Terrain::getHeight() const{
 		//return tabHeight[1];
+        return 0.0;
 	}
 	
 	float Terrain::getSlop() const{
+        return 0.0;
 	
 	}
