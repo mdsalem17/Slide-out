@@ -1,14 +1,23 @@
 MKDIRS=obj bin
 CORE_DIR = src/core/
-INCLUDE_DIR = -I Box2D
-LIBS_BOX2D = -L Box2D -lBox2D
+INCLUDE_DIR = -I$(CORE_DIR)Box2D
+INCLUDE_GRAPIC = -I$(GRAPIC_DIR) -I/usr/include/SDL2
+LIBS_BOX2D = -L$(CORE_DIR)Box2D -lBox2D
+LIBS_SDL = -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 CPPFLAGS = -Wall 
 
 OBJ_DIR = obj/
 BIN_DIR = bin/
 TXT_DIR = src/txt/
+GRAPIC_DIR = src/grapic/
+all: $(shell mkdir -p $(MKDIRS)) $(BIN_DIR)gameTxt $(BIN_DIR)mainGrapic
 
-all: $(shell mkdir -p $(MKDIRS)) $(BIN_DIR)gameTxt
+txt: $(BIN_DIR)gameTxt
+
+grapic: $(BIN_DIR)mainGrapic
+
+$(BIN_DIR)mainGrapic: $(OBJ_DIR)mainGrapic.o $(OBJ_DIR)Grapic.o $(OBJ_DIR)Game.o $(OBJ_DIR)Player.o  $(OBJ_DIR)Terrain.o
+	g++ $(OBJ_DIR)mainGrapic.o $(OBJ_DIR)Grapic.o $(OBJ_DIR)Game.o $(OBJ_DIR)Player.o  $(OBJ_DIR)Terrain.o $(LIBS_BOX2D) $(LIBS_SDL) -o $(BIN_DIR)mainGrapic
 
 $(BIN_DIR)gameTxt: $(OBJ_DIR)Game.o $(OBJ_DIR)mainTxt.o $(OBJ_DIR)txtGame.o $(OBJ_DIR)winTxt.o $(OBJ_DIR)Player.o $(OBJ_DIR)Terrain.o
 	g++ $(OBJ_DIR)Game.o $(OBJ_DIR)mainTxt.o $(OBJ_DIR)txtGame.o $(OBJ_DIR)winTxt.o $(OBJ_DIR)Player.o $(OBJ_DIR)Terrain.o $(LIBS_BOX2D) -o $(BIN_DIR)gameTxt 
@@ -30,6 +39,12 @@ $(OBJ_DIR)txtGame.o: $(TXT_DIR)txtGame.cpp $(TXT_DIR)winTxt.h $(CORE_DIR)Game.h
 
 $(OBJ_DIR)winTxt.o: $(TXT_DIR)winTxt.cpp $(TXT_DIR)winTxt.h
 	g++ $(CPPFLAGS) -c $(TXT_DIR)winTxt.cpp $(INCLUDE_DIR) -o $(OBJ_DIR)winTxt.o   
+
+$(OBJ_DIR)Grapic.o: $(GRAPIC_DIR)Grapic.cpp $(GRAPIC_DIR)Grapic.h
+	g++ $(CPPFLAGS) -c $(GRAPIC_DIR)Grapic.cpp $(INCLUDE_GRAPIC) -o $(OBJ_DIR)Grapic.o
+
+$(OBJ_DIR)mainGrapic.o: $(GRAPIC_DIR)mainGrapic.cpp $(GRAPIC_DIR)Grapic.h
+	g++ $(CPPFLAGS) -c $(GRAPIC_DIR)mainGrapic.cpp $(INCLUDE_GRAPIC) -o $(OBJ_DIR)mainGrapic.o
 
 clean:
 	rm $(OBJ_DIR)* $(BIN_DIR)* 
