@@ -18,7 +18,7 @@ void txtAff(WinTXT & win, const Game & game) {
     win.print(game.getPlayer().getPosition().x,-game.getPlayer().getPosition().y,'O' );
     float freq = 50;
 
-    float ampX = 2.5;
+    //float ampX = 2.5;
     float ampY = 2.5;
 
     for(int i=0; i < 10 ; i++)
