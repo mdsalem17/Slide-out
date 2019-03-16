@@ -15,6 +15,7 @@ class Player {
         const b2Vec2& getVelocity() const;
 
         void applyForce(b2Vec2 force);
+        void setPosition(b2Vec2 pos, float32 angle);
 
         ~Player();
 
