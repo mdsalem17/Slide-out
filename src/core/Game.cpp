@@ -8,6 +8,7 @@ Game::Game(){
 
     initBox2dWorld(gravity);
     player.initPlayer(world);
+    ter.initTerrain();
 
 
 }
