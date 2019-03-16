@@ -16,7 +16,7 @@ void Player::initPlayer(b2World *w){
     b2BodyDef playerBodyDef;
 
     playerBodyDef.type = b2_dynamicBody;
-    playerBodyDef.position.Set(10,-49); //set the starting position
+    playerBodyDef.position.Set(0,0); //set the starting position
     playerBodyDef.angle = 0; //set the starting angle
 
     playerBody = world->CreateBody(&playerBodyDef);
@@ -40,7 +40,6 @@ const b2Vec2& Player::getPosition() const{
 
 }
 
-
 const b2Vec2& Player::getVelocity() const{
     return playerBody->GetLinearVelocity();
 
@@ -52,6 +51,11 @@ void Player::applyForce(b2Vec2 force){
     playerBody->ApplyLinearImpulse(force, playerBody->GetWorldCenter(), true);
 }
 
+void Player::setPosition(b2Vec2 pos, float32 angle){
+
+    //apply immediate force
+    playerBody->SetTransform(pos, angle);
+}
 
 
 
