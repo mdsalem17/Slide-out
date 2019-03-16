@@ -16,19 +16,13 @@ void txtAff(WinTXT & win, const Game & game) {
 //                        win.print(i,j, '-');
 
     win.print(game.getPlayer().getPosition().x,-game.getPlayer().getPosition().y,'O' );
-    float freq = 50;
-
-    float ampX = 2.5;
-    float ampY = 2.5;
 
     for(int i=0; i < 10 ; i++)
         win.print(i, 50, '=');
 
     for(int i=0 ; i < 500; i++){
-            win.print(i*ampX, 65+cos(i*freq)*ampY, '#');
+            win.print(game.getTerrain().tabHeight.at(i).x, 65+game.getTerrain().tabHeight.at(i).y, '#');
     }
-
-
 
 	win.draw();
 }

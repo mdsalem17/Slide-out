@@ -2,21 +2,22 @@
 #define TERRAIN_H
 
 #include <Box2D/Box2D.h>
+#include <iostream>
+#include <vector>
 
 
 class Terrain {
     public:
 	Terrain();
 	~Terrain();
-	
+	std::vector<b2Vec2> tabHeight;
+	void initTerrain();
+
     private:
-	float *tabHeight;
 	float slop;
-	float *hills;
 	unsigned int pixelScale;
 	
 	
-	void initTerrain();
 	float getHeight() const;
 	float getSlop() const;
 
