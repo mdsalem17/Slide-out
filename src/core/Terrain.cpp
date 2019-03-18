@@ -2,21 +2,17 @@
 
 Terrain::Terrain(){
 	slop=0;
-	nbPts = 200;
+	nbPts = 500;
 	world = NULL;
-	
-	
 }
 
 void Terrain::initTerrain(b2World *w){
 	//init tableau de points
-	unsigned int numberOfHills=2;
-	unsigned int pixelStep=2;
 	for(int i = 0 ; i < nbPts ; i++)
-	{
-		tabHeight.push_back(b2Vec2(i*2.5, cos(i*50)*2.5));
-	}
-
+		{	
+			float random = rand() % 100 ;
+			tabHeight.push_back(b2Vec2(i*5, random*cos(i)*cos(60.0 * M_PI / 180.0)));
+		}
 
 	world = w;
 
@@ -39,7 +35,6 @@ void Terrain::initTerrain(b2World *w){
 	terrainFixtureDef.density = 1;
 
 	terrainBody->CreateFixture(&terrainFixtureDef);
-	
 }
 	
 float Terrain::getHeight() const{
@@ -52,9 +47,13 @@ float Terrain::getSlop() const{
 	
 }
 
+unsigned int Terrain::getnbPts() const{
+	return nbPts;
+}
 
 Terrain::~Terrain(){
-	slop=0;
+	slop = 0;
+	nbPts = 0 ;
 	// delete terrainBodyDef;
 	// terrainBodyDef = NULL;
 }
