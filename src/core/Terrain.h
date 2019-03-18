@@ -12,6 +12,7 @@ class Terrain {
 	
 	std::vector<b2Vec2> tabHeight;
 	unsigned int nbPts;
+	unsigned int getnbPts() const;
 	void initTerrain(b2World *w);
 
 	~Terrain();
