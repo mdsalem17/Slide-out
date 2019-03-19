@@ -44,7 +44,7 @@ $(OBJ_DIR)Grapic.o: $(GRAPIC_DIR)Grapic.cpp $(GRAPIC_DIR)Grapic.h
 	g++ $(CPPFLAGS) -c $(GRAPIC_DIR)Grapic.cpp $(INCLUDE_GRAPIC) -o $(OBJ_DIR)Grapic.o
 
 $(OBJ_DIR)mainGrapic.o: $(GRAPIC_DIR)mainGrapic.cpp $(GRAPIC_DIR)Grapic.h
-	g++ $(CPPFLAGS) -c $(GRAPIC_DIR)mainGrapic.cpp $(INCLUDE_GRAPIC) -o $(OBJ_DIR)mainGrapic.o
+	g++ $(CPPFLAGS) -c $(GRAPIC_DIR)mainGrapic.cpp $(INCLUDE_GRAPIC) $(INCLUDE_DIR) -o $(OBJ_DIR)mainGrapic.o
 
 clean:
 	rm $(OBJ_DIR)* $(BIN_DIR)* 
