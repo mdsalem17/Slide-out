@@ -11,14 +11,14 @@ class Terrain {
 	Terrain();
 	~Terrain();
 	void initTerrain(b2World *w);
+	Perlin getPerlin() const;
+	float getSlop() const;
 
     private:
 	float slop;
 	b2World *world;
 	b2Body *terrainBody;
 	Perlin perlin;
-	
-	float getSlop() const;
 };
 
 #endif
