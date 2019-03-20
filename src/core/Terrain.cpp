@@ -4,11 +4,6 @@
 	{
 		world = NULL;
 	}
-	
-	float Terrain::getSlop() const{
-        return 0.0;
-	
-	}
 
 	void Terrain::initTerrain(b2World *w){
 		world = w;
@@ -34,7 +29,15 @@
 		terrainBody->CreateFixture(&terrainFixtureDef);
 	}
 
+	float Terrain::getSlop() const{
+        return 0.0;
 	
+	}
+
+	Perlin Terrain::getPerlin() const{
+		return perlin ;
+	}
+
 	Terrain::~Terrain(){
 
 	}
