@@ -9,7 +9,7 @@ Perlin::Perlin()
     persistance = 10;
     frequency = .005;
 
-    nbPts = 10000;
+    nbPts = 2000;
     initPerlin();
 }
 
