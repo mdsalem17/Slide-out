@@ -20,8 +20,8 @@ void txtAff(WinTXT & win, const Game & game) {
     for(int i=0; i < 10 ; i++)
         win.print(i, 50, '=');
 
-    for(int i=0 ; i < 500; i++){
-            win.print(game.getTerrain().tabHeight.at(i).x, 65+game.getTerrain().tabHeight.at(i).y, '#');
+    for(int i=0 ; i < game.getTerrain().getPerlin().getNbPts() ; i++){
+        win.print(game.getTerrain().getPerlin().tabPerlin.at(i).x, game.getTerrain().getPerlin().tabPerlin.at(i).y, '#');
     }
 
 	win.draw();
