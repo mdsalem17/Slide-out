@@ -33,11 +33,24 @@ void draw(const Game & game, Perlin perlin, float & range)
     }
 }
 
+void keysManager(Game & game, Perlin & perlin){
+    if (isKeyPressed(SDLK_UP)){
+        std::cout<< "upISpressed";
+        game.getPlayer().applyForce( b2Vec2(30,30) );
+        perlin.updatePerlin();
+    } 
+    if (isKeyPressed(SDLK_DOWN)) std::cout<< "oooh way down we go go go go go.(koleo)";
+}
+
 void update(Game & game, Perlin & perlin)
 {   
     game.updateBox2dWorld();
+    keysManager(game,perlin);
     //appel updatePerlin();
+
+
 }
+
 
 int main(int , char ** )
 {
@@ -53,6 +66,7 @@ int main(int , char ** )
         backgroundColor( 100, 80, 200, 255 );
         winClear();
         update(game, perlin);
+
         draw(game, perlin, part);     
         stop = winDisplay();
     }
