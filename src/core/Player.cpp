@@ -25,9 +25,11 @@ void Player::initPlayer(b2World *w){
     //To define shape, size etc.. of our object
     b2FixtureDef playerFixture;
 
-    b2PolygonShape boxShape;
-    boxShape.SetAsBox(1,1);
-    playerFixture.shape = &boxShape;
+    b2CircleShape circleShape;
+    circleShape.m_radius = 1;
+    playerFixture.shape = &circleShape;
+    //bouciness
+    playerFixture.restitution = .25;
     playerFixture.density = 1;
 
     playerBody->CreateFixture(&playerFixture);
