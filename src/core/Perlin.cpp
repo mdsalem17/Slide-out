@@ -2,12 +2,12 @@
 
 Perlin::Perlin()
 {
-    octaves = 2;
-    zoomX = 25;
+    octaves = 3;
+    zoomX = 1;
     zoomY = 100;
     offset = 100;
-    persistance = 10;
-    frequency = .005;
+    persistance = 2;
+    frequency = .0012;
 
     nbPts = 2000;
     initPerlin();
@@ -102,7 +102,7 @@ int Perlin::getNbPts() const
 
 void Perlin::updatePerlin(int nb)
 {
-
+	//defiler le terrain. Aka scrolling
 }
 
 Perlin::~Perlin()
