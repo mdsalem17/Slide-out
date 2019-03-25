@@ -29,11 +29,6 @@
 		terrainBody->CreateFixture(&terrainFixtureDef);
 	}
 
-	float Terrain::getSlop() const{
-        return 0.0;
-	
-	}
-
 	Perlin Terrain::getPerlin() const{
 		return perlin ;
 	}
