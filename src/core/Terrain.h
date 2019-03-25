@@ -9,16 +9,17 @@ class Terrain {
     public:
 
 	Terrain();
-	~Terrain();
+	
 	void initTerrain(b2World *w);
 	Perlin getPerlin() const;
-	float getSlop() const;
+
+	~Terrain();
 
     private:
-	float slop;
+	Perlin perlin;
 	b2World *world;
 	b2Body *terrainBody;
-	Perlin perlin;
+	
 };
 
 #endif
