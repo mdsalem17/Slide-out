@@ -25,7 +25,7 @@ void init(Game & game, Perlin & perlin)
 void draw(const Game & game, Perlin perlin, float & range)
 {
     color(255,255,255);
-    int radius = 10 ;
+    int radius = 8 ;
     circleFill(game.getPlayer().getPosition().x, game.getPlayer().getPosition().y+radius, radius);  
     
     for(int i = 1 ; i < perlin.getNbPts() ; i++){
@@ -41,8 +41,6 @@ void update(Game & game, Perlin & perlin)
     //Appliquer une force au joueur, tester s'il est en l'air ou pas 
     if(isKeyPressed(SDLK_RIGHT)) {
             game.getPlayer().applyForce(b2Vec2(250,-10));
-            game.world->SetGravity(b2Vec2(0,-500));
-
     }
             
     //appel updatePerlin();
