@@ -1,8 +1,8 @@
 MKDIRS=obj bin
 CORE_DIR = src/core/
-INCLUDE_DIR = -IBox2D
+INCLUDE_DIR = -I$(CORE_DIR)Box2D
 INCLUDE_GRAPIC = -I$(GRAPIC_DIR) -I/usr/include/SDL2
-LIBS_BOX2D = -lBox2D
+LIBS_BOX2D = -L$(CORE_DIR)Box2D -lBox2D
 LIBS_SDL = -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 CPPFLAGS = -Wall 
 
@@ -47,7 +47,7 @@ $(OBJ_DIR)Grapic.o: $(GRAPIC_DIR)Grapic.cpp $(GRAPIC_DIR)Grapic.h
 	g++ $(CPPFLAGS) -c $(GRAPIC_DIR)Grapic.cpp $(INCLUDE_GRAPIC) -o $(OBJ_DIR)Grapic.o
 
 $(OBJ_DIR)mainGrapic.o: $(GRAPIC_DIR)mainGrapic.cpp $(GRAPIC_DIR)Grapic.h
-	g++ $(CPPFLAGS) -c $(GRAPIC_DIR)mainGrapic.cpp $(INCLUDE_GRAPIC) -o $(OBJ_DIR)mainGrapic.o
+	g++ $(CPPFLAGS) -c $(GRAPIC_DIR)mainGrapic.cpp $(INCLUDE_GRAPIC) $(INCLUDE_DIR) -o $(OBJ_DIR)mainGrapic.o
 
 clean:
 	rm $(OBJ_DIR)* $(BIN_DIR)* 

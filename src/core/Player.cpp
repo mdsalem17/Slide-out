@@ -17,8 +17,11 @@ void Player::initPlayer(b2World *w){
 
     playerBodyDef.type = b2_dynamicBody;
     playerBodyDef.position.Set(0,0); //set the starting position
-    playerBodyDef.angle = 0; //set the starting angle
 
+    //reduce the world velocity of bodies =/= friction (friction occurs w/ contact)
+    playerBodyDef.linearDamping = 0.07f;
+
+   
     playerBody = world->CreateBody(&playerBodyDef);
 
     //Setting & creating the fixture
@@ -26,11 +29,13 @@ void Player::initPlayer(b2World *w){
     b2FixtureDef playerFixture;
 
     b2CircleShape circleShape;
-    circleShape.m_radius = 1;
+    circleShape.m_radius = .85;
     playerFixture.shape = &circleShape;
-    //bouciness
+    //bounciness
     playerFixture.restitution = .25;
+    
     playerFixture.density = 1;
+    
 
     playerBody->CreateFixture(&playerFixture);
 
@@ -59,6 +64,9 @@ void Player::setPosition(b2Vec2 pos, float32 angle){
     playerBody->SetTransform(pos, angle);
 }
 
+void Player::dive(){
+    playerBody->ApplyForce(b2Vec2(0,-30), playerBody->GetWorldCenter(), true);
+}
 
 
 

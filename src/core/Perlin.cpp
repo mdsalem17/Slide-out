@@ -1,10 +1,10 @@
 #include "Perlin.h"
 
 Perlin::Perlin() : 
-	octaves(3),
-	zoomX(1),
-	zoomY(100),
-	offset(100),
+	octaves(2),
+	zoomX(5),
+	zoomY(200),
+	offset(150),
 	persistance(2),
 	frequency(.001),
 	nbPts(2000)

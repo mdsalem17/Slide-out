@@ -16,12 +16,13 @@ class Player {
 
         void applyForce(b2Vec2 force);
         void setPosition(b2Vec2 pos, float32 angle);
-
+        b2Body  *playerBody;
+        void dive();
         ~Player();
 
     private:
             b2World *world;
-            b2Body  *playerBody;
+            
 
 
 

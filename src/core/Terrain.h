@@ -12,13 +12,15 @@ class Terrain {
 	
 	void initTerrain(b2World *w);
 	Perlin getPerlin() const;
-
+	b2World *world;
+	b2Body *terrainBody;
+	Perlin perlin;
 	~Terrain();
 
     private:
-	Perlin perlin;
-	b2World *world;
-	b2Body *terrainBody;
+	
+	
+	
 	
 };
 
