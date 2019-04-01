@@ -2,11 +2,11 @@
 
 Perlin::Perlin() : 
 	octaves(2),
-	zoomX(5),
+	zoomX(1),
 	zoomY(200),
 	offset(150),
-	persistance(2),
-	frequency(.001),
+	persistance(3),
+	frequency(.0022),
 	nbPts(2000)
 {
     initPerlin();

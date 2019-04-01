@@ -18,7 +18,6 @@
 
 		//shape
 		b2ChainShape chain;
-
 		chain.CreateChain(perlin.tabPerlin.data(), perlin.getNbPts());
 
 		//fixture
@@ -28,7 +27,7 @@
 
 		terrainBody->CreateFixture(&terrainFixtureDef);
 	}
-
+	
 	Perlin Terrain::getPerlin() const{
 		return perlin ;
 	}

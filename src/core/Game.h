@@ -11,7 +11,9 @@ public:
 
     ~Game();
 
-
+    int dimx;
+    int dimy;
+    
     b2Vec2 gravity;
     b2World* world;
 

@@ -5,6 +5,8 @@ Game::Game(){
 
     world = NULL;
     gravity.Set(0,-9.8);
+    
+    dimx = 800, dimy = 600;
 
     initBox2dWorld(gravity);
     player.initPlayer(world);

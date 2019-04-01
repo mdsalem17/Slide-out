@@ -15,6 +15,7 @@ class Terrain {
 	b2World *world;
 	b2Body *terrainBody;
 	Perlin perlin;
+	
 	~Terrain();
 
     private:
