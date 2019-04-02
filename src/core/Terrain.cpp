@@ -3,6 +3,7 @@
 	Terrain::Terrain()
 	{
 		world = NULL;
+		myPerlin = new Perlin;
 	}
 
 	void Terrain::initTerrain(b2World *w){
@@ -18,20 +19,21 @@
 
 		//shape
 		b2ChainShape chain;
-		chain.CreateChain(perlin.tabPerlin.data(), perlin.getNbPts());
+		chain.CreateChain(myPerlin->tabPerlin.data(), myPerlin->getNbPts());
 
 		//fixture
 		b2FixtureDef terrainFixtureDef;
 		terrainFixtureDef.shape = &chain;
-		terrainFixtureDef.density = 1;
+		terrainFixtureDef.density = 0;
 
 		terrainBody->CreateFixture(&terrainFixtureDef);
 	}
 	
-	Perlin Terrain::getPerlin() const{
-		return perlin ;
+	Perlin* Terrain::getPerlin(){
+		return myPerlin ;
 	}
 
 	Terrain::~Terrain(){
-
+		delete myPerlin;
+		myPerlin = NULL;
 	}

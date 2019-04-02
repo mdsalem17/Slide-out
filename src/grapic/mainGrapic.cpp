@@ -18,16 +18,16 @@ const int DIM_SPRITE = 32;
 
 void init(Game & game, Perlin & perlin, bool &hasPressed)
 {
-    game.getPlayer().setPosition(b2Vec2(DIMW/2, DIMW/2),0);
-    game.getPlayer().applyForce(b2Vec2(250,35));
+    game.getPlayer()->setPosition(b2Vec2(DIMW/2, DIMW/2),0);
+    game.getPlayer()->applyForce(b2Vec2(250,35));
     hasPressed = false;
 }
 
-void draw(const Game & game, Perlin perlin, float & range)
+void draw(Game & game, Perlin perlin, float & range)
 {
     color(255,255,255);
     int radius = 10 ;
-    circleFill(game.getPlayer().getPosition().x, game.getPlayer().getPosition().y+radius, radius);  
+    circleFill(game.getPlayer()->getPosition().x, game.getPlayer()->getPosition().y+radius, radius);  
     
     for(int i = 1 ; i < perlin.getNbPts() ; i++){
         line((i-1), perlin.getPtsPerlin(i-1).y, i, perlin.getPtsPerlin(i).y);
@@ -39,11 +39,11 @@ void update(Game & game, Perlin & perlin, bool &hasPressed)
     game.updateBox2dWorld();
    
     //force appliquée par defaut à la balle
-    game.getPlayer().applyForce(b2Vec2(1,1.12));
-    game.getPlayer().playerBody->ApplyForce(b2Vec2(1,.5),game.getPlayer().playerBody->GetWorldCenter(), true );
+    game.getPlayer()->applyForce(b2Vec2(1,1.12));
+    game.getPlayer()->playerBody->ApplyForce(b2Vec2(1,.5),game.getPlayer()->playerBody->GetWorldCenter(), true );
     //reset la balle au debut pour debug
-    if(game.getPlayer().getPosition().x > DIMW*2){
-        game.getPlayer().setPosition(b2Vec2(0,100),0);
+    if(game.getPlayer()->getPosition().x > DIMW*2){
+        game.getPlayer()->setPosition(b2Vec2(0,100),0);
 
     }
     if(isKeyPressed(SDLK_DOWN)) {
@@ -52,7 +52,7 @@ void update(Game & game, Perlin & perlin, bool &hasPressed)
 
     if(hasPressed){
         
-        game.getPlayer().dive();
+        game.getPlayer()->dive();
         hasPressed = false;
     }
 

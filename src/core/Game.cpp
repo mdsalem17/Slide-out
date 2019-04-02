@@ -4,13 +4,16 @@
 Game::Game(){
 
     world = NULL;
+    ter = new Terrain;
+    player = new Player;
+
     gravity.Set(0,-9.8);
     
     dimx = 800, dimy = 600;
 
     initBox2dWorld(gravity);
-    player.initPlayer(world);
-    ter.initTerrain(world);
+    player->initPlayer(world);
+    ter->initTerrain(world);
 
 
 }
@@ -18,8 +21,6 @@ void Game::initBox2dWorld(const b2Vec2 &gravity){
 
     //bool doSleep = true; //If this is set to true, bodies will sleep when they come to rest, and are excluded from the simulation until something happens to 'wake' them again.
     world = new b2World(gravity/*, doSleep*/);
-
-
 }
 
 void Game::updateBox2dWorld(){
@@ -34,12 +35,11 @@ void Game::updateBox2dWorld(){
 }
 
 
-Player Game::getPlayer() const{
+Player* Game::getPlayer(){
     return player;
 }
-Terrain Game::getTerrain() const{
+Terrain* Game::getTerrain(){
     return ter;
-
  }
 
 
@@ -47,5 +47,8 @@ Terrain Game::getTerrain() const{
 Game::~Game(){
     delete world;
     world = NULL;
-
+    delete player;
+    player = NULL;
+    delete ter;
+    ter = NULL;
 }

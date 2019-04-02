@@ -1,9 +1,11 @@
 #ifndef TERRAIN_H
 #define TERRAIN_H
 
-#include <vector>
-#include <Box2D/Box2D.h>
 #include "Perlin.h"
+
+#include <vector>
+
+#include <Box2D/Box2D.h>
 
 class Terrain {
     public:
@@ -11,10 +13,10 @@ class Terrain {
 	Terrain();
 	
 	void initTerrain(b2World *w);
-	Perlin getPerlin() const;
+	Perlin* getPerlin();
 	b2World *world;
 	b2Body *terrainBody;
-	Perlin perlin;
+	Perlin *myPerlin;
 	
 	~Terrain();
 

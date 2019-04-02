@@ -21,13 +21,13 @@ public:
     void updateBox2dWorld();
 
 
-    Player getPlayer() const;
-    Terrain getTerrain() const;
+    Player* getPlayer();
+    Terrain* getTerrain();
 
 
 private:
-    Player player;
-    Terrain ter;
+    Player *player;
+    Terrain *ter;
 
 
 

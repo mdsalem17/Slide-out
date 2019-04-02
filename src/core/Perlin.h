@@ -1,9 +1,10 @@
 #ifndef PERLIN_H
 #define PERLIN_H
 
-#include <Box2D/Box2D.h>
-#include <vector>
 #include <math.h>
+#include <vector>
+#include <Box2D/Box2D.h>
+
 
 class Perlin
 {
