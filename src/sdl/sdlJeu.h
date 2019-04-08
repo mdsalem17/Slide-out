@@ -27,7 +27,7 @@ public:
     Image () ;
     void loadFromFile (const char* filename, SDL_Renderer * renderer);
     void loadFromCurrentSurface (SDL_Renderer * renderer);
-    void draw (SDL_Renderer * renderer, int x, int y, int w=-1, int h=-1);
+    void draw (SDL_Renderer * renderer, int x, int y, int w=-1, int h=-1, float angle=0);
     SDL_Texture * getTexture() const;
     void setSurface(SDL_Surface * surf);
 };
@@ -40,6 +40,7 @@ private:
 
     SDL_Window * window;
     SDL_Renderer * renderer;
+    SDL_Rect *camera;
 
     TTF_Font * font;
     Image font_im;
@@ -52,10 +53,8 @@ private:
     void drawTerrain();
     void drawPlayer();
 
-    // Image im_pacman;
-    // Image im_mur;
-    // Image im_pastille;
-    // Image im_fantome;
+    Image im_player;
+
 
 
 public:

@@ -1,5 +1,6 @@
 #include "Player.h"
-
+#include <iostream>
+const float PTM_RATIO = 8.0f;
 Player::Player(){
 
   world = NULL;
@@ -64,11 +65,30 @@ void Player::setPosition(b2Vec2 pos, float32 angle){
     playerBody->SetTransform(pos, angle);
 }
 
+void Player::wake(){
+    //updateMovement();
+    playerBody->ApplyLinearImpulse(b2Vec2(1/PTM_RATIO,1.01/PTM_RATIO), playerBody->GetPosition(), true);
+
+}
 void Player::dive(){
-    playerBody->ApplyForce(b2Vec2(0,-30), playerBody->GetWorldCenter(), true);
+    
+    playerBody->ApplyForce(b2Vec2(0,-250), playerBody->GetWorldCenter(), true);
 }
 
-
+void Player::updateMovement(){
+    const float minVelocityX = 1;
+	const float minVelocityY = 1;
+    
+	b2Vec2 vel = playerBody->GetLinearVelocity();
+    //std::cout <<  vel.x << std::endl;
+	if (vel.x < minVelocityX) {
+		vel.x = minVelocityX;
+	}
+	if (vel.y < minVelocityY) {
+		vel.y = minVelocityY;
+	}
+	playerBody->SetLinearVelocity(vel);
+}
 
 Player::~Player(){
 
