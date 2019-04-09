@@ -6,6 +6,7 @@ const int SPRITE_SIZE = 50;
 Image::Image () {
     surface = NULL;
     texture = NULL;
+
     has_changed = false;
 }
 
@@ -106,6 +107,8 @@ sdlJeu::sdlJeu () : jeu() {
     dimx = jeu.dimx;
     dimy = jeu.dimy;
 
+    angle =0;
+
     jeu.getPlayer()->setPosition(b2Vec2(50,200),0);
     // Creation de la fenetre
     window = SDL_CreateWindow("SlideOut", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, dimx, dimy, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
@@ -156,11 +159,21 @@ void sdlJeu::drawTerrain(){
     }
 }
 
+void sdlJeu::getAngle(){
+    //calcul de l'angle pour l'orientation de l'image
+    b2Vec2 vel = jeu.getPlayer()->playerBody->GetLinearVelocity();
+    angle = (atan2f(vel.y, vel.x));
+
+    float minAngle = -1.0f, maxAngle = 1.0f;
+    if(angle < minAngle) angle = minAngle;
+    if(angle > maxAngle) angle = maxAngle;
+
+    //std::cout << angle << std::endl;
+}
+
 void sdlJeu::drawPlayer(){
     //SDL_RenderDrawPoint(renderer, jeu.getPlayer()->getPosition().x, jeu.getPlayer()->getPosition().y);
-    b2Vec2 vel = jeu.getPlayer()->playerBody->GetLinearVelocity();
-    float angle = atan2f(vel.y, vel.x);
-    
+    getAngle();
     im_player.draw(renderer, jeu.getPlayer()->getPosition().x-SPRITE_SIZE/2,jeu.dimy-jeu.getPlayer()->getPosition().y-SPRITE_SIZE,SPRITE_SIZE,SPRITE_SIZE, angle*-50.0f);
     
 }
@@ -177,6 +190,7 @@ void sdlJeu::sdlAff () {
     // Ecrire un titre par dessus
     SDL_Rect positionTitre;
     positionTitre.x = 0; positionTitre.y = 0; positionTitre.w = 100; positionTitre.h = 30;
+
     SDL_RenderCopy(renderer,font_im.getTexture(),NULL,&positionTitre);
 
 }

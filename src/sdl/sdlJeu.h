@@ -52,6 +52,8 @@ private:
     //Affichage terrain
     void drawTerrain();
     void drawPlayer();
+    void getAngle();
+    float angle;
 
     Image im_player;
 
