@@ -7,9 +7,9 @@ Game::Game(){
     ter = new Terrain;
     player = new Player;
 
-    gravity.Set(0,-9.8);
+    gravity.Set(0,-9.8/8.0f);
     
-    dimx = 800, dimy = 600;
+    dimx = 1200, dimy = 600;
 
     initBox2dWorld(gravity);
     player->initPlayer(world);
@@ -21,6 +21,7 @@ void Game::initBox2dWorld(const b2Vec2 &gravity){
 
     //bool doSleep = true; //If this is set to true, bodies will sleep when they come to rest, and are excluded from the simulation until something happens to 'wake' them again.
     world = new b2World(gravity/*, doSleep*/);
+    //world->ShiftOrigin(b2Vec2(0,0));
 }
 
 void Game::updateBox2dWorld(){

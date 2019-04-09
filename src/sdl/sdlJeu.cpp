@@ -1,10 +1,12 @@
 #include <sdlJeu.h>
+const int SPRITE_SIZE = 50;
 
 // ============= CLASS IMAGE =============== //
 
 Image::Image () {
     surface = NULL;
     texture = NULL;
+
     has_changed = false;
 }
 
@@ -43,7 +45,7 @@ void Image::loadFromCurrentSurface (SDL_Renderer * renderer) {
     }
 }
 
-void Image::draw (SDL_Renderer * renderer, int x, int y, int w, int h) {
+void Image::draw (SDL_Renderer * renderer, int x, int y, int w, int h, float angle) {
     int ok;
     SDL_Rect r;
     r.x = x;
@@ -57,7 +59,8 @@ void Image::draw (SDL_Renderer * renderer, int x, int y, int w, int h) {
         has_changed = false;
     }
 
-    ok = SDL_RenderCopy(renderer,texture,NULL,&r);
+    //ok = SDL_RenderCopy(renderer,texture,NULL,&r);
+    ok = SDL_RenderCopyEx(renderer, texture, NULL, &r, angle,NULL,SDL_FLIP_NONE);
     assert(ok == 0);
 }
 
@@ -68,8 +71,16 @@ void Image::setSurface(SDL_Surface * surf) {surface = surf;}
 
 // ============= CLASS SDLJEU =============== //
 
+//The dimensions of the level
+const int LEVEL_WIDTH = 1280; 
+const int LEVEL_HEIGHT = 960;
+
+//Screen dimension constants
+const int SCREEN_WIDTH = 640; 
+const int SCREEN_HEIGHT = 480;
 sdlJeu::sdlJeu () : jeu() {
     // Initialisation de la SDL
+    
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         cout << "Erreur lors de l'initialisation de la SDL : " << SDL_GetError() << endl;SDL_Quit();exit(1);
     }
@@ -95,11 +106,10 @@ sdlJeu::sdlJeu () : jeu() {
 	int dimx, dimy;
     dimx = jeu.dimx;
     dimy = jeu.dimy;
-	// dimx = jeu.getConstTerrain().getDimX();
-	// dimy = jeu.getConstTerrain().getDimY();
-	// dimx = dimx * TAILLE_SPRITE;
-	// dimy = dimy * TAILLE_SPRITE;
 
+    angle =0;
+
+    jeu.getPlayer()->setPosition(b2Vec2(50,200),0);
     // Creation de la fenetre
     window = SDL_CreateWindow("SlideOut", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, dimx, dimy, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
     if (window == NULL) {
@@ -109,7 +119,7 @@ sdlJeu::sdlJeu () : jeu() {
     renderer = SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED);
 
     // IMAGES
-    
+    im_player.loadFromFile("data/bird1.png",renderer);
     
 
     // FONTS
@@ -142,34 +152,49 @@ sdlJeu::~sdlJeu () {
 }
 
 void sdlJeu::drawTerrain(){
-    for(unsigned int i = 1 ; i < jeu.getTerrain()->myPerlin->tabPerlin.size() ; i++){
-        SDL_RenderDrawLine(renderer, i-1, jeu.getTerrain()->myPerlin->getPtsPerlin(i-1).y,
-                                       i, jeu.getTerrain()->myPerlin->getPtsPerlin(i).y);
+    
+    for(unsigned int i = 1 ; i < jeu.getTerrain()->tabHillPoints.size() ; i++){
+        SDL_RenderDrawLine(renderer, i-1, jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i-1).y,
+                                       i, jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i).y);
     }
 }
 
+void sdlJeu::getAngle(){
+    //calcul de l'angle pour l'orientation de l'image
+    b2Vec2 vel = jeu.getPlayer()->playerBody->GetLinearVelocity();
+    angle = (atan2f(vel.y, vel.x));
+
+    float minAngle = -1.0f, maxAngle = 1.0f;
+    if(angle < minAngle) angle = minAngle;
+    if(angle > maxAngle) angle = maxAngle;
+
+    //std::cout << angle << std::endl;
+}
+
 void sdlJeu::drawPlayer(){
-    SDL_RenderDrawPoint(renderer, jeu.getPlayer()->getPosition().x, jeu.getPlayer()->getPosition().y);
+    //SDL_RenderDrawPoint(renderer, jeu.getPlayer()->getPosition().x, jeu.getPlayer()->getPosition().y);
+    getAngle();
+    im_player.draw(renderer, jeu.getPlayer()->getPosition().x-SPRITE_SIZE/2,jeu.dimy-jeu.getPlayer()->getPosition().y-SPRITE_SIZE,SPRITE_SIZE,SPRITE_SIZE, angle*-50.0f);
+    
 }
 
 void sdlJeu::sdlAff () {
 	//Remplir l'cran de blanc
     SDL_SetRenderDrawColor(renderer, 230, 240, 255, 255);
     SDL_RenderClear(renderer);
-
-	std::cout << jeu.getTerrain()->myPerlin->tabPerlin.size() << std::endl;
-
+    
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     drawTerrain();
-    //drawPlayer(); 
+    drawPlayer(); 
 
     // Ecrire un titre par dessus
     SDL_Rect positionTitre;
-    positionTitre.x = 0;positionTitre.y = 0;positionTitre.w = 100;positionTitre.h = 30;
+    positionTitre.x = 0; positionTitre.y = 0; positionTitre.w = 100; positionTitre.h = 30;
+
     SDL_RenderCopy(renderer,font_im.getTexture(),NULL,&positionTitre);
 
 }
- 
+ bool hasPressed = false;
 void sdlJeu::sdlBoucle () {
     SDL_Event events;
 	bool quit = false;
@@ -181,23 +206,26 @@ void sdlJeu::sdlBoucle () {
 
         nt = SDL_GetTicks();
         if (nt-t>500) {
-            //jeu.actionsAutomatiques();
             t = nt;
         }
-
+        jeu.getPlayer()->wake();
+        jeu.updateBox2dWorld();
+        events.key.repeat = 1;
 		// tant qu'il y a des evenements  traiter (cette boucle n'est pas bloquante)
 		while (SDL_PollEvent(&events)) {
 			if (events.type == SDL_QUIT) quit = true;           // Si l'utilisateur a clique sur la croix de fermeture
 			else if (events.type == SDL_KEYDOWN) {              // Si une touche est enfoncee
 				switch (events.key.keysym.scancode) {
-				case SDL_SCANCODE_SPACE:
-					
+				case SDL_SCANCODE_DOWN:
+                   	jeu.getPlayer()->dive();	
 					break;
+                case SDL_SCANCODE_ESCAPE:
+                    quit=true;
+                    break;
 				default: break;
 				}
 			}
 		}
-
 		// on affiche le jeu sur le buffer cach
 		sdlAff();
 
