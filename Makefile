@@ -64,4 +64,3 @@ $(OBJ_DIR)mainSdl.o: $(SDL_DIR)mainSdl.cpp $(SDL_DIR)sdlJeu.h
 clean:
 	rm $(OBJ_DIR)* $(BIN_DIR)* 
 
-
