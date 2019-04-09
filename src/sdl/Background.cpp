@@ -30,6 +30,7 @@ void Background::initBackground(){
     Color c;
     Color cplus;
     
+    // 
     c.r = rand() % 255;
     c.g = rand() % 255;
     c.b = rand() % 255;
@@ -37,10 +38,11 @@ void Background::initBackground(){
     tabColor.push_back(c);
     
     for(unsigned int i = 1 ; i < nbColors ; i++){
-        cplus.r = rand() % 50;
-        cplus.g = rand() % 20;
-        cplus.b = rand() % 50;
-        tabColor.push_back(c+cplus);
+    // 
+        cplus.r = rand() % 10;
+        cplus.g = rand() % 10;
+        cplus.b = rand() % 10;
+        tabColor.push_back(tabColor.at(i-1) + cplus);
     }
 }
 

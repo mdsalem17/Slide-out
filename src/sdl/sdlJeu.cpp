@@ -152,11 +152,36 @@ sdlJeu::~sdlJeu () {
 }
 
 void sdlJeu::drawTerrain(){
-    
+                unsigned int j=0;
     for(unsigned int i = 1 ; i < jeu.getTerrain()->tabHillPoints.size() ; i++){
         SDL_RenderDrawLine(renderer, i-1, jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i-1).y,
                                        i, jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i).y);
-    }
+    /** Horizontal background*/
+	for(unsigned int l=0; l<ground.nbColors; l++){
+        unsigned int j=0;
+		for(unsigned int k=jeu.getTerrain()->tabHillPoints.at(i-1).y*l/ground.nbColors;
+                        k<jeu.getTerrain()->tabHillPoints.at(i-1).y*(l+1)/ground.nbColors; k++){
+            SDL_SetRenderDrawColor(renderer, ground.tabColor[j+l].r, ground.tabColor[j+l].g, ground.tabColor[j+l].b, SDL_ALPHA_OPAQUE);
+            SDL_RenderDrawLine(renderer, i-1, jeu.dimy - k-1,
+                                    i, jeu.dimy - k);
+        }
+        
+	}
+    /**/
+
+           
+    //Vertical Background
+    /*
+            SDL_SetRenderDrawColor(renderer, ground.tabColor[j].r, ground.tabColor[j].g, ground.tabColor[j].b, SDL_ALPHA_OPAQUE);
+            SDL_RenderDrawLine(renderer, i-1, jeu.dimy, i-1,
+                        jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i-1).y);
+        if(i%40==0){
+            j++;
+            if(j==ground.nbColors) j=0;
+        }
+    */
+    } 
+    
 }
 
 void sdlJeu::getAngle(){

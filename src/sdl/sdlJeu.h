@@ -6,6 +6,7 @@
 #include <cassert>
 
 #include "../core/Game.h"
+#include "Background.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
@@ -37,6 +38,7 @@ class sdlJeu {
 private:
 
 	Game jeu;
+	Background ground;
 
     SDL_Window * window;
     SDL_Renderer * renderer;

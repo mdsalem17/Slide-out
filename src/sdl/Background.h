@@ -1,7 +1,7 @@
 #ifndef BACKGROUND_H
 #define BACKGROUND_H
 
-#include "../core/Game.h"
+#include <math.h>
 #include <vector>
 
 class Color{
@@ -14,7 +14,7 @@ class Color{
 
 class Background {
     public:
-    int nbColors;
+    unsigned int nbColors;
     std::vector <Color> tabColor;
     float velosity;
 
