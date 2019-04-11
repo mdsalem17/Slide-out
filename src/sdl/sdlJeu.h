@@ -6,7 +6,6 @@
 #include <cassert>
 
 #include "../core/Game.h"
-#include "Background.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
@@ -36,13 +35,10 @@ public:
 class sdlJeu {
 
 private:
-
 	Game jeu;
-	Background ground;
 
     SDL_Window * window;
     SDL_Renderer * renderer;
-    SDL_Rect *camera;
 
     TTF_Font * font;
     Image font_im;
@@ -56,6 +52,9 @@ private:
     void drawPlayer();
     void getAngle();
     float angle;
+
+    b2Vec2 playerPos;
+    SDL_Rect camera;
 
     Image im_player;
 

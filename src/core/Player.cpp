@@ -67,12 +67,12 @@ void Player::setPosition(b2Vec2 pos, float32 angle){
 
 void Player::wake(){
     //updateMovement();
-    playerBody->ApplyLinearImpulse(b2Vec2(1/PTM_RATIO,1.01/PTM_RATIO), playerBody->GetPosition(), true);
+    playerBody->ApplyLinearImpulse(b2Vec2(.8/PTM_RATIO,1.01/PTM_RATIO), playerBody->GetPosition(), true);
 
 }
 void Player::dive(){
     
-    playerBody->ApplyForce(b2Vec2(0,-250), playerBody->GetWorldCenter(), true);
+    playerBody->ApplyLinearImpulse(b2Vec2(0,-10), playerBody->GetWorldCenter(), true);
 }
 
 void Player::updateMovement(){

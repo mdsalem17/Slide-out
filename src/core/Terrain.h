@@ -22,6 +22,8 @@ class Terrain {
 	int maxHillPoints;
 	void generateHillPoints();
 	std::vector<b2Vec2> tabHillPoints;
+
+	int terrainResolution; //How apart terrain points are
 	
 	~Terrain();
 

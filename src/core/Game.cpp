@@ -9,7 +9,7 @@ Game::Game(){
 
     gravity.Set(0,-9.8/8.0f);
     
-    dimx = 1200, dimy = 600;
+    dimx = 640, dimy = 480;
 
     initBox2dWorld(gravity);
     player->initPlayer(world);
@@ -20,8 +20,8 @@ Game::Game(){
 void Game::initBox2dWorld(const b2Vec2 &gravity){
 
     //bool doSleep = true; //If this is set to true, bodies will sleep when they come to rest, and are excluded from the simulation until something happens to 'wake' them again.
-    world = new b2World(gravity/*, doSleep*/);
-    //world->ShiftOrigin(b2Vec2(0,0));
+    world = new b2World(gravity);
+    
 }
 
 void Game::updateBox2dWorld(){
@@ -32,7 +32,6 @@ void Game::updateBox2dWorld(){
 
 
     world->Step(timeStep, velocityIterations, positionIterations); //Step does the update
-
 }
 
 
@@ -42,9 +41,7 @@ Player* Game::getPlayer(){
 Terrain* Game::getTerrain(){
     return ter;
  }
-
-
-
+ 
 Game::~Game(){
     delete world;
     world = NULL;

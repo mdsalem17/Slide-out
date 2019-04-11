@@ -3,7 +3,8 @@
 	Terrain::Terrain()
 	{
 		world = NULL;
-		maxHillPoints = 2000;
+		maxHillPoints = 1000;
+		terrainResolution = 25;
 		generateHillPoints();
 	}
 
@@ -32,11 +33,11 @@
 
 	void Terrain::generateHillPoints(){
 		std::cout << "DEBUG START:  Generation de points." << std::endl;
-		float yOffset = 100.0f;
+		float yOffset = 200.0f;
 		int currentStep = 0;
 		std::cout << currentStep << std::endl;
 		for(int i = 0 ; i < maxHillPoints;i++){
-			tabHillPoints.push_back(b2Vec2(i, sin(i*.01)*20 + yOffset));//(computePerlin(3,.001,2,i) * 200.0f) + yOffset ));
+			tabHillPoints.push_back(b2Vec2(i*terrainResolution,(computePerlin(3,.0011,2,i*terrainResolution) * 200.0f) + yOffset));//(computePerlin(3,.001,2,i) * 200.0f) + yOffset ));
 			currentStep += HILLSTEP;
 		//	std::cout << currentStep << std::endl;
 		}

@@ -103,15 +103,17 @@ sdlJeu::sdlJeu () : jeu() {
     }
     else withSound = true;
 
+    ///PLAYER
 	int dimx, dimy;
     dimx = jeu.dimx;
     dimy = jeu.dimy;
 
     angle =0;
+    camera = {0,0,dimx, dimy};
+    jeu.getPlayer()->setPosition(b2Vec2(200,200),0);
 
-    jeu.getPlayer()->setPosition(b2Vec2(50,200),0);
     // Creation de la fenetre
-    window = SDL_CreateWindow("SlideOut", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, dimx, dimy, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+    window = SDL_CreateWindow("SlideOut", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, dimx, dimy, SDL_WINDOW_SHOWN );
     if (window == NULL) {
         cout << "Erreur lors de la creation de la fenetre : " << SDL_GetError() << endl; SDL_Quit(); exit(1);
     }
@@ -152,54 +154,37 @@ sdlJeu::~sdlJeu () {
 }
 
 void sdlJeu::drawTerrain(){
-                unsigned int j=0;
-    for(unsigned int i = 1 ; i < jeu.getTerrain()->tabHillPoints.size() ; i++){
-        SDL_RenderDrawLine(renderer, i-1, jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i-1).y,
-                                       i, jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i).y);
-    /** Horizontal background*/
-	for(unsigned int l=0; l<ground.nbColors; l++){
-        unsigned int j=0;
-		for(unsigned int k=jeu.getTerrain()->tabHillPoints.at(i-1).y*l/ground.nbColors;
-                        k<jeu.getTerrain()->tabHillPoints.at(i-1).y*(l+1)/ground.nbColors; k++){
-            SDL_SetRenderDrawColor(renderer, ground.tabColor[j+l].r, ground.tabColor[j+l].g, ground.tabColor[j+l].b, SDL_ALPHA_OPAQUE);
-            SDL_RenderDrawLine(renderer, i-1, jeu.dimy - k-1,
-                                    i, jeu.dimy - k);
-        }
-        
-	}
-    /**/
+    //Pour faire defiler le terrain, on applique une force dans le sens contraire de la position du joueur
+    //Il faut rajouter à sa position la taille du sprite/2 pour avoir sa position effective
+   jeu.getTerrain()->terrainBody->SetLinearVelocity(b2Vec2(-playerPos.x+SPRITE_SIZE/2, 0));
 
-           
-    //Vertical Background
-    /*
-            SDL_SetRenderDrawColor(renderer, ground.tabColor[j].r, ground.tabColor[j].g, ground.tabColor[j].b, SDL_ALPHA_OPAQUE);
-            SDL_RenderDrawLine(renderer, i-1, jeu.dimy, i-1,
-                        jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i-1).y);
-        if(i%40==0){
-            j++;
-            if(j==ground.nbColors) j=0;
-        }
-    */
-    } 
-    
+    //Pour l'affichage on retire à chaque coordonnées x du point affiché, la position du joueur
+    //afin que ce qui est affiché corresponde à la force appliquée au terrain
+    for(unsigned int i = 1 ; i < jeu.getTerrain()->tabHillPoints.size() ; i++){
+        SDL_RenderDrawLine(renderer, jeu.getTerrain()->tabHillPoints.at(i-1).x-playerPos.x+SPRITE_SIZE, jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i-1).y,
+                                       jeu.getTerrain()->tabHillPoints.at(i).x-playerPos.x+SPRITE_SIZE, jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i).y);
+    }
 }
 
 void sdlJeu::getAngle(){
     //calcul de l'angle pour l'orientation de l'image
+    
     b2Vec2 vel = jeu.getPlayer()->playerBody->GetLinearVelocity();
-    angle = (atan2f(vel.y, vel.x));
+    angle = atan2f(vel.y, vel.x);
 
-    float minAngle = -1.0f, maxAngle = 1.0f;
+    //std::cout << angle << std::endl;
+    float minAngle = -10.0f, maxAngle = 10.0f;
     if(angle < minAngle) angle = minAngle;
     if(angle > maxAngle) angle = maxAngle;
 
-    //std::cout << angle << std::endl;
+    
 }
 
 void sdlJeu::drawPlayer(){
     //SDL_RenderDrawPoint(renderer, jeu.getPlayer()->getPosition().x, jeu.getPlayer()->getPosition().y);
     getAngle();
-    im_player.draw(renderer, jeu.getPlayer()->getPosition().x-SPRITE_SIZE/2,jeu.dimy-jeu.getPlayer()->getPosition().y-SPRITE_SIZE,SPRITE_SIZE,SPRITE_SIZE, angle*-50.0f);
+    
+    im_player.draw(renderer, playerPos.x-(playerPos.x-SPRITE_SIZE/2),(jeu.dimy - playerPos.y-SPRITE_SIZE),SPRITE_SIZE,SPRITE_SIZE, angle*-50.0f);
     
 }
 
@@ -233,6 +218,7 @@ void sdlJeu::sdlBoucle () {
         if (nt-t>500) {
             t = nt;
         }
+        playerPos = jeu.getPlayer()->getPosition();
         jeu.getPlayer()->wake();
         jeu.updateBox2dWorld();
         events.key.repeat = 1;

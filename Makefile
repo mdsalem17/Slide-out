@@ -1,9 +1,9 @@
 MKDIRS=obj bin
 CORE_DIR = src/core/
-INCLUDE_DIR = -I$(CORE_DIR)Box2D
+INCLUDE_DIR = -IBox2D
 INCLUDE_GRAPIC = -I$(GRAPIC_DIR) -I/usr/include/SDL2
 INCLUDE_SDL = -I$(SDL_DIR)
-LIBS_BOX2D = -L$(CORE_DIR)Box2D -lBox2D
+LIBS_BOX2D = -LBox2D -lBox2D
 LIBS_SDL = -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 CPPFLAGS = -Wall 
 
