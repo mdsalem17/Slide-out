@@ -122,7 +122,7 @@ sdlJeu::sdlJeu () : jeu() {
 
     // IMAGES
     im_player.loadFromFile("data/bird1.png",renderer);
-    
+    timer_bg.loadFromFile("data/timer.png",renderer);
 
     // FONTS
     font = TTF_OpenFont("data/DejaVuSansCondensed.ttf",50);
@@ -164,6 +164,7 @@ void sdlJeu::drawTerrain(){
         SDL_RenderDrawLine(renderer, jeu.getTerrain()->tabHillPoints.at(i-1).x-playerPos.x+SPRITE_SIZE, jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i-1).y,
                                        jeu.getTerrain()->tabHillPoints.at(i).x-playerPos.x+SPRITE_SIZE, jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i).y);
     }
+        timer_bg.draw(renderer, (SCREEN_WIDTH/2) -50 ,SCREEN_HEIGHT/25,100,30, 1);
 }
 
 void sdlJeu::getAngle(){
@@ -185,7 +186,7 @@ void sdlJeu::drawPlayer(){
     getAngle();
     
     im_player.draw(renderer, playerPos.x-(playerPos.x-SPRITE_SIZE/2),(jeu.dimy - playerPos.y-SPRITE_SIZE),SPRITE_SIZE,SPRITE_SIZE, angle*-50.0f);
-    
+
 }
 
 void sdlJeu::sdlAff () {
@@ -204,7 +205,8 @@ void sdlJeu::sdlAff () {
     SDL_RenderCopy(renderer,font_im.getTexture(),NULL,&positionTitre);
 
 }
- bool hasPressed = false;
+
+
 void sdlJeu::sdlBoucle () {
     SDL_Event events;
 	bool quit = false;

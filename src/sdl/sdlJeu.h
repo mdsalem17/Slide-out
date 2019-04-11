@@ -57,6 +57,7 @@ private:
     SDL_Rect camera;
 
     Image im_player;
+    Image timer_bg;
 
 
 
