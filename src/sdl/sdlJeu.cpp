@@ -76,7 +76,7 @@ const int LEVEL_WIDTH = 1280;
 const int LEVEL_HEIGHT = 960;
 
 //Screen dimension constants
-const int SCREEN_WIDTH = 640; 
+const int SCREEN_WIDTH = 900; 
 const int SCREEN_HEIGHT = 480;
 sdlJeu::sdlJeu () : jeu() {
     // Initialisation de la SDL
@@ -125,12 +125,12 @@ sdlJeu::sdlJeu () : jeu() {
     timer_bg.loadFromFile("data/timer.png",renderer);
 
     // FONTS
-    font = TTF_OpenFont("data/DejaVuSansCondensed.ttf",50);
+    font = TTF_OpenFont("data/DejaVuSansCondensed.ttf",40);
     if (font == NULL) {
             cout << "Failed to load DejaVuSansCondensed.ttf! SDL_TTF Error: " << TTF_GetError() << endl; SDL_Quit(); exit(1);
 	}
-	font_color.r = 50;font_color.g = 50;font_color.b = 255;
-	font_im.setSurface(TTF_RenderText_Solid(font,"Slideout",font_color));
+	font_color.r = 255;font_color.g = 255;font_color.b = 255;
+	font_im.setSurface(TTF_RenderText_Solid(font,"00:00",font_color));
 	font_im.loadFromCurrentSurface(renderer);
 
     // SONS
@@ -164,12 +164,12 @@ void sdlJeu::drawTerrain(){
         SDL_RenderDrawLine(renderer, jeu.getTerrain()->tabHillPoints.at(i-1).x-playerPos.x+SPRITE_SIZE, jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i-1).y,
                                        jeu.getTerrain()->tabHillPoints.at(i).x-playerPos.x+SPRITE_SIZE, jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i).y);
     }
-        timer_bg.draw(renderer, (SCREEN_WIDTH/2) -50 ,SCREEN_HEIGHT/25,100,30, 1);
+    
+    timer_bg.draw(renderer, (SCREEN_WIDTH/2)-50*1.4, SCREEN_HEIGHT/30, 100*1.4, 30*1.4, 1);
 }
 
 void sdlJeu::getAngle(){
     //calcul de l'angle pour l'orientation de l'image
-    
     b2Vec2 vel = jeu.getPlayer()->playerBody->GetLinearVelocity();
     angle = atan2f(vel.y, vel.x);
 
@@ -177,14 +177,11 @@ void sdlJeu::getAngle(){
     float minAngle = -10.0f, maxAngle = 10.0f;
     if(angle < minAngle) angle = minAngle;
     if(angle > maxAngle) angle = maxAngle;
-
-    
 }
 
 void sdlJeu::drawPlayer(){
     //SDL_RenderDrawPoint(renderer, jeu.getPlayer()->getPosition().x, jeu.getPlayer()->getPosition().y);
     getAngle();
-    
     im_player.draw(renderer, playerPos.x-(playerPos.x-SPRITE_SIZE/2),(jeu.dimy - playerPos.y-SPRITE_SIZE),SPRITE_SIZE,SPRITE_SIZE, angle*-50.0f);
 
 }
@@ -200,12 +197,10 @@ void sdlJeu::sdlAff () {
 
     // Ecrire un titre par dessus
     SDL_Rect positionTitre;
-    positionTitre.x = 0; positionTitre.y = 0; positionTitre.w = 100; positionTitre.h = 30;
+    positionTitre.x = (SCREEN_WIDTH/2) -40; positionTitre.y = SCREEN_HEIGHT/25*1.2; positionTitre.w = 80; positionTitre.h = 30;
 
     SDL_RenderCopy(renderer,font_im.getTexture(),NULL,&positionTitre);
-
 }
-
 
 void sdlJeu::sdlBoucle () {
     SDL_Event events;
