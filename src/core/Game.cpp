@@ -9,7 +9,7 @@ Game::Game(){
 
     gravity.Set(0,-9.8/8.0f);
     
-    dimx = 640, dimy = 480;
+    dimx = 900, dimy = 480;
 
     initBox2dWorld(gravity);
     player->initPlayer(world);
