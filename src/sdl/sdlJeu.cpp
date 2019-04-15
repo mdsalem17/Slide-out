@@ -121,8 +121,9 @@ sdlJeu::sdlJeu () : jeu() {
     renderer = SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED);
 
     // IMAGES
-    im_player.loadFromFile("data/bird1.png",renderer);
-    timer_bg.loadFromFile("data/timer.png",renderer);
+    im_player.loadFromFile("data/bird1.png", renderer);
+    timer_bg.loadFromFile("data/timer.png", renderer);
+    im_sprite.loadFromFile("data/sprite.png", renderer);
 
     // FONTS
     font = TTF_OpenFont("data/DejaVuSansCondensed.ttf",40);
@@ -165,6 +166,13 @@ void sdlJeu::drawTerrain(){
                                        jeu.getTerrain()->tabHillPoints.at(i).x-playerPos.x+SPRITE_SIZE, jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i).y);
     }
     
+     for(unsigned int i = 1; i < jeu.getTerrain()->tabHillPoints.size(); i++){
+        im_sprite.draw(renderer, jeu.getTerrain()->tabHillPoints.at(i-1).x-playerPos.x+SPRITE_SIZE,
+                                    jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i-1).y,
+                                    jeu.getTerrain()->terrainResolution,
+                                    jeu.getTerrain()->tabHillPoints.at(i-1).y);
+    }
+
     timer_bg.draw(renderer, (SCREEN_WIDTH/2)-50*1.4, SCREEN_HEIGHT/30, 100*1.4, 30*1.4, 1);
 }
 

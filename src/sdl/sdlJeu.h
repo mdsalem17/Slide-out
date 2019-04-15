@@ -58,8 +58,7 @@ private:
 
     Image im_player;
     Image timer_bg;
-
-
+    Image im_sprite;
 
 public:
 

@@ -4,7 +4,7 @@
 	{
 		world = NULL;
 		maxHillPoints = 1000;
-		terrainResolution = 25;
+		terrainResolution = 5; //best terrainResolution = 1;
 		generateHillPoints();
 	}
 
