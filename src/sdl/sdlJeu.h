@@ -58,7 +58,12 @@ private:
 
     Image im_player;
     Image timer_bg;
-    Image im_sprite;
+    Image im_sky;
+    Image im_sprite1;
+    Image im_sprite2;
+    Image im_sprite3;
+    Image im_sprite4;
+    Image selected_sprite;
 
 public:
 

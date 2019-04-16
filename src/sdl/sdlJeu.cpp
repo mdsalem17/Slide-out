@@ -1,4 +1,6 @@
 #include <sdlJeu.h>
+#include <string.h>
+#include <time.h>
 const int SPRITE_SIZE = 50;
 
 // ============= CLASS IMAGE =============== //
@@ -80,7 +82,6 @@ const int SCREEN_WIDTH = 900;
 const int SCREEN_HEIGHT = 480;
 sdlJeu::sdlJeu () : jeu() {
     // Initialisation de la SDL
-    
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         cout << "Erreur lors de l'initialisation de la SDL : " << SDL_GetError() << endl;SDL_Quit();exit(1);
     }
@@ -108,7 +109,7 @@ sdlJeu::sdlJeu () : jeu() {
     dimx = jeu.dimx;
     dimy = jeu.dimy;
 
-    angle =0;
+    angle = 0;
     camera = {0,0,dimx, dimy};
     jeu.getPlayer()->setPosition(b2Vec2(200,200),0);
 
@@ -123,7 +124,11 @@ sdlJeu::sdlJeu () : jeu() {
     // IMAGES
     im_player.loadFromFile("data/bird1.png", renderer);
     timer_bg.loadFromFile("data/timer.png", renderer);
-    im_sprite.loadFromFile("data/sprite.png", renderer);
+    im_sky.loadFromFile("data/sky.png", renderer);
+    im_sprite1.loadFromFile("data/sprite.png", renderer);
+    im_sprite2.loadFromFile("data/sprite2.png", renderer);
+    im_sprite3.loadFromFile("data/sprite3.png", renderer);
+    im_sprite4.loadFromFile("data/sprite4.png", renderer);
 
     // FONTS
     font = TTF_OpenFont("data/DejaVuSansCondensed.ttf",40);
@@ -155,9 +160,12 @@ sdlJeu::~sdlJeu () {
 }
 
 void sdlJeu::drawTerrain(){
+    
+    im_sky.draw(renderer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    
     //Pour faire defiler le terrain, on applique une force dans le sens contraire de la position du joueur
     //Il faut rajouter à sa position la taille du sprite/2 pour avoir sa position effective
-   jeu.getTerrain()->terrainBody->SetLinearVelocity(b2Vec2(-playerPos.x+SPRITE_SIZE/2, 0));
+    jeu.getTerrain()->terrainBody->SetLinearVelocity(b2Vec2(-playerPos.x+SPRITE_SIZE/2, 0));
 
     //Pour l'affichage on retire à chaque coordonnées x du point affiché, la position du joueur
     //afin que ce qui est affiché corresponde à la force appliquée au terrain
@@ -167,13 +175,13 @@ void sdlJeu::drawTerrain(){
     }
     
      for(unsigned int i = 1; i < jeu.getTerrain()->tabHillPoints.size(); i++){
-        im_sprite.draw(renderer, jeu.getTerrain()->tabHillPoints.at(i-1).x-playerPos.x+SPRITE_SIZE,
+        selected_sprite.draw(renderer, jeu.getTerrain()->tabHillPoints.at(i-1).x-playerPos.x+SPRITE_SIZE,
                                     jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i-1).y,
                                     jeu.getTerrain()->terrainResolution,
                                     jeu.getTerrain()->tabHillPoints.at(i-1).y);
     }
 
-    timer_bg.draw(renderer, (SCREEN_WIDTH/2)-50*1.4, SCREEN_HEIGHT/30, 100*1.4, 30*1.4, 1);
+    timer_bg.draw(renderer, (SCREEN_WIDTH/2)-50*1.4, SCREEN_HEIGHT/30, 100*1.4, 30*1.4, 0);
 }
 
 void sdlJeu::getAngle(){
@@ -181,7 +189,6 @@ void sdlJeu::getAngle(){
     b2Vec2 vel = jeu.getPlayer()->playerBody->GetLinearVelocity();
     angle = atan2f(vel.y, vel.x);
 
-    //std::cout << angle << std::endl;
     float minAngle = -10.0f, maxAngle = 10.0f;
     if(angle < minAngle) angle = minAngle;
     if(angle > maxAngle) angle = maxAngle;
@@ -191,7 +198,6 @@ void sdlJeu::drawPlayer(){
     //SDL_RenderDrawPoint(renderer, jeu.getPlayer()->getPosition().x, jeu.getPlayer()->getPosition().y);
     getAngle();
     im_player.draw(renderer, playerPos.x-(playerPos.x-SPRITE_SIZE/2),(jeu.dimy - playerPos.y-SPRITE_SIZE),SPRITE_SIZE,SPRITE_SIZE, angle*-50.0f);
-
 }
 
 void sdlJeu::sdlAff () {
@@ -205,7 +211,7 @@ void sdlJeu::sdlAff () {
 
     // Ecrire un titre par dessus
     SDL_Rect positionTitre;
-    positionTitre.x = (SCREEN_WIDTH/2) -40; positionTitre.y = SCREEN_HEIGHT/25*1.2; positionTitre.w = 80; positionTitre.h = 30;
+    positionTitre.x = (SCREEN_WIDTH/2) -35; positionTitre.y = SCREEN_HEIGHT/25*1.2; positionTitre.w = 70; positionTitre.h = 30;
 
     SDL_RenderCopy(renderer,font_im.getTexture(),NULL,&positionTitre);
 }
@@ -213,6 +219,14 @@ void sdlJeu::sdlAff () {
 void sdlJeu::sdlBoucle () {
     SDL_Event events;
 	bool quit = false;
+
+    // RANDOMS
+    srand(time(0));
+    int rand_sprite = rand() % 4 + 1;
+    if(rand_sprite == 1) selected_sprite = im_sprite1;
+    if(rand_sprite == 2) selected_sprite = im_sprite2;
+    if(rand_sprite == 3) selected_sprite = im_sprite3;
+    if(rand_sprite == 4) selected_sprite = im_sprite4;
 
     Uint32 t = SDL_GetTicks(), nt;
 
@@ -223,6 +237,14 @@ void sdlJeu::sdlBoucle () {
         if (nt-t>500) {
             t = nt;
         }
+        
+        //calcul et affichage temps en seconds
+        int seconds = 30 - t/1000; //TODO: if(seconds > 0 && playerLost()) must stop game and inform user
+        string text = "00:"+ std::to_string(seconds) ;
+        const char *c = text.c_str();
+        font_im.setSurface(TTF_RenderText_Solid(font,c,font_color));
+    	font_im.loadFromCurrentSurface(renderer);
+
         playerPos = jeu.getPlayer()->getPosition();
         jeu.getPlayer()->wake();
         jeu.updateBox2dWorld();
