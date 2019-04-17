@@ -200,6 +200,15 @@ void sdlJeu::drawPlayer(){
     im_player.draw(renderer, playerPos.x-(playerPos.x-SPRITE_SIZE/2),(jeu.dimy - playerPos.y-SPRITE_SIZE),SPRITE_SIZE,SPRITE_SIZE, angle*-50.0f);
 }
 
+void sdlJeu::drawTime(int sec){
+    string text ;
+    if(sec > 9) text = "00:"+ std::to_string(sec);
+    else text = "00:0"+ std::to_string(sec) ;
+    const char *c = text.c_str();
+    font_im.setSurface(TTF_RenderText_Solid(font,c,font_color));
+    font_im.loadFromCurrentSurface(renderer);
+}
+
 void sdlJeu::sdlAff () {
 	//Remplir l'cran de blanc
     SDL_SetRenderDrawColor(renderer, 230, 240, 255, 255);
@@ -219,7 +228,7 @@ void sdlJeu::sdlAff () {
 void sdlJeu::sdlBoucle () {
     SDL_Event events;
 	bool quit = false;
-
+    int seconds ; 
     // RANDOMS
     srand(time(0));
     int rand_sprite = rand() % 4 + 1;
@@ -239,11 +248,8 @@ void sdlJeu::sdlBoucle () {
         }
         
         //calcul et affichage temps en seconds
-        int seconds = 30 - t/1000; //TODO: if(seconds > 0 && playerLost()) must stop game and inform user
-        string text = "00:"+ std::to_string(seconds) ;
-        const char *c = text.c_str();
-        font_im.setSurface(TTF_RenderText_Solid(font,c,font_color));
-    	font_im.loadFromCurrentSurface(renderer);
+        seconds = 30 - t/1000; //TODO: if(seconds > 0 && playerLost()) must stop game and inform user
+        drawTime(seconds);
 
         playerPos = jeu.getPlayer()->getPosition();
         jeu.getPlayer()->wake();

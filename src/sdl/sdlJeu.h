@@ -50,6 +50,7 @@ private:
     //Affichage terrain
     void drawTerrain();
     void drawPlayer();
+    void drawTime(int sec);
     void getAngle();
     float angle;
 
