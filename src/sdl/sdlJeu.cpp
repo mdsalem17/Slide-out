@@ -140,6 +140,10 @@ sdlJeu::sdlJeu () : jeu() {
 	font_im.setSurface(TTF_RenderText_Solid(font,"00:00",font_color));
 	font_im.loadFromCurrentSurface(renderer);
 
+    score_color.r = 220;score_color.g = 70;score_color.b = 20;
+	font_score.setSurface(TTF_RenderText_Solid(font,"0123",score_color));
+	font_score.loadFromCurrentSurface(renderer);
+
     // SONS
     // if (withSound)
     // {
@@ -232,10 +236,14 @@ void sdlJeu::sdlAff () {
     drawPlayer(); 
 
     // Ecrire un titre par dessus
-    SDL_Rect positionTitre;
-    positionTitre.x = (SCREEN_WIDTH/2) -35; positionTitre.y = SCREEN_HEIGHT/25*1.2; positionTitre.w = 70; positionTitre.h = 30;
+    SDL_Rect positionTime;
+    positionTime.x = (SCREEN_WIDTH/2) -35; positionTime.y = SCREEN_HEIGHT/25*1.2; positionTime.w = 70; positionTime.h = 30;
 
-    SDL_RenderCopy(renderer,font_im.getTexture(),NULL,&positionTitre);
+    SDL_Rect positionScore;
+    positionScore.x = SCREEN_WIDTH-100; positionScore.y = SCREEN_HEIGHT/25*1.2; positionScore.w = 60; positionScore.h = 30;
+
+    SDL_RenderCopy(renderer,font_im.getTexture(),NULL,&positionTime);
+    SDL_RenderCopy(renderer,font_score.getTexture(),NULL,&positionScore);
 }
 
 void sdlJeu::sdlBoucle () {

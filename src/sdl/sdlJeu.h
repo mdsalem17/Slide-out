@@ -43,6 +43,8 @@ private:
     TTF_Font * font;
     Image font_im;
     SDL_Color font_color;
+    Image font_score;
+    SDL_Color score_color;
 
     Mix_Chunk * sound;
     bool withSound;
