@@ -125,6 +125,7 @@ sdlJeu::sdlJeu () : jeu() {
     im_player.loadFromFile("data/bird1.png", renderer);
     timer_bg.loadFromFile("data/timer.png", renderer);
     im_sky.loadFromFile("data/sky.png", renderer);
+    im_sun.loadFromFile("data/sun.png", renderer);
     im_sprite1.loadFromFile("data/sprite.png", renderer);
     im_sprite2.loadFromFile("data/sprite2.png", renderer);
     im_sprite3.loadFromFile("data/sprite3.png", renderer);
@@ -162,7 +163,7 @@ sdlJeu::~sdlJeu () {
 void sdlJeu::drawTerrain(){
     
     im_sky.draw(renderer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    im_sky.draw(renderer, -playerPos.x/100, -playerPos.y/100, SCREEN_WIDTH, SCREEN_HEIGHT);
+    im_sun.draw(renderer, -playerPos.x/100 + SCREEN_WIDTH, SCREEN_HEIGHT/10, 100, 100);
 
     //Pour faire defiler le terrain, on applique une force dans le sens contraire de la position du joueur
     //Il faut rajouter à sa position la taille du sprite/2 pour avoir sa position effective
