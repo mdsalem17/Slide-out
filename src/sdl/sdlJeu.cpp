@@ -169,11 +169,13 @@ void sdlJeu::drawTerrain(){
 
     //Pour l'affichage on retire à chaque coordonnées x du point affiché, la position du joueur
     //afin que ce qui est affiché corresponde à la force appliquée au terrain
+    /*
     for(unsigned int i = 1 ; i < jeu.getTerrain()->tabHillPoints.size() ; i++){
         SDL_RenderDrawLine(renderer, jeu.getTerrain()->tabHillPoints.at(i-1).x-playerPos.x+SPRITE_SIZE, jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i-1).y,
                                        jeu.getTerrain()->tabHillPoints.at(i).x-playerPos.x+SPRITE_SIZE, jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i).y);
     }
-    
+    */
+   
      for(unsigned int i = 1; i < jeu.getTerrain()->tabHillPoints.size(); i++){
         selected_sprite.draw(renderer, jeu.getTerrain()->tabHillPoints.at(i-1).x-playerPos.x+SPRITE_SIZE,
                                     jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i-1).y,
