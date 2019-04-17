@@ -72,7 +72,7 @@ void Player::wake(){
 }
 void Player::dive(){
     
-    playerBody->ApplyLinearImpulse(b2Vec2(0,-10), playerBody->GetWorldCenter(), true);
+    playerBody->ApplyLinearImpulse(b2Vec2(0,-20), playerBody->GetWorldCenter(), true);
 }
 
 void Player::updateMovement(){

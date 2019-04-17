@@ -60,9 +60,11 @@ private:
     SDL_Rect camera;
 
     Image im_player;
-    Image timer_bg;
+    Image im_timer_bg;
+    Image im_time_up;
     Image im_sky;
     Image im_sun;
+    Image im_cloud;
     Image im_sprite1;
     Image im_sprite2;
     Image im_sprite3;

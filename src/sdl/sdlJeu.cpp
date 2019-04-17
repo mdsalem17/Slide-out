@@ -123,9 +123,11 @@ sdlJeu::sdlJeu () : jeu() {
 
     // IMAGES
     im_player.loadFromFile("data/bird1.png", renderer);
-    timer_bg.loadFromFile("data/timer.png", renderer);
+    im_timer_bg.loadFromFile("data/timer.png", renderer);
+    im_time_up.loadFromFile("data/time_up.png", renderer);
     im_sky.loadFromFile("data/sky.png", renderer);
     im_sun.loadFromFile("data/sun.png", renderer);
+    im_cloud.loadFromFile("data/cloud.png", renderer);
     im_sprite1.loadFromFile("data/sprite.png", renderer);
     im_sprite2.loadFromFile("data/sprite2.png", renderer);
     im_sprite3.loadFromFile("data/sprite3.png", renderer);
@@ -167,7 +169,12 @@ sdlJeu::~sdlJeu () {
 void sdlJeu::drawTerrain(){
     
     im_sky.draw(renderer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    im_sun.draw(renderer, -playerPos.x/100 + SCREEN_WIDTH, SCREEN_HEIGHT/10, 100, 100);
+    im_sun.draw(renderer, -playerPos.x/60 + SCREEN_WIDTH, SCREEN_HEIGHT/10, 100, 100);
+    im_cloud.draw(renderer, -playerPos.x/60 + SCREEN_WIDTH -600, SCREEN_HEIGHT/15, 200, 200);
+    im_cloud.draw(renderer, -playerPos.x/60 + SCREEN_WIDTH -800, SCREEN_HEIGHT/20, 300, 300);
+    im_cloud.draw(renderer, -playerPos.x/60 + SCREEN_WIDTH -500, SCREEN_HEIGHT/40, 400, 400);
+    im_cloud.draw(renderer, -playerPos.x/60 + SCREEN_WIDTH -200, SCREEN_HEIGHT/10, 300, 300);
+    im_cloud.draw(renderer, -playerPos.x/60 + SCREEN_WIDTH , SCREEN_HEIGHT/120, 300, 300);
 
     //Pour faire defiler le terrain, on applique une force dans le sens contraire de la position du joueur
     //Il faut rajouter à sa position la taille du sprite/2 pour avoir sa position effective
@@ -175,7 +182,7 @@ void sdlJeu::drawTerrain(){
 
     //Pour l'affichage on retire à chaque coordonnées x du point affiché, la position du joueur
     //afin que ce qui est affiché corresponde à la force appliquée au terrain
-    /*
+    /* affichage lignes
     for(unsigned int i = 1 ; i < jeu.getTerrain()->tabHillPoints.size() ; i++){
         SDL_RenderDrawLine(renderer, jeu.getTerrain()->tabHillPoints.at(i-1).x-playerPos.x+SPRITE_SIZE, jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i-1).y,
                                        jeu.getTerrain()->tabHillPoints.at(i).x-playerPos.x+SPRITE_SIZE, jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i).y);
@@ -188,8 +195,6 @@ void sdlJeu::drawTerrain(){
                                     jeu.getTerrain()->terrainResolution,
                                     jeu.getTerrain()->tabHillPoints.at(i-1).y);
     }
-
-    timer_bg.draw(renderer, (SCREEN_WIDTH/2)-50*1.4, SCREEN_HEIGHT/30, 100*1.4, 30*1.4, 0);
 }
 
 void sdlJeu::getAngle(){
@@ -209,15 +214,21 @@ void sdlJeu::drawPlayer(){
 }
 
 void sdlJeu::drawTime(){
-    string text ;
-    if(seconds > 9) text = "00:"+ std::to_string(seconds);
-    else text = "00:0"+ std::to_string(seconds);
+    im_timer_bg.draw(renderer, (SCREEN_WIDTH/2)-50*1.4, SCREEN_HEIGHT/30, 100*1.4, 30*1.4, 0);
+    string text;
+    int min = seconds/60;
+    int sec = seconds%60;
+    if(sec > 9) text = "0"+std::to_string(min)+":"+ std::to_string(sec);
+    else if(sec <= 0) text="00:00";
+    else text = "0"+std::to_string(min)+":0"+ std::to_string(sec);
 
     //change font color
-    if(seconds == 5 || seconds == 3 || seconds == 1){
+    if(seconds <= 5 && seconds%2==0 && seconds >= 0){
         font_color.r = 255;font_color.g = 0;font_color.b = 0;
     }
-    else if(seconds == 4 || seconds == 2 || seconds == 0){
+    else if(seconds <= 0)
+        im_time_up.draw(renderer, jeu.dimx/2 -200, jeu.dimy/2 -100, 400, 200, 0);
+    else{
         font_color.r = 255;font_color.g = 255;font_color.b = 255;
     }
 
@@ -227,13 +238,14 @@ void sdlJeu::drawTime(){
 }
 
 void sdlJeu::sdlAff () {
-	//Remplir l'cran de blanc
+	//Remplir l'ecran de blanc
     SDL_SetRenderDrawColor(renderer, 230, 240, 255, 255);
     SDL_RenderClear(renderer);
     
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     drawTerrain();
-    drawPlayer(); 
+    drawPlayer();
+    drawTime();
 
     // Ecrire un titre par dessus
     SDL_Rect positionTime;
@@ -267,10 +279,9 @@ void sdlJeu::sdlBoucle () {
         if (nt-t>500) {
             t = nt;
         }
-        
+
         //calcul et affichage temps en seconds
-        seconds = 30 - t/1000; //TODO: if(seconds > 0 && playerLost()) must stop game and inform user
-        drawTime();
+        seconds = 20 - t/1000; //TODO: if(seconds > 0 && playerLost()) must stop game and inform user
 
         playerPos = jeu.getPlayer()->getPosition();
         jeu.getPlayer()->wake();
