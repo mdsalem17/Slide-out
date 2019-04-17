@@ -50,7 +50,7 @@ private:
     //Affichage terrain
     void drawTerrain();
     void drawPlayer();
-    void drawTime(int sec);
+    void drawTime();
     void getAngle();
     float angle;
 
@@ -65,6 +65,8 @@ private:
     Image im_sprite3;
     Image im_sprite4;
     Image selected_sprite;
+
+    int seconds; 
 
 public:
 

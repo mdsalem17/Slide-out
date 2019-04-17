@@ -162,7 +162,8 @@ sdlJeu::~sdlJeu () {
 void sdlJeu::drawTerrain(){
     
     im_sky.draw(renderer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    
+    im_sky.draw(renderer, -playerPos.x/100, -playerPos.y/100, SCREEN_WIDTH, SCREEN_HEIGHT);
+
     //Pour faire defiler le terrain, on applique une force dans le sens contraire de la position du joueur
     //Il faut rajouter à sa position la taille du sprite/2 pour avoir sa position effective
     jeu.getTerrain()->terrainBody->SetLinearVelocity(b2Vec2(-playerPos.x+SPRITE_SIZE/2, 0));
@@ -175,10 +176,10 @@ void sdlJeu::drawTerrain(){
                                        jeu.getTerrain()->tabHillPoints.at(i).x-playerPos.x+SPRITE_SIZE, jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i).y);
     }
     */
-   
-     for(unsigned int i = 1; i < jeu.getTerrain()->tabHillPoints.size(); i++){
+
+    for(unsigned int i = 1; i < jeu.getTerrain()->tabHillPoints.size(); i++){
         selected_sprite.draw(renderer, jeu.getTerrain()->tabHillPoints.at(i-1).x-playerPos.x+SPRITE_SIZE,
-                                    jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i-1).y,
+                                    jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i-1).y + 1,
                                     jeu.getTerrain()->terrainResolution,
                                     jeu.getTerrain()->tabHillPoints.at(i-1).y);
     }
@@ -202,10 +203,19 @@ void sdlJeu::drawPlayer(){
     im_player.draw(renderer, playerPos.x-(playerPos.x-SPRITE_SIZE/2),(jeu.dimy - playerPos.y-SPRITE_SIZE),SPRITE_SIZE,SPRITE_SIZE, angle*-50.0f);
 }
 
-void sdlJeu::drawTime(int sec){
+void sdlJeu::drawTime(){
     string text ;
-    if(sec > 9) text = "00:"+ std::to_string(sec);
-    else text = "00:0"+ std::to_string(sec) ;
+    if(seconds > 9) text = "00:"+ std::to_string(seconds);
+    else text = "00:0"+ std::to_string(seconds);
+
+    //change font color
+    if(seconds == 5 || seconds == 3 || seconds == 1){
+        font_color.r = 255;font_color.g = 0;font_color.b = 0;
+    }
+    else if(seconds == 4 || seconds == 2 || seconds == 0){
+        font_color.r = 255;font_color.g = 255;font_color.b = 255;
+    }
+
     const char *c = text.c_str();
     font_im.setSurface(TTF_RenderText_Solid(font,c,font_color));
     font_im.loadFromCurrentSurface(renderer);
@@ -230,7 +240,7 @@ void sdlJeu::sdlAff () {
 void sdlJeu::sdlBoucle () {
     SDL_Event events;
 	bool quit = false;
-    int seconds ; 
+
     // RANDOMS
     srand(time(0));
     int rand_sprite = rand() % 4 + 1;
@@ -251,7 +261,7 @@ void sdlJeu::sdlBoucle () {
         
         //calcul et affichage temps en seconds
         seconds = 30 - t/1000; //TODO: if(seconds > 0 && playerLost()) must stop game and inform user
-        drawTime(seconds);
+        drawTime();
 
         playerPos = jeu.getPlayer()->getPosition();
         jeu.getPlayer()->wake();
