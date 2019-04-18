@@ -10,26 +10,25 @@ class Player {
 
         void initPlayer(b2World *w);
 
-
         const b2Vec2& getPosition() const;
         const b2Vec2& getVelocity() const;
 
         void applyForce(b2Vec2 force);
         void setPosition(b2Vec2 pos, float32 angle);
-        b2Body  *playerBody;
+        b2Body *playerBody;
 
         bool isDiving;
         void dive();
         void wake();
         void updateMovement();
+        void startContact();
+        void endContact();
         ~Player();
 
     private:
-            b2World *world;
+        
+        b2World *world;
             
-
-
-
 };
 
 #endif

@@ -57,14 +57,23 @@ private:
     float angle;
 
     b2Vec2 playerPos;
-    SDL_Rect camera;
 
-    Image im_player;
+    int frame;
+    //Images Player
+    Image im_player0;
+    Image im_player1;
+    Image im_player2;
+    Image im_player3;
+    Image im_player4;
+    Image selected_player;
+    //Images Timer
     Image im_timer_bg;
     Image im_time_up;
+    //Images Sky
     Image im_sky;
     Image im_sun;
     Image im_cloud;
+    //Images Terrain
     Image im_sprite1;
     Image im_sprite2;
     Image im_sprite3;

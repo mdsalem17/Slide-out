@@ -46,6 +46,11 @@
 		
 	}
 
+	int Terrain::getSlope(int pos){
+		if(pos > maxHillPoints+2 || pos < 2) return 0;
+		else return  (tabHillPoints.at(pos+2).y - tabHillPoints.at(pos-2).y) / (tabHillPoints.at(pos+2).x - tabHillPoints.at(pos-2).x);
+	}
+
 ////////////////////////////////////
 //////// PERLIN
 ///////////////////////////////////

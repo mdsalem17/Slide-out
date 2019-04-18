@@ -1,6 +1,34 @@
 #include "Game.h"
-
 #include <iostream>
+
+void Game::MyContactListener::BeginContact(b2Contact* contact) {
+  
+        //check if fixture A was a ball
+         void* bodyUserData = contact->GetFixtureA()->GetBody()->GetUserData();
+         if ( bodyUserData )
+           static_cast<Player*>( bodyUserData )->startContact();
+         
+        //check if fixture B was a ball
+        bodyUserData = contact->GetFixtureB()->GetBody()->GetUserData();
+        if ( bodyUserData )
+          static_cast<Player*>( bodyUserData )->startContact();
+  
+}
+  
+void Game::MyContactListener::EndContact(b2Contact* contact) {
+  
+      //check if fixture A was a ball
+      void* bodyUserData = contact->GetFixtureA()->GetBody()->GetUserData();
+      if ( bodyUserData )
+        static_cast<Player*>( bodyUserData )->endContact();
+  
+      //check if fixture B was a ball
+      bodyUserData = contact->GetFixtureB()->GetBody()->GetUserData();
+      if ( bodyUserData )
+        static_cast<Player*>( bodyUserData )->endContact();
+  
+}
+
 Game::Game(){
 
     world = NULL;
@@ -15,13 +43,14 @@ Game::Game(){
     player->initPlayer(world);
     ter->initTerrain(world);
 
-
 }
+
 void Game::initBox2dWorld(const b2Vec2 &gravity){
 
     //bool doSleep = true; //If this is set to true, bodies will sleep when they come to rest, and are excluded from the simulation until something happens to 'wake' them again.
     world = new b2World(gravity);
-    
+    world->SetContactListener(&myContactListenerInstance);
+
 }
 
 void Game::updateBox2dWorld(){
@@ -30,10 +59,8 @@ void Game::updateBox2dWorld(){
     int32 velocityIterations = 8;   //how strongly to correct velocity
     int32 positionIterations = 3;   //how strongly to correct position
 
-
     world->Step(timeStep, velocityIterations, positionIterations); //Step does the update
 }
-
 
 Player* Game::getPlayer(){
     return player;

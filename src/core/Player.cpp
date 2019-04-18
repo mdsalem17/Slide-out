@@ -5,6 +5,7 @@ Player::Player(){
 
   world = NULL;
   playerBody = NULL;
+  isDiving = false;
 
 }
 
@@ -21,9 +22,9 @@ void Player::initPlayer(b2World *w){
 
     //reduce the world velocity of bodies =/= friction (friction occurs w/ contact)
     playerBodyDef.linearDamping = 0.07f;
-
    
     playerBody = world->CreateBody(&playerBodyDef);
+    playerBody->SetUserData(this);
 
     //Setting & creating the fixture
     //To define shape, size etc.. of our object
@@ -36,12 +37,10 @@ void Player::initPlayer(b2World *w){
     playerFixture.restitution = .25;
     
     playerFixture.density = 1;
-    
 
     playerBody->CreateFixture(&playerFixture);
 
 }
-
 
 const b2Vec2& Player::getPosition() const{
     return playerBody->GetPosition();
@@ -88,6 +87,14 @@ void Player::updateMovement(){
 		vel.y = minVelocityY;
 	}
 	playerBody->SetLinearVelocity(vel);
+}
+
+void Player::startContact(){
+    isDiving = true;
+}
+
+void Player::endContact(){
+    isDiving = false;
 }
 
 Player::~Player(){

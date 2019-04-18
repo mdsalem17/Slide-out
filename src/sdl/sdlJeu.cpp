@@ -110,7 +110,7 @@ sdlJeu::sdlJeu () : jeu() {
     dimy = jeu.dimy;
 
     angle = 0;
-    camera = {0,0,dimx, dimy};
+    frame = 0;
     jeu.getPlayer()->setPosition(b2Vec2(200,200),0);
 
     // Creation de la fenetre
@@ -122,7 +122,11 @@ sdlJeu::sdlJeu () : jeu() {
     renderer = SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED);
 
     // IMAGES
-    im_player.loadFromFile("data/bird1.png", renderer);
+    im_player0.loadFromFile("data/bird0.png", renderer);
+    im_player1.loadFromFile("data/bird1.png", renderer);
+    im_player2.loadFromFile("data/bird2.png", renderer);
+    im_player3.loadFromFile("data/bird3.png", renderer);
+    im_player4.loadFromFile("data/bird4.png", renderer);
     im_timer_bg.loadFromFile("data/timer.png", renderer);
     im_time_up.loadFromFile("data/time_up.png", renderer);
     im_sky.loadFromFile("data/sky.png", renderer);
@@ -210,7 +214,19 @@ void sdlJeu::getAngle(){
 void sdlJeu::drawPlayer(){
     //SDL_RenderDrawPoint(renderer, jeu.getPlayer()->getPosition().x, jeu.getPlayer()->getPosition().y);
     getAngle();
-    im_player.draw(renderer, playerPos.x-(playerPos.x-SPRITE_SIZE/2),(jeu.dimy - playerPos.y-SPRITE_SIZE),SPRITE_SIZE,SPRITE_SIZE, angle*-50.0f);
+    //im_player.draw(renderer, playerPos.x-(playerPos.x-SPRITE_SIZE/2),(jeu.dimy - playerPos.y-SPRITE_SIZE),SPRITE_SIZE,SPRITE_SIZE, angle*-50.0f);
+    if(frame == 0)
+        selected_player = im_player0; 
+    else if(frame == 1)
+        selected_player = im_player1; 
+    else if(frame == 2)
+        selected_player = im_player2; 
+    else if(frame == 3)
+        selected_player = im_player3; 
+    else if(frame == 4)
+        selected_player = im_player4;
+
+    selected_player.draw(renderer, playerPos.x-(playerPos.x-SPRITE_SIZE/2),(jeu.dimy - playerPos.y-SPRITE_SIZE),SPRITE_SIZE,SPRITE_SIZE, angle*-50.0f);
 }
 
 void sdlJeu::drawTime(){
@@ -279,7 +295,11 @@ void sdlJeu::sdlBoucle () {
         if (nt-t>500) {
             t = nt;
         }
-
+        if(nt-t > 300)
+        {
+            frame++;
+            if(frame == 4) frame = 0;
+        }
         //calcul et affichage temps en seconds
         seconds = 20 - t/1000; //TODO: if(seconds > 0 && playerLost()) must stop game and inform user
 
@@ -290,7 +310,7 @@ void sdlJeu::sdlBoucle () {
 		// tant qu'il y a des evenements  traiter (cette boucle n'est pas bloquante)
 		while (SDL_PollEvent(&events)) {
 			if (events.type == SDL_QUIT) quit = true;           // Si l'utilisateur a clique sur la croix de fermeture
-			else if (events.type == SDL_KEYDOWN) {              // Si une touche est enfoncee
+			else if (events.type == SDL_KEYDOWN && events.key.repeat == 0) {              // Si une touche est enfoncee
 				switch (events.key.keysym.scancode) {
 				case SDL_SCANCODE_DOWN:
                    	jeu.getPlayer()->dive();	

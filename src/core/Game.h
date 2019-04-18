@@ -6,31 +6,31 @@
 
 class Game
 {
-public:
-    Game();
+    public:
+        Game();
+        ~Game();
 
-    ~Game();
+        int dimx;
+        int dimy;
+        
+        b2Vec2 gravity;
+        b2World* world;
 
-    int dimx;
-    int dimy;
-     
-    b2Vec2 gravity;
-    b2World* world;
+        void initBox2dWorld(const b2Vec2 &gravity);
+        void updateBox2dWorld();
 
-    void initBox2dWorld(const b2Vec2 &gravity);
-    void updateBox2dWorld();
+        Player* getPlayer();
+        Terrain* getTerrain();
 
+        class MyContactListener : public b2ContactListener{
+            void BeginContact(b2Contact* contact);
+            void EndContact(b2Contact* contact);
+        };
 
-    Player* getPlayer();
-    Terrain* getTerrain();
-
-
-private:
-    Player *player;
-    Terrain *ter;
-
-
-
+    private:
+        Player *player;
+        Terrain *ter;
+        MyContactListener myContactListenerInstance;
 
 };
 
