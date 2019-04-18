@@ -298,7 +298,7 @@ void sdlJeu::sdlBoucle () {
         if(nt-t > 300)
         {
             frame++;
-            if(frame == 4) frame = 0;
+            if(frame > 4) frame = 0;
         }
         //calcul et affichage temps en seconds
         seconds = 20 - t/1000; //TODO: if(seconds > 0 && playerLost()) must stop game and inform user
