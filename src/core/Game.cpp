@@ -49,6 +49,11 @@ Game::Game(){
 
 }
 
+bool Game::isLevelFinished(){
+    if(player->getPosition().x > ter->tabHillPoints.back().x ) return true;
+
+    return false;
+}
 void Game::initBox2dWorld(const b2Vec2 &gravity){
 
     //bool doSleep = true; //If this is set to true, bodies will sleep when they come to rest, and are excluded from the simulation until something happens to 'wake' them again.
