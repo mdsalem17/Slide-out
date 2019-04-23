@@ -16,6 +16,7 @@ class Game
         b2Vec2 gravity;
         b2World* world;
 
+        bool isLevelFinished();
         void initBox2dWorld(const b2Vec2 &gravity);
         void updateBox2dWorld();
         
