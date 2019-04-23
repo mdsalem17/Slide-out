@@ -18,11 +18,16 @@ class Game
 
         void initBox2dWorld(const b2Vec2 &gravity);
         void updateBox2dWorld();
+        
+        void collision();
 
         Player* getPlayer();
         Terrain* getTerrain();
 
         class MyContactListener : public b2ContactListener{
+            public:
+            int numPoints;
+            MyContactListener();
             void BeginContact(b2Contact* contact);
             void EndContact(b2Contact* contact);
         };

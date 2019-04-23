@@ -24,7 +24,7 @@ class Terrain {
 	std::vector<b2Vec2> tabHillPoints;
 
 	int terrainResolution; //How apart terrain points are
-	int getSlope(int pos);
+	double getSlope(int pos);
 	
 	~Terrain();
 

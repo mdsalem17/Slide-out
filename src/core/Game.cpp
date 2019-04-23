@@ -1,6 +1,11 @@
 #include "Game.h"
 #include <iostream>
 
+Game::MyContactListener::MyContactListener()
+{
+    numPoints = 0;
+}
+
 void Game::MyContactListener::BeginContact(b2Contact* contact) {
   
         //check if fixture A was a ball
@@ -12,7 +17,6 @@ void Game::MyContactListener::BeginContact(b2Contact* contact) {
         bodyUserData = contact->GetFixtureB()->GetBody()->GetUserData();
         if ( bodyUserData )
           static_cast<Player*>( bodyUserData )->startContact();
-  
 }
   
 void Game::MyContactListener::EndContact(b2Contact* contact) {
@@ -60,6 +64,18 @@ void Game::updateBox2dWorld(){
     int32 positionIterations = 3;   //how strongly to correct position
 
     world->Step(timeStep, velocityIterations, positionIterations); //Step does the update
+}
+
+void Game::collision(){
+    //double slope = ter->getSlope(player->getPosition().x);
+    double slope = ter->getSlope(50/2+getTerrain()->terrainBody->GetLinearVelocity().x);
+    //std::cout << "slope value at " << getTerrain()->terrainBody->GetPosition().x << " = " << slope << std::endl; 
+    if(!player->isInAir){
+        if(slope > 0.5) //positive slope value means the bird is moving up
+            player->playerBody->ApplyForce(b2Vec2(-10,-10), player->playerBody->GetWorldCenter(), true);
+        else if(slope < 0.5) //negative slope value means the bird is moving down
+            player->playerBody->ApplyForce(b2Vec2(50,-50), player->playerBody->GetWorldCenter(), true);
+    }
 }
 
 Player* Game::getPlayer(){

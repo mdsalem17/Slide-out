@@ -5,7 +5,7 @@ Player::Player(){
 
   world = NULL;
   playerBody = NULL;
-  isDiving = false;
+  isInAir = true;
 
 }
 
@@ -90,11 +90,11 @@ void Player::updateMovement(){
 }
 
 void Player::startContact(){
-    isDiving = true;
+    isInAir = false;
 }
 
 void Player::endContact(){
-    isDiving = false;
+    isInAir = true;
 }
 
 Player::~Player(){

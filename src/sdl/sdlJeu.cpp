@@ -186,8 +186,8 @@ void sdlJeu::drawTerrain(){
 
     //Pour l'affichage on retire à chaque coordonnées x du point affiché, la position du joueur
     //afin que ce qui est affiché corresponde à la force appliquée au terrain
-    /* affichage lignes
-    for(unsigned int i = 1 ; i < jeu.getTerrain()->tabHillPoints.size() ; i++){
+    // / affichage lignes
+    /*for(unsigned int i = 1 ; i < jeu.getTerrain()->tabHillPoints.size() ; i++){
         SDL_RenderDrawLine(renderer, jeu.getTerrain()->tabHillPoints.at(i-1).x-playerPos.x+SPRITE_SIZE, jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i-1).y,
                                        jeu.getTerrain()->tabHillPoints.at(i).x-playerPos.x+SPRITE_SIZE, jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i).y);
     }
@@ -199,6 +199,7 @@ void sdlJeu::drawTerrain(){
                                     jeu.getTerrain()->terrainResolution,
                                     jeu.getTerrain()->tabHillPoints.at(i-1).y);
     }
+    
 }
 
 void sdlJeu::getAngle(){
@@ -214,7 +215,7 @@ void sdlJeu::getAngle(){
 void sdlJeu::drawPlayer(){
     //SDL_RenderDrawPoint(renderer, jeu.getPlayer()->getPosition().x, jeu.getPlayer()->getPosition().y);
     getAngle();
-    //im_player.draw(renderer, playerPos.x-(playerPos.x-SPRITE_SIZE/2),(jeu.dimy - playerPos.y-SPRITE_SIZE),SPRITE_SIZE,SPRITE_SIZE, angle*-50.0f);
+    im_player1.draw(renderer, playerPos.x-(playerPos.x-SPRITE_SIZE/2),(jeu.dimy - playerPos.y-SPRITE_SIZE),SPRITE_SIZE,SPRITE_SIZE, angle*-50.0f);
     if(frame == 0)
         selected_player = im_player0; 
     else if(frame == 1)
@@ -227,6 +228,7 @@ void sdlJeu::drawPlayer(){
         selected_player = im_player4;
 
     selected_player.draw(renderer, playerPos.x-(playerPos.x-SPRITE_SIZE/2),(jeu.dimy - playerPos.y-SPRITE_SIZE),SPRITE_SIZE,SPRITE_SIZE, angle*-50.0f);
+    //std::cout << "isInAir = " << jeu.getPlayer()->isInAir << std::endl;
 }
 
 void sdlJeu::drawTime(){
@@ -295,6 +297,7 @@ void sdlJeu::sdlBoucle () {
         if (nt-t>500) {
             t = nt;
         }
+        //vitesse des ailes
         if(nt-t > 300)
         {
             frame++;
@@ -305,12 +308,13 @@ void sdlJeu::sdlBoucle () {
 
         playerPos = jeu.getPlayer()->getPosition();
         jeu.getPlayer()->wake();
+        //jeu.collision();
         jeu.updateBox2dWorld();
         events.key.repeat = 1;
 		// tant qu'il y a des evenements  traiter (cette boucle n'est pas bloquante)
 		while (SDL_PollEvent(&events)) {
 			if (events.type == SDL_QUIT) quit = true;           // Si l'utilisateur a clique sur la croix de fermeture
-			else if (events.type == SDL_KEYDOWN && events.key.repeat == 0) {              // Si une touche est enfoncee
+			else if (events.type == SDL_KEYDOWN /*&& events.key.repeat == 0*/) {              // Si une touche est enfoncee
 				switch (events.key.keysym.scancode) {
 				case SDL_SCANCODE_DOWN:
                    	jeu.getPlayer()->dive();	

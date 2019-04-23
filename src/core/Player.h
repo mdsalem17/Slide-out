@@ -17,7 +17,7 @@ class Player {
         void setPosition(b2Vec2 pos, float32 angle);
         b2Body *playerBody;
 
-        bool isDiving;
+        bool isInAir;
         void dive();
         void wake();
         void updateMovement();
