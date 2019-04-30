@@ -4,10 +4,26 @@
 #include "Player.h"
 #include "Terrain.h"
 
+
+/** \defgroup moduleGame module de getsion du jeu
+ *
+ * \brief chef d'orshestre qui  permet de gerer les interactions entre les differents objets du jeu(terrain/player).
+ */
+  
 class Game
 {
     public:
+ 
+    /**
+        @brief Constructeur par défaut de la classe Game: initialise dimx et dimy
+                ce constructeur n'alloue pas de World
+                il instancie un objet de classe Terrain, et un autre de classe Player
+    */
         Game();
+
+    /**
+       @brief destructeur 
+    */
         ~Game();
 
         int dimx;
@@ -21,10 +37,23 @@ class Game
         void updateBox2dWorld();
         
         void collision();
-
+    /**
+     *     @brief Accesseur : permet d'acceder à l'objet player instancié par cette classe
+     * \return Terrain
+    */
         Player* getPlayer();
-        Terrain* getTerrain();
 
+
+    /**
+     * @brief Accesseur : permet d'acceder à l'objet Terrain instancié par cette classe
+     * \return Terrain
+     */
+          
+        Terrain* getTerrain();
+    /**
+     *  @ingroup moduleGame
+     *  @brief classe box2d qui gere les collision entre le joueur et le terrain
+     */
         class MyContactListener : public b2ContactListener{
             public:
             int numPoints;
