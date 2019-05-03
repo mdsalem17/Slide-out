@@ -110,6 +110,7 @@ private:
     Image im_sprite3;
     Image im_sprite4;
     Image selected_sprite;
+    Image im_arrow;
 
     int seconds;
     int start_timer;

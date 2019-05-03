@@ -141,6 +141,7 @@ sdlJeu::sdlJeu () : jeu() {
     im_sprite2.loadFromFile("data/sprite2.png", renderer);
     im_sprite3.loadFromFile("data/sprite3.png", renderer);
     im_sprite4.loadFromFile("data/sprite4.png", renderer);
+    im_arrow.loadFromFile("data/arrow.png", renderer);
 
     // FONTS
     font = TTF_OpenFont("data/DejaVuSansCondensed.ttf",40);
@@ -227,7 +228,7 @@ void sdlJeu::updateLevel()
             
             //Regénération du Terrain
             //la frequence du terrain augmente petit à petit
-            freqLevel += 1/1000.0f;
+            freqLevel += (1/1000.0f - 1/5000.0f);
             std::cout << "FREQ : " << freqLevel << std::endl;
             jeu.getTerrain()->generateHillPoints(3,freqLevel,2);
             jeu.getTerrain()->initTerrain(jeu.world);
@@ -247,6 +248,9 @@ void sdlJeu::drawTerrain(){
     im_cloud.draw(renderer, -playerPos.x/60 + SCREEN_WIDTH -500, SCREEN_HEIGHT/40, 400, 400);
     im_cloud.draw(renderer, -playerPos.x/60 + SCREEN_WIDTH -200, SCREEN_HEIGHT/10, 300, 300);
     im_cloud.draw(renderer, -playerPos.x/60 + SCREEN_WIDTH , SCREEN_HEIGHT/120, 300, 300);
+
+    im_arrow.draw(renderer, jeu.getTerrain()->tabHillPoints.at(300).x-playerPos.x,jeu.dimy - jeu.getTerrain()->tabHillPoints.at(300).y - SPRITE_SIZE*2 + 5, 100, 100);
+    im_arrow.draw(renderer, jeu.getTerrain()->tabHillPoints.back().x-playerPos.x -15 ,jeu.dimy - jeu.getTerrain()->tabHillPoints.back().y - SPRITE_SIZE*2 + 5, 100, 100);
 
     //Pour faire defiler le terrain, on applique une force dans le sens contraire de la position du joueur
     //Il faut rajouter à sa position la taille du sprite/2 pour avoir sa position effective
