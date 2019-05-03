@@ -37,6 +37,8 @@ class Game
         void updateBox2dWorld();
         
         void collision();
+        void destroyTerrain();
+
     /**
      *     @brief Accesseur : permet d'acceder à l'objet player instancié par cette classe
      * \return Terrain

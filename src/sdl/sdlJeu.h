@@ -111,7 +111,16 @@ private:
     Image im_sprite4;
     Image selected_sprite;
 
-    int seconds; 
+    int seconds;
+    int start_timer;
+    void initTimer(unsigned int editTimer);
+    void updateTimer(uint32 t);
+
+    void updateLevel();
+    double freqLevel; //frequence du bruit de perlin
+    
+    bool hasLost;
+    void updatePlayerStatus(); 
 
 public:
 

@@ -39,7 +39,7 @@ class Terrain {
 	b2Body *terrainBody;
 
 	int maxHillPoints;
-	void generateHillPoints();
+	void generateHillPoints(int oct, double freq, double persist);
 	std::vector<b2Vec2> tabHillPoints;
 
 	int terrainResolution; //How apart terrain points are
