@@ -48,7 +48,7 @@ Game::Game(){
     initBox2dWorld(gravity);
     player->initPlayer(world);
     ter->initTerrain(world);
-
+    addBonusPoints();
 }
 
 bool Game::isLevelFinished(){
@@ -76,9 +76,26 @@ void Game::updateBox2dWorld(){
 void Game::destroyTerrain(){
     //On efface le tableau contenant les points du Terrain
     ter->tabHillPoints.clear();
+    BonusPoints.clear();
     //Destruction des fixtures du Terrain
      for (b2Fixture* f = ter->terrainBody->GetFixtureList(); f; f = f->GetNext()){
          ter->terrainBody->DestroyFixture(f);
+    }
+}
+
+void Game::addBonusPoints(){
+    srand(time(0));
+    unsigned int range = ter->tabHillPoints.size()/1000;
+    int start_point = 0;
+    for(unsigned int i = 1; i <= range; i++){
+        start_point += rand() % 1000;
+        BonusPoints.push_back(b2Vec2(ter->tabHillPoints.at(start_point)));
+        BonusPoints.push_back(b2Vec2(ter->tabHillPoints.at(start_point+15)));
+        BonusPoints.push_back(b2Vec2(ter->tabHillPoints.at(start_point+30)));
+        BonusPoints.push_back(b2Vec2(ter->tabHillPoints.at(start_point+45)));
+        BonusPoints.push_back(b2Vec2(ter->tabHillPoints.at(start_point+60)));
+        start_point += 300;
+        std::cout << "start " << start_point << std::endl;
     }
 }
 

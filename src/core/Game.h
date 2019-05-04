@@ -51,6 +51,9 @@ class Game
         void initBox2dWorld(const b2Vec2 &gravity);
         void updateBox2dWorld();
         
+        void addBonusPoints();
+        std::vector<b2Vec2> BonusPoints;
+
         void collision();
         void destroyTerrain();
         b2Vec2 &getRelativePlayerPos(); 

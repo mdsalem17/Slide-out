@@ -240,6 +240,7 @@ void sdlJeu::updateLevel()
             std::cout << "FREQ : " << freqLevel << std::endl;
             jeu.getTerrain()->generateHillPoints(3,freqLevel,2);
             jeu.getTerrain()->initTerrain(jeu.world);
+            jeu.addBonusPoints();
 
         }
         
@@ -276,6 +277,14 @@ void sdlJeu::drawTerrain(){
                                     jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i-1).y + 1,
                                     jeu.getTerrain()->terrainResolution,
                                     jeu.getTerrain()->tabHillPoints.at(i-1).y);
+    }
+
+    for(unsigned int i = 1; i< jeu.BonusPoints.size(); i++){
+        im_player[0].draw(renderer, jeu.BonusPoints.at(i-1).x-playerPos.x+SPRITE_SIZE,
+                                    jeu.dimy - jeu.BonusPoints.at(i-1).y - 40,
+                                    30,
+                                    30);
+        //std::cout << "x " << jeu.BonusPoints.at(i-1).x-playerPos.x+SPRITE_SIZE << " y "<< jeu.dimy - jeu.BonusPoints.at(i-1).y + 11 << std::endl;
     }
     
 }
