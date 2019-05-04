@@ -142,6 +142,7 @@ sdlJeu::sdlJeu () : jeu() {
     im_sprite[2].loadFromFile("data/sprite3.png", renderer);
     im_sprite[3].loadFromFile("data/sprite4.png", renderer);
     im_arrow.loadFromFile("data/arrow.png", renderer);
+    im_bonus.loadFromFile("data/bonus.png", renderer);
 
     // FONTS
     font = TTF_OpenFont("data/DejaVuSansCondensed.ttf",40);
@@ -280,8 +281,8 @@ void sdlJeu::drawTerrain(){
     }
 
     for(unsigned int i = 1; i< jeu.BonusPoints.size(); i++){
-        im_player[0].draw(renderer, jeu.BonusPoints.at(i-1).x-playerPos.x+SPRITE_SIZE,
-                                    jeu.dimy - jeu.BonusPoints.at(i-1).y - 40,
+        im_bonus.draw(renderer, jeu.BonusPoints.at(i-1).x-playerPos.x+SPRITE_SIZE,
+                                    jeu.dimy - jeu.BonusPoints.at(i-1).y - SPRITE_SIZE + 10,
                                     30,
                                     30);
         //std::cout << "x " << jeu.BonusPoints.at(i-1).x-playerPos.x+SPRITE_SIZE << " y "<< jeu.dimy - jeu.BonusPoints.at(i-1).y + 11 << std::endl;

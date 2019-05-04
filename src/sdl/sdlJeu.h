@@ -106,6 +106,8 @@ private:
     //Images Terrain
     Image im_sprite[4];
     Image im_arrow;
+    //Images Bonus
+    Image im_bonus;
 
     int seconds;
     int start_timer;
