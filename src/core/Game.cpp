@@ -1,5 +1,6 @@
 #include "Game.h"
 #include <iostream>
+#include <math.h>
 
 Game::MyContactListener::MyContactListener()
 {
@@ -82,16 +83,23 @@ void Game::destroyTerrain(){
 }
 
 void Game::collision(){
-    //double slope = ter->getSlope(player->getPosition().x);
-    double slope = ter->getSlope(50/2+getTerrain()->terrainBody->GetLinearVelocity().x);
-    //std::cout << "slope value at " << getTerrain()->terrainBody->GetPosition().x << " = " << slope << std::endl; 
     if(!player->isInAir){
-        if(slope > 0.5) //positive slope value means the bird is moving up
-            player->playerBody->ApplyForce(b2Vec2(-10,-10), player->playerBody->GetWorldCenter(), true);
-        else if(slope < 0.5) //negative slope value means the bird is moving down
-            player->playerBody->ApplyForce(b2Vec2(50,-50), player->playerBody->GetWorldCenter(), true);
+        b2Vec2 position = getRelativePlayerPos();
+        double slope = ter->getSlope(position.x);
+        b2Vec2 vel = player->playerBody->GetLinearVelocity();
+        float angle = atan2f(vel.y, vel.x);
+    
+        if(slope > 0) //positive slope value means the bird is moving up
+            player->playerBody->ApplyLinearImpulse(-1*b2Vec2(slope, slope*sin(angle*180/M_PI)), player->playerBody->GetWorldCenter(), true);
+        else if(slope < 0) //negative slope value means the bird is moving down
+            player->playerBody->ApplyLinearImpulse(-1*b2Vec2(slope*25, slope*25*sin(angle*180/M_PI)), player->playerBody->GetWorldCenter(), true);
     }
 }
+
+b2Vec2& Game::getRelativePlayerPos()
+{
+    return ter->tabHillPoints.at((unsigned int) (player->playerBody->GetPosition().x+(50/2))/46*5 );
+} 
 
 Player* Game::getPlayer(){
     return player;

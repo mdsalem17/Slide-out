@@ -38,6 +38,7 @@ class Game
         
         void collision();
         void destroyTerrain();
+        b2Vec2 &getRelativePlayerPos(); 
 
     /**
      *     @brief Accesseur : permet d'acceder à l'objet player instancié par cette classe

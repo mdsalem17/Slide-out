@@ -242,6 +242,11 @@ void sdlJeu::updateLevel()
 void sdlJeu::drawTerrain(){
     
     im_sky.draw(renderer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+    //jeu.getTerrain()->tabHillPoints.at((unsigned int) (playerPos.x+(SPRITE_SIZE/2))/46*5 ).x
+
+    std::cout << "position player : " << playerPos.x << endl;
+
     im_sun.draw(renderer, -playerPos.x/60 + SCREEN_WIDTH, SCREEN_HEIGHT/10, 100, 100);
     im_cloud.draw(renderer, -playerPos.x/60 + SCREEN_WIDTH -600, SCREEN_HEIGHT/15, 200, 200);
     im_cloud.draw(renderer, -playerPos.x/60 + SCREEN_WIDTH -800, SCREEN_HEIGHT/20, 300, 300);
@@ -285,7 +290,6 @@ void sdlJeu::getAngle(){
 }
 
 void sdlJeu::drawPlayer(){
-    //SDL_RenderDrawPoint(renderer, jeu.getPlayer()->getPosition().x, jeu.getPlayer()->getPosition().y);
     getAngle();
     im_player1.draw(renderer, playerPos.x-(playerPos.x-SPRITE_SIZE/2),(jeu.dimy - playerPos.y-SPRITE_SIZE),SPRITE_SIZE,SPRITE_SIZE, angle*-50.0f);
     if(frame == 0)
@@ -386,7 +390,8 @@ void sdlJeu::sdlBoucle () {
        
         playerPos = jeu.getPlayer()->getPosition();
         jeu.getPlayer()->wake();
-        //jeu.collision();
+        //SDL_Delay(10);
+        jeu.collision();
         jeu.updateBox2dWorld();
         events.key.repeat = 1;
 		// tant qu'il y a des evenements  traiter (cette boucle n'est pas bloquante)
