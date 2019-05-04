@@ -91,14 +91,11 @@ private:
     
     b2Vec2 playerPos;
 
-    int frame;
+    int player_frame;
+    int prev_sprite_frame;
+    int sprite_frame;
     //Images Player
-    Image im_player0;
-    Image im_player1;
-    Image im_player2;
-    Image im_player3;
-    Image im_player4;
-    Image selected_player;
+    Image im_player[5];
     //Images Timer
     Image im_timer_bg;
     Image im_time_up;
@@ -107,11 +104,7 @@ private:
     Image im_sun;
     Image im_cloud;
     //Images Terrain
-    Image im_sprite1;
-    Image im_sprite2;
-    Image im_sprite3;
-    Image im_sprite4;
-    Image selected_sprite;
+    Image im_sprite[4];
     Image im_arrow;
 
     int seconds;

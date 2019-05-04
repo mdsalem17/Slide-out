@@ -115,7 +115,7 @@ sdlJeu::sdlJeu () : jeu() {
     //initTimer(5);
 
     angle = 0;
-    frame = 0;
+    player_frame = 0;
     jeu.getPlayer()->setPosition(b2Vec2(200,200),0);
 
     // Creation de la fenetre
@@ -127,20 +127,20 @@ sdlJeu::sdlJeu () : jeu() {
     renderer = SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED);
 
     // IMAGES
-    im_player0.loadFromFile("data/bird0.png", renderer);
-    im_player1.loadFromFile("data/bird1.png", renderer);
-    im_player2.loadFromFile("data/bird2.png", renderer);
-    im_player3.loadFromFile("data/bird3.png", renderer);
-    im_player4.loadFromFile("data/bird4.png", renderer);
+    im_player[0].loadFromFile("data/bird0.png", renderer);
+    im_player[1].loadFromFile("data/bird1.png", renderer);
+    im_player[2].loadFromFile("data/bird2.png", renderer);
+    im_player[3].loadFromFile("data/bird3.png", renderer);
+    im_player[4].loadFromFile("data/bird4.png", renderer);
     im_timer_bg.loadFromFile("data/timer.png", renderer);
     im_time_up.loadFromFile("data/time_up.png", renderer);
     im_sky.loadFromFile("data/sky.png", renderer);
     im_sun.loadFromFile("data/sun.png", renderer);
     im_cloud.loadFromFile("data/cloud.png", renderer);
-    im_sprite1.loadFromFile("data/sprite.png", renderer);
-    im_sprite2.loadFromFile("data/sprite2.png", renderer);
-    im_sprite3.loadFromFile("data/sprite3.png", renderer);
-    im_sprite4.loadFromFile("data/sprite4.png", renderer);
+    im_sprite[0].loadFromFile("data/sprite.png", renderer);
+    im_sprite[1].loadFromFile("data/sprite2.png", renderer);
+    im_sprite[2].loadFromFile("data/sprite3.png", renderer);
+    im_sprite[3].loadFromFile("data/sprite4.png", renderer);
     im_arrow.loadFromFile("data/arrow.png", renderer);
 
     // FONTS
@@ -183,7 +183,7 @@ sdlJeu::~sdlJeu () {
 
 float sdlJeu::computeZoomPlayer(){
     float t = playerPos.y*1.2 - SCREEN_HEIGHT;
-    float zoom = 1+(-1*t/3000.0f);
+    float zoom = 1+(-1*t/2500.0f);
     if(zoom > 2) zoom = 2.0f;
     if(zoom < 1) zoom = 1.0f;
     return zoom;
@@ -225,12 +225,12 @@ void sdlJeu::updateLevel()
 
             //SPRITE Aléatoire
             srand(time(0));
-            int rand_sprite = rand() % 4 + 1;
-            if(rand_sprite == 1) selected_sprite = im_sprite1;
-            if(rand_sprite == 2) selected_sprite = im_sprite2;
-            if(rand_sprite == 3) selected_sprite = im_sprite3;
-            if(rand_sprite == 4) selected_sprite = im_sprite4;
-
+            sprite_frame = rand() % 4;
+            if(prev_sprite_frame == sprite_frame)
+            {
+                srand(time(0));
+                sprite_frame = rand() % 4;
+            }
             
             jeu.destroyTerrain();
             
@@ -281,7 +281,7 @@ void sdlJeu::drawTerrain(){
     */
 
     for(unsigned int i = 1; i < jeu.getTerrain()->tabHillPoints.size(); i++){
-        selected_sprite.draw(renderer, jeu.getTerrain()->tabHillPoints.at(i-1).x-playerPos.x+SPRITE_SIZE,
+        im_sprite[sprite_frame].draw(renderer, jeu.getTerrain()->tabHillPoints.at(i-1).x-playerPos.x+SPRITE_SIZE,
                                     jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i-1).y + 1,
                                     jeu.getTerrain()->terrainResolution,
                                     jeu.getTerrain()->tabHillPoints.at(i-1).y);
@@ -302,20 +302,7 @@ void sdlJeu::getAngle(){
 void sdlJeu::drawPlayer(){
     SDL_RenderSetScale(renderer, computeZoomPlayer(), computeZoomPlayer());
     getAngle();
-    im_player1.draw(renderer, playerPos.x-(playerPos.x-SPRITE_SIZE/2),(jeu.dimy - playerPos.y-SPRITE_SIZE),SPRITE_SIZE,SPRITE_SIZE, angle*-50.0f);
-    if(frame == 0)
-        selected_player = im_player0; 
-    else if(frame == 1)
-        selected_player = im_player1; 
-    else if(frame == 2)
-        selected_player = im_player2; 
-    else if(frame == 3)
-        selected_player = im_player3; 
-    else if(frame == 4)
-        selected_player = im_player4;
-
-    selected_player.draw(renderer, playerPos.x-(playerPos.x-SPRITE_SIZE/2),(jeu.dimy - playerPos.y-SPRITE_SIZE),SPRITE_SIZE,SPRITE_SIZE, angle*-50.0f);
-    //std::cout << "isInAir = " << jeu.getPlayer()->isInAir << std::endl;
+    im_player[player_frame].draw(renderer, playerPos.x-(playerPos.x-SPRITE_SIZE/2),(jeu.dimy - playerPos.y-SPRITE_SIZE),SPRITE_SIZE,SPRITE_SIZE, angle*-50.0f);
 }
 
 // void sdlJeu::drawTime(){
@@ -371,11 +358,8 @@ void sdlJeu::sdlBoucle () {
 
     // RANDOMS
     srand(time(0));
-    int rand_sprite = rand() % 4 + 1;
-    if(rand_sprite == 1) selected_sprite = im_sprite1;
-    if(rand_sprite == 2) selected_sprite = im_sprite2;
-    if(rand_sprite == 3) selected_sprite = im_sprite3;
-    if(rand_sprite == 4) selected_sprite = im_sprite4;
+    sprite_frame = rand() % 4;
+    prev_sprite_frame = sprite_frame;
 
     Uint32 t = SDL_GetTicks(), nt;
 
@@ -389,8 +373,8 @@ void sdlJeu::sdlBoucle () {
         //vitesse des ailes
         if(nt-t > 300)
         {
-            frame++;
-            if(frame > 4) frame = 0;
+            player_frame++;
+            if(player_frame > 4) player_frame = 0;
         }
         //calcul et affichage temps en seconds
         //TODO: if(seconds > 0 && playerLost()) must stop game and inform user
