@@ -35,7 +35,7 @@ $(OBJ_DIR)Game.o: $(CORE_DIR)Game.cpp $(CORE_DIR)Game.h
 $(OBJ_DIR)Player.o: $(CORE_DIR)Player.cpp $(CORE_DIR)Player.h
 	g++ $(CPPFLAGS) -c $(CORE_DIR)Player.cpp $(INCLUDE_DIR) -o $(OBJ_DIR)Player.o
 
-$(OBJ_DIR)Terrain.o: $(CORE_DIR)Terrain.cpp $(CORE_DIR)Terrain.h $(CORE_DIR)Perlin.h
+$(OBJ_DIR)Terrain.o: $(CORE_DIR)Terrain.cpp $(CORE_DIR)Terrain.h
 	g++ $(CPPFLAGS) -c $(CORE_DIR)Terrain.cpp  $(INCLUDE_DIR) -o $(OBJ_DIR)Terrain.o
 
 $(OBJ_DIR)mainTxt.o: $(TXT_DIR)mainTxt.cpp $(TXT_DIR)txtGame.h $(TXT_DIR)winTxt.h
