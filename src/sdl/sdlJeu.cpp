@@ -397,7 +397,7 @@ void sdlJeu::sdlBoucle () {
 		// tant qu'il y a des evenements  traiter (cette boucle n'est pas bloquante)
 		while (SDL_PollEvent(&events)) {
 			if (events.type == SDL_QUIT) quit = true;           // Si l'utilisateur a clique sur la croix de fermeture
-			else if (events.type == SDL_KEYDOWN /*&& events.key.repeat == 0*/) {              // Si une touche est enfoncee
+			else if (events.type == SDL_KEYDOWN && events.key.repeat == 0) {              // Si une touche est enfoncee
 				switch (events.key.keysym.scancode) {
 				case SDL_SCANCODE_DOWN:
                    	jeu.getPlayer()->dive();	
