@@ -87,7 +87,7 @@ private:
     float computeZoomPlayer();
 
     float angle;
-    void getAngle();
+    void calculAngle();
     
     b2Vec2 playerPos;
 

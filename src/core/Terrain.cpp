@@ -3,9 +3,9 @@
 	Terrain::Terrain()
 	{
 		world = NULL;
-		maxHillPoints = 5000;
+		maxHillPoints = 8000;
 		terrainResolution = 3; //best terrainResolution = 1;
-		generateHillPoints(3,.0009,2);
+		generateHillPoints(3,.0005*2,2);
 	}
 
 	void Terrain::initTerrain(b2World *w){

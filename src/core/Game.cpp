@@ -40,7 +40,7 @@ Game::Game(){
     ter = new Terrain;
     player = new Player;
 
-    gravity.Set(0,-9.8/8.0f);
+    gravity.Set(0,-9.8*1.2/8.0f);
     
     dimx = 900, dimy = 480;
     score = 0;
@@ -53,7 +53,6 @@ Game::Game(){
 
 bool Game::isLevelFinished(){
     if(player->getPosition().x > ter->tabHillPoints.back().x ) return true;
-
     return false;
 }
 void Game::initBox2dWorld(const b2Vec2 &gravity){
@@ -92,7 +91,7 @@ void Game::collision(){
     
         if(slope < 0)//negative slope value means the bird is moving down
         {
-            player->playerBody->ApplyLinearImpulse(-1*b2Vec2(slope*25, slope*35*sin(angle*180/M_PI)), player->playerBody->GetWorldCenter(), true);
+            player->playerBody->ApplyLinearImpulse(-1*b2Vec2(slope*20, slope*20*sin(angle*180/M_PI)), player->playerBody->GetWorldCenter(), true);
             score += 10;
         }
         if(slope > 0) //positive slope value means the bird is moving up

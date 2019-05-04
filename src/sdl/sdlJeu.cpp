@@ -184,7 +184,7 @@ sdlJeu::~sdlJeu () {
 float sdlJeu::computeZoomPlayer(){
     float t = playerPos.y*1.2 - SCREEN_HEIGHT;
     float zoom = 1+(-1*t/2500.0f);
-    if(zoom > 2) zoom = 2.0f;
+    if(zoom > 2.5) zoom = 2.5f;
     if(zoom < 1) zoom = 1.0f;
     return zoom;
 }
@@ -222,7 +222,6 @@ void sdlJeu::updateLevel()
             jeu.getPlayer()->setPosition(b2Vec2(100,jeu.dimy),0);
             jeu.getPlayer()->applyForce(b2Vec2(200,0));
 
-
             //SPRITE Aléatoire
             srand(time(0));
             sprite_frame = rand() % 4;
@@ -230,13 +229,14 @@ void sdlJeu::updateLevel()
             {
                 srand(time(0));
                 sprite_frame = rand() % 4;
+                prev_sprite_frame = sprite_frame;
             }
             
             jeu.destroyTerrain();
             
             //Regénération du Terrain
             //la frequence du terrain augmente petit à petit
-            freqLevel += (1/1000.0f - 1/5000.0f);
+            freqLevel = (1/1000.0f - 1/5000.0f);
             std::cout << "FREQ : " << freqLevel << std::endl;
             jeu.getTerrain()->generateHillPoints(3,freqLevel,2);
             jeu.getTerrain()->initTerrain(jeu.world);
@@ -271,15 +271,6 @@ void sdlJeu::drawTerrain(){
     //Il faut rajouter à sa position la taille du sprite/2 pour avoir sa position effective
     jeu.getTerrain()->terrainBody->SetLinearVelocity(b2Vec2(-playerPos.x+SPRITE_SIZE/2, 0));
 
-    //Pour l'affichage on retire à chaque coordonnées x du point affiché, la position du joueur
-    //afin que ce qui est affiché corresponde à la force appliquée au terrain
-    // / affichage lignes
-    /*for(unsigned int i = 1 ; i < jeu.getTerrain()->tabHillPoints.size() ; i++){
-        SDL_RenderDrawLine(renderer, jeu.getTerrain()->tabHillPoints.at(i-1).x-playerPos.x+SPRITE_SIZE, jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i-1).y,
-                                       jeu.getTerrain()->tabHillPoints.at(i).x-playerPos.x+SPRITE_SIZE, jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i).y);
-    }
-    */
-
     for(unsigned int i = 1; i < jeu.getTerrain()->tabHillPoints.size(); i++){
         im_sprite[sprite_frame].draw(renderer, jeu.getTerrain()->tabHillPoints.at(i-1).x-playerPos.x+SPRITE_SIZE,
                                     jeu.dimy - jeu.getTerrain()->tabHillPoints.at(i-1).y + 1,
@@ -289,7 +280,7 @@ void sdlJeu::drawTerrain(){
     
 }
 
-void sdlJeu::getAngle(){
+void sdlJeu::calculAngle(){
     //calcul de l'angle pour l'orientation de l'image
     b2Vec2 vel = jeu.getPlayer()->playerBody->GetLinearVelocity();
     angle = atan2f(vel.y, vel.x);
@@ -301,7 +292,7 @@ void sdlJeu::getAngle(){
 
 void sdlJeu::drawPlayer(){
     SDL_RenderSetScale(renderer, computeZoomPlayer(), computeZoomPlayer());
-    getAngle();
+    calculAngle();
     im_player[player_frame].draw(renderer, playerPos.x-(playerPos.x-SPRITE_SIZE/2),(jeu.dimy - playerPos.y-SPRITE_SIZE),SPRITE_SIZE,SPRITE_SIZE, angle*-50.0f);
 }
 
@@ -381,8 +372,7 @@ void sdlJeu::sdlBoucle () {
         seconds = 20 - t/1000;
         updatePlayerStatus();
         updateLevel();
-        //updateTimer(t);        
-
+        //updateTimer(t);
        
         playerPos = jeu.getPlayer()->getPosition();
         jeu.getPlayer()->wake();
