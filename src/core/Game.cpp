@@ -71,6 +71,16 @@ void Game::updateBox2dWorld(){
     world->Step(timeStep, velocityIterations, positionIterations); //Step does the update
 }
 
+//Cette fonction détruit les collisions du terrain et le tableau contenant les points
+void Game::destroyTerrain(){
+    //On efface le tableau contenant les points du Terrain
+    ter->tabHillPoints.clear();
+    //Destruction des fixtures du Terrain
+     for (b2Fixture* f = ter->terrainBody->GetFixtureList(); f; f = f->GetNext()){
+         ter->terrainBody->DestroyFixture(f);
+    }
+}
+
 void Game::collision(){
     //double slope = ter->getSlope(player->getPosition().x);
     double slope = ter->getSlope(50/2+getTerrain()->terrainBody->GetLinearVelocity().x);

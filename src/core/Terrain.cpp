@@ -5,7 +5,7 @@
 		world = NULL;
 		maxHillPoints = 5000;
 		terrainResolution = 3; //best terrainResolution = 1;
-		generateHillPoints();
+		generateHillPoints(3,.0009,2);
 	}
 
 	void Terrain::initTerrain(b2World *w){
@@ -31,13 +31,13 @@
 		terrainBody->CreateFixture(&terrainFixtureDef);
 	}
 
-	void Terrain::generateHillPoints(){
+	void Terrain::generateHillPoints(int oct, double freq, double persist){
 		std::cout << "DEBUG START:  Generation de points." << std::endl;
 		float yOffset = 200.0f;
 		int currentStep = 0;
 		std::cout << currentStep << std::endl;
-		for(int i = 0 ; i < maxHillPoints;i++){
-			tabHillPoints.push_back(b2Vec2(i*terrainResolution,(computePerlin(3,.0011,2,i*terrainResolution) * 200.0f) + yOffset));//(computePerlin(3,.001,2,i) * 200.0f) + yOffset ));
+		for(int i = 0 ; i < maxHillPoints;i++){ //computePerlin(3,.0011,2,i*terrainResolution)
+			tabHillPoints.push_back(b2Vec2(i*terrainResolution,(computePerlin(oct,freq,persist,i*terrainResolution) * 200.0f) + yOffset));//(computePerlin(3,.001,2,i) * 200.0f) + yOffset ));
 			currentStep += HILLSTEP;
 		//	std::cout << currentStep << std::endl;
 		}

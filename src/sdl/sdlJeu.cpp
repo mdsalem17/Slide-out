@@ -109,6 +109,11 @@ sdlJeu::sdlJeu () : jeu() {
     dimx = jeu.dimx;
     dimy = jeu.dimy;
 
+    hasLost = false;
+    freqLevel = 9/1000;
+    // TEMPS
+    //initTimer(5);
+
     angle = 0;
     frame = 0;
     jeu.getPlayer()->setPosition(b2Vec2(200,200),0);
@@ -128,7 +133,7 @@ sdlJeu::sdlJeu () : jeu() {
     im_player3.loadFromFile("data/bird3.png", renderer);
     im_player4.loadFromFile("data/bird4.png", renderer);
     im_timer_bg.loadFromFile("data/timer.png", renderer);
-    im_time_up.loadFromFile("data/time_up.png", renderer);
+    //im_time_up.loadFromFile("data/time_up.png", renderer);
     im_sky.loadFromFile("data/sky.png", renderer);
     im_sun.loadFromFile("data/sun.png", renderer);
     im_cloud.loadFromFile("data/cloud.png", renderer);
@@ -136,6 +141,7 @@ sdlJeu::sdlJeu () : jeu() {
     im_sprite2.loadFromFile("data/sprite2.png", renderer);
     im_sprite3.loadFromFile("data/sprite3.png", renderer);
     im_sprite4.loadFromFile("data/sprite4.png", renderer);
+    im_arrow.loadFromFile("data/arrow.png", renderer);
 
     // FONTS
     font = TTF_OpenFont("data/DejaVuSansCondensed.ttf",40);
@@ -161,13 +167,76 @@ sdlJeu::sdlJeu () : jeu() {
 
 }
 
+
 sdlJeu::~sdlJeu () {
     if (withSound) Mix_Quit();
     TTF_CloseFont(font);
+
     TTF_Quit();
+    
+    IMG_Quit();
+
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
+}
+
+void sdlJeu::initTimer(unsigned int editTimer)
+{
+    seconds = editTimer;
+    start_timer = editTimer;
+}
+
+void sdlJeu::updateTimer(uint32 t)
+{
+    seconds = start_timer - t/1000;
+    //std::cout << "seconds = " << seconds << std::endl;
+}
+
+void sdlJeu::updatePlayerStatus()
+{
+    if(seconds < 0)
+    {
+        //hasLost = true;
+    }
+}
+
+void sdlJeu::updateLevel()
+{
+    if(jeu.isLevelFinished() && !hasLost)
+    {
+        initTimer(15);
+        hasLost = false;
+        jeu.getPlayer()->applyForce(b2Vec2(400,-150));
+
+        if(jeu.getPlayer()->getPosition().y < 0){
+            jeu.getPlayer()->initPlayer(jeu.world);
+            jeu.getPlayer()->setPosition(b2Vec2(100,jeu.dimy),0);
+            jeu.getPlayer()->applyForce(b2Vec2(200,0));
+
+
+            //SPRITE Aléatoire
+            srand(time(0));
+            int rand_sprite = rand() % 4 + 1;
+            if(rand_sprite == 1) selected_sprite = im_sprite1;
+            if(rand_sprite == 2) selected_sprite = im_sprite2;
+            if(rand_sprite == 3) selected_sprite = im_sprite3;
+            if(rand_sprite == 4) selected_sprite = im_sprite4;
+
+            
+            jeu.destroyTerrain();
+            
+            //Regénération du Terrain
+            //la frequence du terrain augmente petit à petit
+            freqLevel += (1/1000.0f - 1/5000.0f);
+            std::cout << "FREQ : " << freqLevel << std::endl;
+            jeu.getTerrain()->generateHillPoints(3,freqLevel,2);
+            jeu.getTerrain()->initTerrain(jeu.world);
+
+
+        }
+        
+    }
 }
 
 void sdlJeu::drawTerrain(){
@@ -179,6 +248,9 @@ void sdlJeu::drawTerrain(){
     im_cloud.draw(renderer, -playerPos.x/60 + SCREEN_WIDTH -500, SCREEN_HEIGHT/40, 400, 400);
     im_cloud.draw(renderer, -playerPos.x/60 + SCREEN_WIDTH -200, SCREEN_HEIGHT/10, 300, 300);
     im_cloud.draw(renderer, -playerPos.x/60 + SCREEN_WIDTH , SCREEN_HEIGHT/120, 300, 300);
+
+    im_arrow.draw(renderer, jeu.getTerrain()->tabHillPoints.at(300).x-playerPos.x,jeu.dimy - jeu.getTerrain()->tabHillPoints.at(300).y - SPRITE_SIZE*2 + 5, 100, 100);
+    im_arrow.draw(renderer, jeu.getTerrain()->tabHillPoints.back().x-playerPos.x -15 ,jeu.dimy - jeu.getTerrain()->tabHillPoints.back().y - SPRITE_SIZE*2 + 5, 100, 100);
 
     //Pour faire defiler le terrain, on applique une force dans le sens contraire de la position du joueur
     //Il faut rajouter à sa position la taille du sprite/2 pour avoir sa position effective
@@ -244,15 +316,16 @@ void sdlJeu::drawTime(){
     if(seconds <= 5 && seconds%2==0 && seconds >= 0){
         font_color.r = 255;font_color.g = 0;font_color.b = 0;
     }
-    else if(seconds <= 0)
-        im_time_up.draw(renderer, jeu.dimx/2 -200, jeu.dimy/2 -100, 400, 200, 0);
+    // else if(seconds <= 0) 
+    //     //im_time_up.draw(renderer, jeu.dimx/2 -200, jeu.dimy/2 -100, 400, 200, 0);
     else{
         font_color.r = 255;font_color.g = 255;font_color.b = 255;
     }
 
-    const char *c = text.c_str();
-    font_im.setSurface(TTF_RenderText_Solid(font,c,font_color));
-    font_im.loadFromCurrentSurface(renderer);
+    /* ERREUR PROBLEM CREATE SURFACE loadFromSurface */
+    //const char *c = text.c_str();
+    //font_im.setSurface(TTF_RenderText_Solid(font,c,font_color));
+    //font_im.loadFromCurrentSurface(renderer);
 }
 
 void sdlJeu::sdlAff () {
@@ -304,8 +377,13 @@ void sdlJeu::sdlBoucle () {
             if(frame > 4) frame = 0;
         }
         //calcul et affichage temps en seconds
-        seconds = 20 - t/1000; //TODO: if(seconds > 0 && playerLost()) must stop game and inform user
+        //TODO: if(seconds > 0 && playerLost()) must stop game and inform user
+        seconds = 20 - t/1000;
+        updatePlayerStatus();
+        updateLevel();
+        //updateTimer(t);        
 
+       
         playerPos = jeu.getPlayer()->getPosition();
         jeu.getPlayer()->wake();
         //jeu.collision();
