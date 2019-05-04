@@ -133,7 +133,7 @@ sdlJeu::sdlJeu () : jeu() {
     im_player3.loadFromFile("data/bird3.png", renderer);
     im_player4.loadFromFile("data/bird4.png", renderer);
     im_timer_bg.loadFromFile("data/timer.png", renderer);
-    //im_time_up.loadFromFile("data/time_up.png", renderer);
+    im_time_up.loadFromFile("data/time_up.png", renderer);
     im_sky.loadFromFile("data/sky.png", renderer);
     im_sun.loadFromFile("data/sun.png", renderer);
     im_cloud.loadFromFile("data/cloud.png", renderer);
