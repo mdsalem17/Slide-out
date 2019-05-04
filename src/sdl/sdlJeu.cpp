@@ -148,13 +148,13 @@ sdlJeu::sdlJeu () : jeu() {
     if (font == NULL) {
             cout << "Failed to load DejaVuSansCondensed.ttf! SDL_TTF Error: " << TTF_GetError() << endl; SDL_Quit(); exit(1);
 	}
-	font_color.r = 255;font_color.g = 255;font_color.b = 255;
+	/*font_color.r = 255;font_color.g = 255;font_color.b = 255;
 	font_im.setSurface(TTF_RenderText_Solid(font,"00:00",font_color));
 	font_im.loadFromCurrentSurface(renderer);
 
     score_color.r = 220;score_color.g = 70;score_color.b = 20;
 	font_score.setSurface(TTF_RenderText_Solid(font,"0123",score_color));
-	font_score.loadFromCurrentSurface(renderer);
+	font_score.loadFromCurrentSurface(renderer);*/
 
     // SONS
     // if (withSound)
@@ -179,6 +179,14 @@ sdlJeu::~sdlJeu () {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
+}
+
+float sdlJeu::computeZoomPlayer(){
+    float t = playerPos.y*1.2 - SCREEN_HEIGHT;
+    float zoom = 1+(-1*t/3000.0f);
+    if(zoom > 2) zoom = 2.0f;
+    if(zoom < 1) zoom = 1.0f;
+    return zoom;
 }
 
 void sdlJeu::initTimer(unsigned int editTimer)
@@ -233,26 +241,28 @@ void sdlJeu::updateLevel()
             jeu.getTerrain()->generateHillPoints(3,freqLevel,2);
             jeu.getTerrain()->initTerrain(jeu.world);
 
-
         }
         
     }
 }
 
-void sdlJeu::drawTerrain(){
+void sdlJeu::drawBackground()
+{
+    SDL_RenderSetScale(renderer, 1, 1);
     
     im_sky.draw(renderer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-
-    //jeu.getTerrain()->tabHillPoints.at((unsigned int) (playerPos.x+(SPRITE_SIZE/2))/46*5 ).x
-
-    std::cout << "position player : " << playerPos.x << endl;
-
     im_sun.draw(renderer, -playerPos.x/60 + SCREEN_WIDTH, SCREEN_HEIGHT/10, 100, 100);
     im_cloud.draw(renderer, -playerPos.x/60 + SCREEN_WIDTH -600, SCREEN_HEIGHT/15, 200, 200);
     im_cloud.draw(renderer, -playerPos.x/60 + SCREEN_WIDTH -800, SCREEN_HEIGHT/20, 300, 300);
     im_cloud.draw(renderer, -playerPos.x/60 + SCREEN_WIDTH -500, SCREEN_HEIGHT/40, 400, 400);
     im_cloud.draw(renderer, -playerPos.x/60 + SCREEN_WIDTH -200, SCREEN_HEIGHT/10, 300, 300);
     im_cloud.draw(renderer, -playerPos.x/60 + SCREEN_WIDTH , SCREEN_HEIGHT/120, 300, 300);
+    im_timer_bg.draw(renderer, (SCREEN_WIDTH/2)-50*1.4, SCREEN_HEIGHT/30, 100*1.4, 30*1.4, 0);
+}
+
+void sdlJeu::drawTerrain(){
+
+    SDL_RenderSetScale(renderer, computeZoomPlayer(), computeZoomPlayer());
 
     im_arrow.draw(renderer, jeu.getTerrain()->tabHillPoints.at(300).x-playerPos.x,jeu.dimy - jeu.getTerrain()->tabHillPoints.at(300).y - SPRITE_SIZE*2 + 5, 100, 100);
     im_arrow.draw(renderer, jeu.getTerrain()->tabHillPoints.back().x-playerPos.x -15 ,jeu.dimy - jeu.getTerrain()->tabHillPoints.back().y - SPRITE_SIZE*2 + 5, 100, 100);
@@ -290,6 +300,7 @@ void sdlJeu::getAngle(){
 }
 
 void sdlJeu::drawPlayer(){
+    SDL_RenderSetScale(renderer, computeZoomPlayer(), computeZoomPlayer());
     getAngle();
     im_player1.draw(renderer, playerPos.x-(playerPos.x-SPRITE_SIZE/2),(jeu.dimy - playerPos.y-SPRITE_SIZE),SPRITE_SIZE,SPRITE_SIZE, angle*-50.0f);
     if(frame == 0)
@@ -307,30 +318,30 @@ void sdlJeu::drawPlayer(){
     //std::cout << "isInAir = " << jeu.getPlayer()->isInAir << std::endl;
 }
 
-void sdlJeu::drawTime(){
-    im_timer_bg.draw(renderer, (SCREEN_WIDTH/2)-50*1.4, SCREEN_HEIGHT/30, 100*1.4, 30*1.4, 0);
-    string text;
-    int min = seconds/60;
-    int sec = seconds%60;
-    if(sec > 9) text = "0"+std::to_string(min)+":"+ std::to_string(sec);
-    else if(sec <= 0) text="00:00";
-    else text = "0"+std::to_string(min)+":0"+ std::to_string(sec);
+// void sdlJeu::drawTime(){
+//     im_timer_bg.draw(renderer, (SCREEN_WIDTH/2)-50*1.4, SCREEN_HEIGHT/30, 100*1.4, 30*1.4, 0);
+//     string text;
+//     int min = seconds/60;
+//     int sec = seconds%60;
+//     if(sec > 9) text = "0"+std::to_string(min)+":"+ std::to_string(sec);
+//     else if(sec <= 0) text="00:00";
+//     else text = "0"+std::to_string(min)+":0"+ std::to_string(sec);
 
-    //change font color
-    if(seconds <= 5 && seconds%2==0 && seconds >= 0){
-        font_color.r = 255;font_color.g = 0;font_color.b = 0;
-    }
-    // else if(seconds <= 0) 
-    //     //im_time_up.draw(renderer, jeu.dimx/2 -200, jeu.dimy/2 -100, 400, 200, 0);
-    else{
-        font_color.r = 255;font_color.g = 255;font_color.b = 255;
-    }
+//     //change font color
+//     if(seconds <= 5 && seconds%2==0 && seconds >= 0){
+//         font_color.r = 255;font_color.g = 0;font_color.b = 0;
+//     }
+//     // else if(seconds <= 0) 
+//     //     //im_time_up.draw(renderer, jeu.dimx/2 -200, jeu.dimy/2 -100, 400, 200, 0);
+//     else{
+//         font_color.r = 255;font_color.g = 255;font_color.b = 255;
+//     }
 
-    /* ERREUR PROBLEM CREATE SURFACE loadFromSurface */
-    //const char *c = text.c_str();
-    //font_im.setSurface(TTF_RenderText_Solid(font,c,font_color));
-    //font_im.loadFromCurrentSurface(renderer);
-}
+//     /* ERREUR PROBLEM CREATE SURFACE loadFromSurface */
+//     //const char *c = text.c_str();
+//     //font_im.setSurface(TTF_RenderText_Solid(font,c,font_color));
+//     //font_im.loadFromCurrentSurface(renderer);
+// }
 
 void sdlJeu::sdlAff () {
 	//Remplir l'ecran de blanc
@@ -338,9 +349,10 @@ void sdlJeu::sdlAff () {
     SDL_RenderClear(renderer);
     
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    drawBackground();
     drawTerrain();
     drawPlayer();
-    drawTime();
+    //drawTime();
 
     // Ecrire un titre par dessus
     SDL_Rect positionTime;
@@ -416,4 +428,3 @@ void sdlJeu::sdlBoucle () {
         SDL_RenderPresent(renderer);
 	}
 }
-

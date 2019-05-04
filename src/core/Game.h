@@ -41,6 +41,8 @@ class Game
 
         int dimx;
         int dimy;
+
+        int score;
         
         b2Vec2 gravity;
         b2World* world;

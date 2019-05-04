@@ -43,6 +43,7 @@ Game::Game(){
     gravity.Set(0,-9.8/8.0f);
     
     dimx = 900, dimy = 480;
+    score = 0;
 
     initBox2dWorld(gravity);
     player->initPlayer(world);
@@ -89,10 +90,13 @@ void Game::collision(){
         b2Vec2 vel = player->playerBody->GetLinearVelocity();
         float angle = atan2f(vel.y, vel.x);
     
+        if(slope < 0)//negative slope value means the bird is moving down
+        {
+            player->playerBody->ApplyLinearImpulse(-1*b2Vec2(slope*25, slope*35*sin(angle*180/M_PI)), player->playerBody->GetWorldCenter(), true);
+            score += 10;
+        }
         if(slope > 0) //positive slope value means the bird is moving up
-            player->playerBody->ApplyLinearImpulse(-1*b2Vec2(slope, slope*sin(angle*180/M_PI)), player->playerBody->GetWorldCenter(), true);
-        else if(slope < 0) //negative slope value means the bird is moving down
-            player->playerBody->ApplyLinearImpulse(-1*b2Vec2(slope*25, slope*25*sin(angle*180/M_PI)), player->playerBody->GetWorldCenter(), true);
+            score += 1;
     }
 }
 

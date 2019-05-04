@@ -81,12 +81,14 @@ private:
     bool withSound;
 
     //Affichage terrain
+    void drawBackground();
     void drawTerrain();
     void drawPlayer();
-    void drawTime();
-    void getAngle();
-    float angle;
+    float computeZoomPlayer();
 
+    float angle;
+    void getAngle();
+    
     b2Vec2 playerPos;
 
     int frame;
