@@ -51,7 +51,6 @@ class Game
      * @brief Accesseur : permet d'acceder à l'objet Terrain instancié par cette classe
      * \return Terrain
      */
-          
         Terrain* getTerrain();
     /**
      *  @ingroup moduleGame
