@@ -1,7 +1,6 @@
 #ifndef TERRAIN_H
 #define TERRAIN_H
 
-#include "Perlin.h"
 
 #include <vector>
 #include <iostream>
@@ -34,7 +33,7 @@ class Terrain {
 	 * 
     */
 	void initTerrain(b2World *w);
-	Perlin* getPerlin();
+	//Perlin* getPerlin();
 	b2World *world;
 	b2Body *terrainBody;
 
@@ -47,9 +46,10 @@ class Terrain {
 	
 
 
-    /**
-       @brief destructeur de la class Terrain
-    */
+    /***
+	 * @brief destructeur de la class Terrain
+	*/
+
 	~Terrain();
 
     private:
@@ -57,20 +57,30 @@ class Terrain {
 	////////////////////////////////////
 	//////// PERLIN
 	///////////////////////////////////
+
+
+	/**
+	 * @brief foncion qui genere des entier pseudo-aléatoires.
+	 * @param 
+	 * 
+	*/
 	double rand_noise(int t);
-	double cosine_interp(double a, double b, double t);
-	
-	
+
+
 	/**
 	 * @brief Interpolation cosinusoidale
 	 * 
 	 * @param x nombre de...
     */
+	double cosine_interp(double a, double b, double t);
+	
+	
+
 	double interp_noise(double x);
 
 
 	/**
-	 * @brief On effectue la somme octave appels a la fonction de bruit lisse (interp_noise), en multipliant a chaque fois la frequence par deux, et l'amplitude par la persistance 
+	 * @brief On effectue la somme octave appels à la fonction de bruit lisse (interp_noise), en multipliant a chaque fois la frequence par deux, et l'amplitude par la persistance 
 	 * Pour eviter de sommer chacune d'entre elles, on utilise la formule de la somme des termes d'une suite geometrique (p != 1)  
 	 * 
 	 * @param octaves nombre d'appels à la fonction interp_noise (lissage du bruit)
