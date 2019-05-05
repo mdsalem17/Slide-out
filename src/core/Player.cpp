@@ -56,7 +56,6 @@ const b2Vec2& Player::getVelocity() const{
 void Player::applyForce(b2Vec2 force){
 
     //apply immediate force
-    
     playerBody->ApplyLinearImpulse(force, playerBody->GetWorldCenter(), true);
 }
 
@@ -73,7 +72,6 @@ void Player::wake(){
 
 }
 void Player::dive(){
-    
     playerBody->ApplyLinearImpulse(b2Vec2(0,-20), playerBody->GetWorldCenter(), true);
 }
 
@@ -82,7 +80,6 @@ void Player::updateMovement(){
 	const float minVelocityY = 1;
     
 	b2Vec2 vel = playerBody->GetLinearVelocity();
-    //std::cout <<  vel.x << std::endl;
 	if (vel.x < minVelocityX) {
 		vel.x = minVelocityX;
 	}

@@ -107,17 +107,19 @@ void Game::collision(){
             player->playerBody->ApplyLinearImpulse(-1*b2Vec2(slope*20, slope*20*sin(angle*180/M_PI)), player->playerBody->GetWorldCenter(), true);
             score += 10;
         }
-        if(slope > 0) //positive slope value means the bird is moving up
+        else if(slope > 0) //positive slope value means the bird is moving up
             score += 1;
     }
 }
 
 b2Vec2& Game::getRelativePlayerPos()
 {
-    //std::cout << "force = " << ter->terrainBody->GetLinearVelocity().x << std::endl;
-    //return ter->tabHillPoints.at((unsigned int) (player->playerBody->GetPosition().x+(50/2))/46*5 );
-    
-    return ter->tabHillPoints.at((unsigned int) ((player->playerBody->GetPosition().x)/3) %8000);
+    return ter->tabHillPoints.at((unsigned int) (player->playerBody->GetPosition().x+(50/2))/46*5 );    
+}
+
+b2Vec2& Game::getRelativeTerrainPos()
+{
+    return ter->tabHillPoints.at((unsigned int) ((player->playerBody->GetPosition().x)/ter->terrainResolution) %8000);
 } 
 
 Player* Game::getPlayer(){
