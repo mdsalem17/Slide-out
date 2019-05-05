@@ -52,13 +52,13 @@ public:
     void loadFromCurrentSurface (SDL_Renderer * renderer);
 
     /**
-     * @brief  la fonction qui dessine les élements du jeu
-     * @param renderer: Le renderer depuis lequel on charge
-     * @param x: position en x du rectange
-     * @param y: position en y du rectangle 
-     * @param w: largeur du rectange 
-     * @param h: hauteur du rectangle
-     * @param angle: l'angle d'inclinaison du rectangle
+     * @brief  la fonction qui dessine une image (au format rectungulaire)
+     * @param renderer: Le renderer sur lequel on dessine
+     * @param x: position en x de l'image à dessiner
+     * @param y: position en y de l'image à dessiner
+     * @param w: largeur de l'image à dessiner
+     * @param h: hauteur de l'image à dessiner
+     * @param angle: l'angle d'inclinaison de l'image à dessiner
     */
     void draw (SDL_Renderer * renderer, int x, int y, int w=-1, int h=-1, float angle=0);
 
