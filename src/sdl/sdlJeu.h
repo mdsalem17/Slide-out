@@ -24,8 +24,9 @@ private:
     bool has_changed;
 
     /**
-    @brief Charge un fichier pour vérifier son existence
-    @param filename: Chaîne de caractères contenant le chemin du fichier dont on souhaite vérifier son existence
+     * @brief Charge un fichier pour vérifier son existence
+     * @param filename: Chaîne de caractères contenant le chemin du fichier dont on souhaite vérifier son existence
+     * \return bool
     */
     bool file_exists (const std::string& name);
 
@@ -53,11 +54,11 @@ public:
     /**
      * @brief  la fonction qui dessine les élements du jeu
      * @param renderer: Le renderer depuis lequel on charge
-     * @param x: Le renderer depuis lequel on charge
-     * @param y: Le renderer depuis lequel on charge
-     * @param w: Le renderer depuis lequel on charge
-     * @param h: Le renderer depuis lequel on charge
-     * @param angle: La hauteur d
+     * @param x: position en x du rectange
+     * @param y: position en y du rectangle 
+     * @param w: largeur du rectange 
+     * @param h: hauteur du rectangle
+     * @param angle: l'angle d'inclinaison du rectangle
     */
     void draw (SDL_Renderer * renderer, int x, int y, int w=-1, int h=-1, float angle=0);
 
