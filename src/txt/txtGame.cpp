@@ -8,20 +8,22 @@
 
 #include "../core/Game.h"
 
-void txtAff(WinTXT & win, const Game & game) {
+void txtAff(WinTXT & win, Game & game) {
 
 	win.clear();
 //    for(int i=0; i < 150; i++)
 //            for(int j=0; j < 75 ; j++)
 //                        win.print(i,j, '-');
 
-    win.print(game.getPlayer().getPosition().x,-game.getPlayer().getPosition().y,'O' );
+    win.print(game.getPlayer()-> getPosition().x,- game.getPlayer()->getPosition().y,'O' );
 
     for(int i=0; i < 10 ; i++)
         win.print(i, 50, '=');
 
-    for(int i=0 ; i < game.getTerrain().getPerlin().getNbPts() ; i++){
-        win.print(game.getTerrain().getPerlin().tabPerlin.at(i).x, game.getTerrain().getPerlin().tabPerlin.at(i).y, '.');
+    for(int i=0 ; i < 40 /*game.getTerrain()->maxHillPoints */; i++){
+		
+        win.print(game.getTerrain()-> tabHillPoints.at(i).x - 10.0f,
+		 game.getTerrain()->tabHillPoints.at(i).y /100.0f , '.');
     }
 
 	win.draw();
@@ -30,7 +32,7 @@ void txtAff(WinTXT & win, const Game & game) {
 void txtBoucle (Game &game) {
 	// Creation d'une nouvelle fenetre en mode texte
 	// => fenetre de dimension et position (WIDTH,HEIGHT,STARTX,STARTY)
-    WinTXT win (150,75);
+    WinTXT win (1000,1000);
     b2Vec2 t(0,0);
 	bool ok = true;
 	int c;
@@ -51,7 +53,7 @@ void txtBoucle (Game &game) {
 		switch (c) {
 			case 'k':
 				//jeu.actionClavier('g');
-                game.getPlayer().applyForce(b2Vec2(0,-25));
+                game.getPlayer()->applyForce(b2Vec2(0,-25));
 				break;
 
             case 'p':
