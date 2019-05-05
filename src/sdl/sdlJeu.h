@@ -109,19 +109,22 @@ private:
     int prev_sprite_frame;
     int sprite_frame;
     //Images Player
-    Image im_player[6];
+    Image im_player[7];
+    Image im_player_selector;
     //Images Timer
     Image im_timer_bg;
     Image im_time_up;
     //Images Sky
-    Image im_sky;
+    Image im_sky[5];
     Image im_sun;
     Image im_cloud;
     //Images Terrain
-    Image im_sprite[4];
+    Image im_sprite[5];
     Image im_arrow;
+    Image im_arrow2;
     //Images Bonus
     Image im_bonus;
+    Image im_score_bg;
 
     int seconds;
     int start_timer;
@@ -132,7 +135,8 @@ private:
     double freqLevel; //frequence du bruit de perlin
     
     bool hasLost;
-    void updatePlayerStatus(); 
+    void updatePlayerStatus();
+    void playerSpriteSelector(char RoL);
 
 public:
 

@@ -148,17 +148,26 @@ sdlJeu::sdlJeu () : jeu() {
     im_player[3].loadFromFile("data/bird3.png", renderer);
     im_player[4].loadFromFile("data/bird4.png", renderer);
     im_player[5].loadFromFile("data/bird5.png", renderer);
+    im_player[6].loadFromFile("data/bird6.png", renderer);
     im_timer_bg.loadFromFile("data/timer.png", renderer);
     im_time_up.loadFromFile("data/time_up.png", renderer);
-    im_sky.loadFromFile("data/sky.png", renderer);
+    im_score_bg.loadFromFile("data/bg_score.png", renderer);
+    im_sky[0].loadFromFile("data/sky.png", renderer);
+    im_sky[1].loadFromFile("data/sky2.png", renderer);
+    im_sky[2].loadFromFile("data/sky3.png", renderer);
+    im_sky[3].loadFromFile("data/sky4.png", renderer);
+    im_sky[4].loadFromFile("data/sky5.png", renderer);
     im_sun.loadFromFile("data/sun.png", renderer);
     im_cloud.loadFromFile("data/cloud.png", renderer);
     im_sprite[0].loadFromFile("data/sprite.png", renderer);
     im_sprite[1].loadFromFile("data/sprite2.png", renderer);
     im_sprite[2].loadFromFile("data/sprite3.png", renderer);
     im_sprite[3].loadFromFile("data/sprite4.png", renderer);
+    im_sprite[4].loadFromFile("data/sprite5.png", renderer);
     im_arrow.loadFromFile("data/arrow.png", renderer);
+    im_arrow2.loadFromFile("data/arrow2.png", renderer);
     im_bonus.loadFromFile("data/bonus.png", renderer);
+    im_player_selector.loadFromFile("data/bonus.png", renderer);
 
     // FONTS
     font = TTF_OpenFont("data/DejaVuSansCondensed.ttf",40);
@@ -196,6 +205,16 @@ sdlJeu::~sdlJeu () {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
+}
+
+void sdlJeu::playerSpriteSelector(char RoL){
+    //bool amLeft = true; // par defaut le joueur a gauche est choisie
+    if (RoL == (char)'r'){
+        im_player_selector.draw(renderer, 3*SCREEN_WIDTH/4 -200, SCREEN_HEIGHT/2 -150, 300, 300, 0);
+    }else if (RoL == (char)'l'){
+        im_player_selector.draw(renderer, 50, SCREEN_HEIGHT/2 -150, 300, 300, 0);
+    }
+    //std::cout<<"eee";
 }
 
 void sdlJeu::drawText(string text, SDL_Rect rect, SDL_Color color){
@@ -260,7 +279,7 @@ void sdlJeu::updateLevel()
 
             //SPRITE Aléatoire
             srand(time(0));
-            sprite_frame = rand() % 4;
+            sprite_frame = rand() % 5;
             if(prev_sprite_frame == sprite_frame)
             {
                 srand(time(0));
@@ -287,7 +306,7 @@ void sdlJeu::drawBackground()
 {
     SDL_RenderSetScale(renderer, 1, 1);
     
-    im_sky.draw(renderer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    im_sky[sprite_frame].draw(renderer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     im_sun.draw(renderer, -playerPos.x/60 + SCREEN_WIDTH, SCREEN_HEIGHT/10, 100, 100);
     im_cloud.draw(renderer, -playerPos.x/60 + SCREEN_WIDTH -600, SCREEN_HEIGHT/15, 200, 200);
     im_cloud.draw(renderer, -playerPos.x/60 + SCREEN_WIDTH -800, SCREEN_HEIGHT/20, 300, 300);
@@ -323,7 +342,7 @@ void sdlJeu::drawTerrain(){
     SDL_RenderSetScale(renderer, computeZoomPlayer(), computeZoomPlayer());
 
     im_arrow.draw(renderer, jeu.getTerrain()->tabHillPoints.at(300).x-playerPos.x,jeu.dimy - jeu.getTerrain()->tabHillPoints.at(300).y - SPRITE_SIZE*2 + 5, 100, 100);
-    im_arrow.draw(renderer, jeu.getTerrain()->tabHillPoints.back().x-playerPos.x -15 ,jeu.dimy - jeu.getTerrain()->tabHillPoints.back().y - SPRITE_SIZE*2 + 5, 100, 100);
+    im_arrow2.draw(renderer, jeu.getTerrain()->tabHillPoints.back().x-playerPos.x -15 ,jeu.dimy - jeu.getTerrain()->tabHillPoints.back().y - SPRITE_SIZE*2 + 5, 100, 100);
 
     //Pour faire defiler le terrain, on applique une force dans le sens contraire de la position du joueur
     //Il faut rajouter à sa position la taille du sprite/2 pour avoir sa position effective
@@ -339,11 +358,11 @@ void sdlJeu::drawTerrain(){
     for(unsigned int i = 0; i < jeu.BonusPoints.size(); i++){
         im_bonus.draw(renderer, jeu.BonusPoints.at(i).x-playerPos.x+SPRITE_SIZE,
                                     jeu.dimy - jeu.BonusPoints.at(i).y - SPRITE_SIZE + 10,
-                                    30,
-                                    30);
+                                    35,
+                                    35);
 
         b2Vec2 pos = jeu.getRelativePlayerPos();
-        if((int)pos.x == (int)jeu.BonusPoints.at(i).x && playerPos.y - pos.y < 15)
+        if((int)pos.x == (int)jeu.BonusPoints.at(i).x && playerPos.y - pos.y < 20)
         {
             jeu.BonusPoints.erase(jeu.BonusPoints.begin()+i);
             player_frame = 5;
@@ -368,26 +387,6 @@ void sdlJeu::drawPlayer(){
     im_player[player_frame].draw(renderer, playerPos.x-(playerPos.x-SPRITE_SIZE/2),(jeu.dimy - playerPos.y-SPRITE_SIZE),SPRITE_SIZE,SPRITE_SIZE, angle*-50.0f);
 }
 
-// void sdlJeu::drawTime(){
-//     im_timer_bg.draw(renderer, (SCREEN_WIDTH/2)-50*1.4, SCREEN_HEIGHT/30, 100*1.4, 30*1.4, 0);
-//     
-
-//     //change font color
-//     if(seconds <= 5 && seconds%2==0 && seconds >= 0){
-//         font_color.r = 255;font_color.g = 0;font_color.b = 0;
-//     }
-//     // else if(seconds <= 0) 
-//     //     //im_time_up.draw(renderer, jeu.dimx/2 -200, jeu.dimy/2 -100, 400, 200, 0);
-//     else{
-//         font_color.r = 255;font_color.g = 255;font_color.b = 255;
-//     }
-
-//     /* ERREUR PROBLEM CREATE SURFACE loadFromSurface */
-//     //const char *c = text.c_str();
-//     //font_im.setSurface(TTF_RenderText_Solid(font,c,font_color));
-//     //font_im.loadFromCurrentSurface(renderer);
-// }
-
 void sdlJeu::sdlAff () {
 	//Remplir l'ecran de blanc
     SDL_SetRenderDrawColor(renderer, 230, 240, 255, 255);
@@ -397,7 +396,6 @@ void sdlJeu::sdlAff () {
     drawBackground();
     drawTerrain();
     drawPlayer();
-    //drawTime();
 
     // Ecrire un titre par dessus
     SDL_Rect positionTime;
@@ -412,18 +410,23 @@ void sdlJeu::sdlAff () {
 
 void sdlJeu::sdlBoucle () {
     SDL_Event events;
-	bool quit = false;
-
+    bool quit = false;
+    bool is_space_pressed = false;
+    bool SelectorR = false;
+    bool SelectorL = true;
+ 
     // RANDOMS
     srand(time(0));
     sprite_frame = rand() % 4;
     prev_sprite_frame = sprite_frame;
-
+ 
     Uint32 t = SDL_GetTicks(), nt;
-
-	// tant que ce n'est pas la fin ...
-	while (!quit) {
-
+ 
+    // tant que ce n'est pas la fin ...
+   
+ 
+    while (!quit) {
+ 
         nt = SDL_GetTicks();
         if (nt-t>500) {
             t = nt;
@@ -442,30 +445,59 @@ void sdlJeu::sdlBoucle () {
         //updateTimer(t);
        
         playerPos = jeu.getPlayer()->getPosition();
-        jeu.getPlayer()->wake();
-        //SDL_Delay(1);
-        jeu.collision();
-        jeu.updateBox2dWorld();
+        playerSpriteSelector('r');
+       
+        if (is_space_pressed) {
+            jeu.getPlayer()->wake();  
+            //SDL_Delay(10);
+            jeu.collision();
+            jeu.updateBox2dWorld();
+           
+        }
+       
         events.key.repeat = 1;
-		// tant qu'il y a des evenements  traiter (cette boucle n'est pas bloquante)
-		while (SDL_PollEvent(&events)) {
-			if (events.type == SDL_QUIT) quit = true;           // Si l'utilisateur a clique sur la croix de fermeture
-			else if (events.type == SDL_KEYDOWN && events.key.repeat == 0) {              // Si une touche est enfoncee
-				switch (events.key.keysym.scancode) {
-				case SDL_SCANCODE_DOWN:
-                   	jeu.getPlayer()->dive();	
-					break;
+        // tant qu'il y a des evenements  traiter (cette boucle n'est pas bloquante)
+        while (SDL_PollEvent(&events)) {
+            if (events.type == SDL_QUIT) quit = true;           // Si l'utilisateur a clique sur la croix de fermeture
+            else if (events.type == SDL_KEYDOWN && events.key.repeat == 0) {              // Si une touche est enfoncee
+                switch (events.key.keysym.scancode) {
+                case SDL_SCANCODE_SPACE :
+                    is_space_pressed =true;
+                    break;
+                case SDL_SCANCODE_RIGHT:
+                    if(!is_space_pressed ){
+                            SelectorL = false;
+                            SelectorR = true;
+                        }
+                    break;
+                case SDL_SCANCODE_LEFT:
+                    if( ! is_space_pressed ) {
+                            SelectorL = true;
+                            SelectorR = false;
+ 
+                        }
+                    break;
+                case SDL_SCANCODE_DOWN:
+                    if(is_space_pressed ) {jeu.getPlayer()->dive();}
+                    break;
                 case SDL_SCANCODE_ESCAPE:
                     quit=true;
                     break;
-				default: break;
-				}
-			}
-		}
-		// on affiche le jeu sur le buffer cach
-		sdlAff();
-
-		// on permute les deux buffers (cette fonction ne doit se faire qu'une seule fois dans la boucle)
+                default: break;
+                }
+            }
+        }
+        // on affiche le jeu sur le buffer cach
+        sdlAff();
+         if (SelectorL && !SelectorR  && !is_space_pressed) {
+            playerSpriteSelector('l');
+        }
+        if (!SelectorL && SelectorR && !is_space_pressed ) {
+            playerSpriteSelector('r');
+        }
+        //im_playerSelector.draw(renderer,(SCREEN_WIDTH/2)-100*1.4, SCREEN_HEIGHT/30, 100*1.4, 30*1.4, 0);
+ 
+        // on permute les deux buffers (cette fonction ne doit se faire qu'une seule fois dans la boucle)
         SDL_RenderPresent(renderer);
-	}
+    }
 }
