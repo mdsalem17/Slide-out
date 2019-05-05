@@ -109,7 +109,7 @@ private:
     int prev_sprite_frame;
     int sprite_frame;
     //Images Player
-    Image im_player[5];
+    Image im_player[6];
     //Images Timer
     Image im_timer_bg;
     Image im_time_up;
@@ -140,6 +140,7 @@ public:
     ~sdlJeu ();
     void sdlBoucle ();
     void sdlAff ();
+    void drawText(string text, SDL_Rect rect, SDL_Color color);
 
 };
 

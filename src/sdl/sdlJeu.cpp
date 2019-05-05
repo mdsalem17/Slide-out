@@ -147,6 +147,7 @@ sdlJeu::sdlJeu () : jeu() {
     im_player[2].loadFromFile("data/bird2.png", renderer);
     im_player[3].loadFromFile("data/bird3.png", renderer);
     im_player[4].loadFromFile("data/bird4.png", renderer);
+    im_player[5].loadFromFile("data/bird5.png", renderer);
     im_timer_bg.loadFromFile("data/timer.png", renderer);
     im_time_up.loadFromFile("data/time_up.png", renderer);
     im_sky.loadFromFile("data/sky.png", renderer);
@@ -195,6 +196,25 @@ sdlJeu::~sdlJeu () {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
+}
+
+void sdlJeu::drawText(string text, SDL_Rect rect, SDL_Color color){
+    TTF_Font* Sans = TTF_OpenFont("data/DejaVuSansCondensed.ttf", 24);
+
+    SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, text.data(), color);
+
+    SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+/*
+    SDL_Rect Message_rect;
+    Message_rect.x = 0; 
+    Message_rect.y = 0;
+    Message_rect.w = 100;
+    Message_rect.h = 100;
+*/
+    SDL_RenderCopy(renderer, Message, NULL, &rect); 
+    
+    SDL_DestroyTexture(Message);
+    TTF_CloseFont(Sans);
 }
 
 float sdlJeu::computeZoomPlayer(){
@@ -275,7 +295,28 @@ void sdlJeu::drawBackground()
     im_cloud.draw(renderer, -playerPos.x/60 + SCREEN_WIDTH -200, SCREEN_HEIGHT/10, 300, 300);
     im_cloud.draw(renderer, -playerPos.x/60 + SCREEN_WIDTH , SCREEN_HEIGHT/120, 300, 300);
     im_timer_bg.draw(renderer, (SCREEN_WIDTH/2)-50*1.4, SCREEN_HEIGHT/30, 100*1.4, 30*1.4, 0);
-}
+
+    SDL_Rect positionTime;
+    positionTime.x = (SCREEN_WIDTH/2) -35; positionTime.y = SCREEN_HEIGHT/25*1.2; positionTime.w = 70; positionTime.h = 30;
+
+    SDL_Rect positionScore;
+    positionScore.x = SCREEN_WIDTH-100; positionScore.y = SCREEN_HEIGHT/25*1.2; positionScore.w = 60; positionScore.h = 30;
+
+    SDL_Color white = {255, 255, 255};
+    SDL_Color orange = {220, 70, 20};
+
+    string text_seconds;
+    int min = seconds/60;
+    int sec = seconds%60;
+    if(sec > 9) text_seconds = "0"+std::to_string(min)+":"+ std::to_string(sec);
+    else if(sec <= 0) text_seconds ="00:00";
+    else text_seconds = "0"+std::to_string(min)+":0"+ std::to_string(sec);
+    string text_score = std::to_string(jeu.score);
+    string text_bonus_score = std::to_string(jeu.bonus_score);
+
+    drawText(text_seconds,positionTime, white);
+    drawText(text_score,positionScore, orange);
+}    
 
 void sdlJeu::drawTerrain(){
 
@@ -295,14 +336,20 @@ void sdlJeu::drawTerrain(){
                                     jeu.getTerrain()->tabHillPoints.at(i-1).y);
     }
 
-    for(unsigned int i = 1; i< jeu.BonusPoints.size(); i++){
-        im_bonus.draw(renderer, jeu.BonusPoints.at(i-1).x-playerPos.x+SPRITE_SIZE,
-                                    jeu.dimy - jeu.BonusPoints.at(i-1).y - SPRITE_SIZE + 10,
+    for(unsigned int i = 0; i < jeu.BonusPoints.size(); i++){
+        im_bonus.draw(renderer, jeu.BonusPoints.at(i).x-playerPos.x+SPRITE_SIZE,
+                                    jeu.dimy - jeu.BonusPoints.at(i).y - SPRITE_SIZE + 10,
                                     30,
                                     30);
-        //std::cout << "x " << jeu.BonusPoints.at(i-1).x-playerPos.x+SPRITE_SIZE << " y "<< jeu.dimy - jeu.BonusPoints.at(i-1).y + 11 << std::endl;
+
+        b2Vec2 pos = jeu.getRelativePlayerPos();
+        if((int)pos.x == (int)jeu.BonusPoints.at(i).x && playerPos.y - pos.y < 15)
+        {
+            jeu.BonusPoints.erase(jeu.BonusPoints.begin()+i);
+            player_frame = 5;
+            jeu.bonus_score++;
+        }
     }
-    
 }
 
 void sdlJeu::calculAngle(){
@@ -323,12 +370,7 @@ void sdlJeu::drawPlayer(){
 
 // void sdlJeu::drawTime(){
 //     im_timer_bg.draw(renderer, (SCREEN_WIDTH/2)-50*1.4, SCREEN_HEIGHT/30, 100*1.4, 30*1.4, 0);
-//     string text;
-//     int min = seconds/60;
-//     int sec = seconds%60;
-//     if(sec > 9) text = "0"+std::to_string(min)+":"+ std::to_string(sec);
-//     else if(sec <= 0) text="00:00";
-//     else text = "0"+std::to_string(min)+":0"+ std::to_string(sec);
+//     
 
 //     //change font color
 //     if(seconds <= 5 && seconds%2==0 && seconds >= 0){
@@ -401,7 +443,7 @@ void sdlJeu::sdlBoucle () {
        
         playerPos = jeu.getPlayer()->getPosition();
         jeu.getPlayer()->wake();
-        //SDL_Delay(10);
+        //SDL_Delay(1);
         jeu.collision();
         jeu.updateBox2dWorld();
         events.key.repeat = 1;

@@ -32,18 +32,13 @@
 	}
 
 	void Terrain::generateHillPoints(int oct, double freq, double persist){
-		std::cout << "DEBUG START:  Generation de points." << std::endl;
 		float yOffset = 200.0f;
 		int currentStep = 0;
 		std::cout << currentStep << std::endl;
 		for(int i = 0 ; i < maxHillPoints;i++){ //computePerlin(3,.0011,2,i*terrainResolution)
 			tabHillPoints.push_back(b2Vec2(i*terrainResolution,(computePerlin(oct,freq,persist,i*terrainResolution) * 200.0f) + yOffset));//(computePerlin(3,.001,2,i) * 200.0f) + yOffset ));
 			currentStep += HILLSTEP;
-		//	std::cout << currentStep << std::endl;
 		}
-		std::cout << "DEBUG NB POINTS TOTAL : " << tabHillPoints.size() << std::endl;
-		std::cout << "DEBUG END: Generation de points." << std::endl;
-		
 	}
 
 	double Terrain::getSlope(int pos){

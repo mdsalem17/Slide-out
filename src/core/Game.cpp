@@ -44,6 +44,7 @@ Game::Game(){
     
     dimx = 900, dimy = 480;
     score = 0;
+    bonus_score = 0;
 
     initBox2dWorld(gravity);
     player->initPlayer(world);
@@ -84,18 +85,13 @@ void Game::destroyTerrain(){
 }
 
 void Game::addBonusPoints(){
-    srand(time(0));
-    unsigned int range = ter->tabHillPoints.size()/1000;
-    int start_point = 0;
-    for(unsigned int i = 1; i <= range; i++){
-        start_point += rand() % 1000;
-        BonusPoints.push_back(b2Vec2(ter->tabHillPoints.at(start_point)));
-        BonusPoints.push_back(b2Vec2(ter->tabHillPoints.at(start_point+15)));
-        BonusPoints.push_back(b2Vec2(ter->tabHillPoints.at(start_point+30)));
-        BonusPoints.push_back(b2Vec2(ter->tabHillPoints.at(start_point+45)));
-        BonusPoints.push_back(b2Vec2(ter->tabHillPoints.at(start_point+60)));
-        start_point += 300;
-        std::cout << "start " << start_point << std::endl;
+    for(unsigned int i = 1 ; i < ter->tabHillPoints.size()/1000; i++)
+    {
+        BonusPoints.push_back(b2Vec2(ter->tabHillPoints.at(i*1000)));
+        BonusPoints.push_back(b2Vec2(ter->tabHillPoints.at((i*1000)+15)));
+        BonusPoints.push_back(b2Vec2(ter->tabHillPoints.at((i*1000)+30)));
+        BonusPoints.push_back(b2Vec2(ter->tabHillPoints.at((i*1000)+45)));
+        BonusPoints.push_back(b2Vec2(ter->tabHillPoints.at((i*1000)+60)));          
     }
 }
 
@@ -118,7 +114,10 @@ void Game::collision(){
 
 b2Vec2& Game::getRelativePlayerPos()
 {
-    return ter->tabHillPoints.at((unsigned int) (player->playerBody->GetPosition().x+(50/2))/46*5 );
+    //std::cout << "force = " << ter->terrainBody->GetLinearVelocity().x << std::endl;
+    //return ter->tabHillPoints.at((unsigned int) (player->playerBody->GetPosition().x+(50/2))/46*5 );
+    
+    return ter->tabHillPoints.at((unsigned int) ((player->playerBody->GetPosition().x)/3) %8000);
 } 
 
 Player* Game::getPlayer(){
