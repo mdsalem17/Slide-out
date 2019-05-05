@@ -199,7 +199,7 @@ sdlJeu::~sdlJeu () {
 }
 
 void sdlJeu::drawText(string text, SDL_Rect rect, SDL_Color color){
-    TTF_Font* Sans = TTF_OpenFont("data/DejaVuSansCondensed.ttf", 24);
+    TTF_Font* Sans = TTF_OpenFont("data/ttf/kidsrock-DEMO.ttf", 50);
 
     SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, text.data(), color);
 
@@ -297,10 +297,10 @@ void sdlJeu::drawBackground()
     im_timer_bg.draw(renderer, (SCREEN_WIDTH/2)-50*1.4, SCREEN_HEIGHT/30, 100*1.4, 30*1.4, 0);
 
     SDL_Rect positionTime;
-    positionTime.x = (SCREEN_WIDTH/2) -35; positionTime.y = SCREEN_HEIGHT/25*1.2; positionTime.w = 70; positionTime.h = 30;
+    positionTime.x = (SCREEN_WIDTH/2) -40; positionTime.y = SCREEN_HEIGHT/25*1.2; positionTime.w = 80; positionTime.h = 35;
 
     SDL_Rect positionScore;
-    positionScore.x = SCREEN_WIDTH-100; positionScore.y = SCREEN_HEIGHT/25*1.2; positionScore.w = 60; positionScore.h = 30;
+    positionScore.x = SCREEN_WIDTH-100; positionScore.y = SCREEN_HEIGHT/25*1.2; positionScore.w = 70; positionScore.h = 35;
 
     SDL_Color white = {255, 255, 255};
     SDL_Color orange = {220, 70, 20};
@@ -308,9 +308,9 @@ void sdlJeu::drawBackground()
     string text_seconds;
     int min = seconds/60;
     int sec = seconds%60;
-    if(sec > 9) text_seconds = "0"+std::to_string(min)+":"+ std::to_string(sec);
-    else if(sec <= 0) text_seconds ="00:00";
-    else text_seconds = "0"+std::to_string(min)+":0"+ std::to_string(sec);
+    if(sec > 9) text_seconds = "0"+std::to_string(min)+" : "+ std::to_string(sec);
+    else if(sec <= 0) text_seconds ="00 : 00";
+    else text_seconds = "0"+std::to_string(min)+" : 0"+ std::to_string(sec);
     string text_score = std::to_string(jeu.score);
     string text_bonus_score = std::to_string(jeu.bonus_score);
 
