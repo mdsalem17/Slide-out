@@ -1,5 +1,6 @@
 #include "Player.h"
 #include <iostream>
+#include <cassert>
 const float PTM_RATIO = 8.0f;
 Player::Player(){
 
@@ -55,12 +56,14 @@ const b2Vec2& Player::getVelocity() const{
 void Player::applyForce(b2Vec2 force){
 
     //apply immediate force
+    
     playerBody->ApplyLinearImpulse(force, playerBody->GetWorldCenter(), true);
 }
 
 void Player::setPosition(b2Vec2 pos, float32 angle){
 
     //apply immediate force
+    assert(pos.x >0 && pos.y>0);
     playerBody->SetTransform(pos, angle);
 }
 

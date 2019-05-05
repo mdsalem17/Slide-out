@@ -1,6 +1,8 @@
 #include <sdlJeu.h>
 #include <string.h>
 #include <time.h>
+#include <cassert>
+#include <sys/stat.h>
 const int SPRITE_SIZE = 50;
 
 // ============= CLASS IMAGE =============== //
@@ -12,7 +14,16 @@ Image::Image () {
     has_changed = false;
 }
 
+
+bool Image::file_exists (const std::string& name) {
+  struct stat buffer;   
+  return (stat (name.c_str(), &buffer) == 0); 
+}
+
 void Image::loadFromFile (const char* filename, SDL_Renderer * renderer) {
+    assert(file_exists(filename) );
+    assert(renderer != NULL);
+
     surface = IMG_Load(filename);
     if (surface == NULL) {
         string nfn = string("../") + filename;
@@ -40,6 +51,7 @@ void Image::loadFromFile (const char* filename, SDL_Renderer * renderer) {
 }
 
 void Image::loadFromCurrentSurface (SDL_Renderer * renderer) {
+    assert(renderer != NULL);
     texture = SDL_CreateTextureFromSurface(renderer,surface);
     if (texture == NULL) {
         cout << "Error: problem to create the texture from surface " << endl;
@@ -47,8 +59,11 @@ void Image::loadFromCurrentSurface (SDL_Renderer * renderer) {
     }
 }
 
-void Image::draw (SDL_Renderer * renderer, int x, int y, int w, int h, float angle) {
+void Image::draw (SDL_Renderer * renderer, int x , int y, int w, int h, float angle) {
     int ok;
+    //assert (y>0 );
+    assert(renderer != NULL);
+    assert( w>0 && h>0);
     SDL_Rect r;
     r.x = x;
     r.y = y;

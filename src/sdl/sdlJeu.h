@@ -23,36 +23,49 @@ private:
     SDL_Texture * texture;
     bool has_changed;
 
+    /**
+    @brief Charge un fichier pour vérifier son existence
+    @param filename: Chaîne de caractères contenant le chemin du fichier dont on souhaite vérifier son existence
+    */
+    bool file_exists (const std::string& name);
+
 public:
     
     /**
-        @brief Constructeur par défaut de la classe image: initialise dimx et dimy à 0
-                ce constructeur n'alloue pas de pixel
+     * @brief Constructeur par défaut de la classe image: initialise dimx et dimy à 0
+     * ce constructeur n'alloue pas de pixel
     */
     Image () ;
     
     /**
-        @brief Charge une image depuis un fichier vers un renderer
-        @param filename: Chaîne de caractères contenant le nom du fichier qu'on veut charger
-        @param renderer: Le renderer vers lequel on charge l'image
+     * @brief Charge une image depuis un fichier vers un renderer
+     * @param filename: Chaîne de caractères contenant le nom du fichier qu'on veut charger
+     * @param renderer: Le renderer vers lequel on charge l'image
     */
     void loadFromFile (const char* filename, SDL_Renderer * renderer);
     
     /**
-        @brief 
-        @param renderer: Le renderer depuis lequel on charge
+     * @brief 
+     * @param renderer: Le renderer depuis lequel on charge
     */
     void loadFromCurrentSurface (SDL_Renderer * renderer);
 
     /**
-        @brief 
-        @param renderer: Le renderer depuis lequel on charge
-        @param x: Le renderer depuis lequel on charge
-        @param y: Le renderer depuis lequel on charge
+     * @brief  la fonction qui dessine les élements du jeu
+     * @param renderer: Le renderer depuis lequel on charge
+     * @param x: Le renderer depuis lequel on charge
+     * @param y: Le renderer depuis lequel on charge
+     * @param w: Le renderer depuis lequel on charge
+     * @param h: Le renderer depuis lequel on charge
+     * @param angle: La hauteur d
     */
     void draw (SDL_Renderer * renderer, int x, int y, int w=-1, int h=-1, float angle=0);
 
     
+    /**
+     * @brief Accesseur qui permet de récuperer le terrain
+     * \return SDL_Texture *
+    */
     SDL_Texture * getTexture() const;
     void setSurface(SDL_Surface * surf);
 };

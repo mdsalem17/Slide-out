@@ -23,7 +23,7 @@ void init(Game & game, bool &hasPressed)
     hasPressed = false;
 }
 
-void draw(Game & game, float & range)
+void draw(Game & game)
 {
     color(255,255,255);
     int radius = 10 ;
@@ -67,7 +67,7 @@ void update(Game & game, bool &hasPressed)
 
 int main(int , char ** )
 {
-    float part = 0; 	
+    
     Game game ;
     bool hasPressed;
     bool stop=false;
@@ -79,7 +79,7 @@ int main(int , char ** )
         backgroundColor( 100, 80, 200, 255 );
         winClear();
         update(game, hasPressed);
-        draw(game, part);     
+        draw(game);     
         stop = winDisplay();
     }
     winQuit();

@@ -44,10 +44,19 @@ class Player {
      * \return bool
      */
         bool isInAir;
-
+    /**
+     * @brief impulsion linéaire pour que le joueur descende
+     */
         void dive();
 
+    /**
+     * @brief impulsion linéaire pour que le joueur se léve(/vole)
+     */
         void wake();
+
+    /**
+     * @brief fonction qui met à jour la vitesse du joueur
+     */        
         void updateMovement();
 
     /**

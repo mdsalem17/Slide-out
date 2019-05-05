@@ -12,7 +12,7 @@ BIN_DIR = bin/
 TXT_DIR = src/txt/
 GRAPIC_DIR = src/grapic/
 SDL_DIR = src/sdl/
-all: $(shell mkdir -p $(MKDIRS)) $(BIN_DIR)gameTxt $(BIN_DIR)mainGrapic
+all: $(shell mkdir -p $(MKDIRS)) txt grapic sdl
 
 txt: $(BIN_DIR)gameTxt
 
