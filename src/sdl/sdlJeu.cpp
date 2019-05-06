@@ -193,10 +193,10 @@ sdlJeu::sdlJeu () : jeu() {
     im_espace.loadFromFile("data/espace.png", renderer);
 
     // FONTS
-    font = TTF_OpenFont("data/DejaVuSansCondensed.ttf",40);
+    /*font = TTF_OpenFont("data/DejaVuSansCondensed.ttf",40);
     if (font == NULL) {
             cout << "Failed to load DejaVuSansCondensed.ttf! SDL_TTF Error: " << TTF_GetError() << endl; SDL_Quit(); exit(1);
-	}
+	}*/
 	/*font_color.r = 255;font_color.g = 255;font_color.b = 255;
 	font_im.setSurface(TTF_RenderText_Solid(font,"00:00",font_color));
 	font_im.loadFromCurrentSurface(renderer);
