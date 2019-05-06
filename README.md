@@ -3,31 +3,28 @@
 
 ## Par: 
 
-**
-
 * ABDRABO Khaled	     - p1713323 
 * BASSIOUNY Mohamed 	 - p1707606
 * GHANDOURI Feras      - p1601442
 * MESSOUD Salem        - p1714033
 
-
-**
-
 ## Structure de l’archive
-
- - Dossier ./src : contient les fichiers sources (.cpp) et entêtes (.h) 
- -         ./src/core : modules principaux du jeu (Terrain, Player, Game)
- -         ./src/grapic : modules pour l'affichage Grapic
- -         ./src/sdl : modules pour l'affichage SDL
- -         ./src/txt : modules pour l'affichage Txt
- -         
- - Dossier ./bin: contient les exécutables du jeu.
- - Dossier ./data: contient les assets (images, polices, sons) du jeu.
- - Dossier ./obj: contient les fichiers .o générés lors de la compilation du jeu.
- - Dossier ./doc: contient la documentation du code source du jeu.
- - 
- - Fichier ./Makefile qui permet la compilation (cf plus bas section compilation)
-   Fichier ./Readme.md : Informations sur l'application
+```
+.
+├── Makefile                - compilation (cf plus bas section compilation)
+├── README.md               - Informations sur l'application
+├── bin                     - contient les exécutables du jeu.
+├── data                    - contient les assets (images, polices, sons) du jeu.
+├── obj                     - contient les fichiers .o générés lors de la compilation.
+├── doc                     - contient la documentation du code source du jeu.
+|
+└── src                     - contient les fichiers sources (.cpp) et entêtes (.h).
+    ├── core                - contient les fmodules principaux du jeu (Terrain, Player, Game).
+        └── Box2D
+    ├── grapic              - contient les modules pour l'affichage Grapic.
+    ├── sdl                 - contient les modules pour l'affichage SDL.
+    └── txt                 - contient les modules pour l'affichage Txt.
+```
 
 ## Instructions :
 
@@ -62,13 +59,11 @@ NB: Make clean : vide les dossiers obj et bin.
 4. Exécutez le jeu depuis le répertoire racine d'extraction comme ceci:
  
 
- ```sh
- `myuser@machine $ ./bin/mainSdl` #lancer le jeu     
+```bash
+ myuser@machine $ ./bin/mainSdl #lancer le jeu     
 ```
-  
-##### Options:
 
-> appliquer plus de force avec la fléche du bas
-
- `myuser@machine $ firefox doc/html/index.html` # Pour consulter la documentation
- Ou vous pouvez visitez la version en-ligne 
+##### Gameplay:
+```bash
+ > Touche "Flèche bas" : faire plonger l'oiseau     
+```
