@@ -206,18 +206,32 @@ sdlJeu::sdlJeu () : jeu() {
 	font_score.loadFromCurrentSurface(renderer);*/
 
     // SONS
-    // if (withSound)
-    // {
-    //     sound = Mix_LoadWAV("data/son.wav");
-    //     if (sound == NULL) {
-    //             cout << "Failed to load son.wav! SDL_mixer Error: " << Mix_GetError() << endl; SDL_Quit(); exit(1);
-    //     }
-    // }
+     if (withSound)
+     {
+         StartSound = Mix_LoadWAV("data/audio/intro.wav");
+         if (StartSound == NULL) {
+             cout << "Failed to load StartSound -> intro.wav! SDL_mixer Error: " << Mix_GetError() << endl; SDL_Quit(); exit(1);
+         }
+         bonusSound = Mix_LoadWAV("data/audio/bonus.wav");
+         if (bonusSound == NULL) {
+             cout << "Failed to load bonusSound -> intro.wav! SDL_mixer Error: " << Mix_GetError() << endl; SDL_Quit(); exit(1);
+         }
+         LvlUpSound = Mix_LoadWAV("data/audio/levelUp-bikibikwa.wav");
+         if (LvlUpSound == NULL) {
+             cout << "Failed to load LvlUpSound -> intro.wav! SDL_mixer Error: " << Mix_GetError() << endl; SDL_Quit(); exit(1);
+         }
+     }
 
 }
 
 sdlJeu::~sdlJeu () {
-    if (withSound) Mix_Quit();
+     if (withSound){
+        Mix_FreeChunk(StartSound);
+        Mix_FreeChunk(bonusSound);
+        Mix_FreeChunk(LvlUpSound);
+        
+        Mix_Quit();
+    } 
     TTF_CloseFont(font);
 
     TTF_Quit();
@@ -286,6 +300,7 @@ void sdlJeu::updateLevel()
     if(jeu.isLevelFinished() && !hasLost)
     {
         hasLost = false;
+        Mix_PlayChannel( -1, LvlUpSound, 0 );
         jeu.getPlayer()->applyForce(b2Vec2(400,-150));
 
         if(jeu.getPlayer()->getPosition().y < 0){
@@ -436,6 +451,8 @@ void sdlJeu::drawTerrain(){
             jeu.BonusPoints.erase(jeu.BonusPoints.begin()+i);
             player_frame = 5;
             jeu.bonus_score++;
+            Mix_PlayChannel( -1, bonusSound, 0 );
+
         }
     }
 }
@@ -551,9 +568,11 @@ void sdlJeu::sdlBoucle () {
             else if (events.type == SDL_KEYDOWN && events.key.repeat == 0) {              // Si une touche est enfoncee
                 switch (events.key.keysym.scancode) {
                 case SDL_SCANCODE_SPACE :
+                    if (!gameStarted){
                     space_time= t;
                     gameStarted =true;
                     ResetLevel();
+                    Mix_PlayChannel( -1, StartSound, 0 );}
                     break;
                 case SDL_SCANCODE_RIGHT:
                     if(!gameStarted ){

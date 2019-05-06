@@ -91,7 +91,9 @@ private:
     Image font_score;
     SDL_Color score_color;
 
-    Mix_Chunk * sound;
+    Mix_Chunk * StartSound;
+    Mix_Chunk * bonusSound;
+    Mix_Chunk * LvlUpSound;
     bool withSound;
 
     //Affichage terrain

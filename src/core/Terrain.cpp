@@ -3,7 +3,7 @@
 	Terrain::Terrain()
 	{
 		world = NULL;
-		maxHillPoints = 500;
+		maxHillPoints = 5000;
 		terrainResolution = 3; //best terrainResolution = 1;
 		generateHillPoints(3,.0005,2);
 	}
