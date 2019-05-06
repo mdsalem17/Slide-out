@@ -98,6 +98,8 @@ private:
     void drawBackground();
     void drawTerrain();
     void drawPlayer();
+    void drawMenu();
+    void drawText(string text, SDL_Rect rect, SDL_Color color);
     float computeZoomPlayer();
 
     float angle;
@@ -136,7 +138,12 @@ private:
     double freqLevel; //frequence du bruit de perlin
     
     bool hasLost;
+    bool gameStarted;
+    bool PlayerSelectorL;
+
     void updatePlayerStatus();
+    
+
     void playerSpriteSelector(char RoL);
 
 public:
@@ -145,7 +152,7 @@ public:
     ~sdlJeu ();
     void sdlBoucle ();
     void sdlAff ();
-    void drawText(string text, SDL_Rect rect, SDL_Color color);
+    
 
 };
 

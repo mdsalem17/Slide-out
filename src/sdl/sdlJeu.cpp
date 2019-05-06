@@ -44,6 +44,7 @@ void Image::loadFromFile (const char* filename, SDL_Renderer * renderer) {
     surface = surfaceCorrectPixelFormat;
 
     texture = SDL_CreateTextureFromSurface(renderer,surface);
+    SDL_FreeSurface(surfaceCorrectPixelFormat);
     if (texture == NULL) {
         cout << "Error: problem to create the texture of "<< filename<< endl;
         exit(1);
@@ -125,6 +126,8 @@ sdlJeu::sdlJeu () : jeu() {
     dimy = jeu.dimy;
 
     hasLost = false;
+    gameStarted =false;
+    PlayerSelectorL = true;
     freqLevel = 9/1000;
     // TEMPS
     //initTimer(5);
@@ -256,7 +259,8 @@ void sdlJeu::updatePlayerStatus()
 {
     if(seconds < 0)
     {
-        //hasLost = true;
+        hasLost = true;
+        gameStarted =false;
     }
 }
 
@@ -402,7 +406,8 @@ void sdlJeu::calculAngle(){
 void sdlJeu::drawPlayer(){
     SDL_RenderSetScale(renderer, computeZoomPlayer(), computeZoomPlayer());
     calculAngle();
-    im_player[player_frame].draw(renderer, playerPos.x-(playerPos.x-SPRITE_SIZE/2),(jeu.dimy - playerPos.y-SPRITE_SIZE),SPRITE_SIZE,SPRITE_SIZE, angle*-50.0f);
+    if (PlayerSelectorL) im_player[player_frame].draw(renderer, playerPos.x-(playerPos.x-SPRITE_SIZE/2),(jeu.dimy - playerPos.y-SPRITE_SIZE),SPRITE_SIZE,SPRITE_SIZE, angle*-50.0f);
+    else  im_player[player_frame].draw(renderer, playerPos.x-(playerPos.x-SPRITE_SIZE/2),(jeu.dimy - playerPos.y-SPRITE_SIZE),SPRITE_SIZE,SPRITE_SIZE, angle*-50.0f);
 }
 
 void sdlJeu::sdlAff () {
@@ -425,20 +430,35 @@ void sdlJeu::sdlAff () {
     SDL_RenderCopy(renderer,font_im.getTexture(),NULL,&positionTime);
     SDL_RenderCopy(renderer,font_score.getTexture(),NULL,&positionScore);
 }
+void sdlJeu::drawMenu(){
+    if( ! gameStarted )
+    {
+        
+        im_sky[sprite_frame].draw(renderer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        im_player[0].draw(renderer, (SCREEN_WIDTH/2)+100, SCREEN_HEIGHT/2, SPRITE_SIZE*3,SPRITE_SIZE*3);
+        im_player[0].draw(renderer, (SCREEN_WIDTH/2)-100, SCREEN_HEIGHT/2, SPRITE_SIZE*3,SPRITE_SIZE*3);
+        if( hasLost )//gameOver.draw(...);
+        {   //ici on affiche le "time's up"    
+            im_player[0].draw(renderer, (SCREEN_WIDTH/2)+250, SCREEN_HEIGHT/3, SPRITE_SIZE*3,SPRITE_SIZE*3);
+        }else{//ici le joeur n'a pas encore commence de jouer;
+
+        }
+    }
+}
+
 
 void sdlJeu::sdlBoucle () {
     SDL_Event events;
     bool quit = false;
-    bool is_space_pressed = false;
-    bool SelectorR = false;
-    bool SelectorL = true;
- 
+    
+    
     // RANDOMS
     srand(time(0));
     sprite_frame = rand() % 5;
     prev_sprite_frame = sprite_frame;
  
     Uint32 t = SDL_GetTicks(), nt;
+    Uint32 space_time = (Uint32) 0;
  
     // tant que ce n'est pas la fin ...
     while (!quit) {
@@ -455,7 +475,7 @@ void sdlJeu::sdlBoucle () {
         }
         //calcul et affichage temps en seconds
         //TODO: if(seconds > 0 && playerLost()) must stop game and inform user
-        seconds = 120 - t/1000;
+        seconds = 7 - t/1000 + space_time/1000;
         updatePlayerStatus();
         updateLevel();
         //updateTimer(t);
@@ -463,7 +483,7 @@ void sdlJeu::sdlBoucle () {
         playerPos = jeu.getPlayer()->getPosition();
         playerSpriteSelector('r');
        
-        if (is_space_pressed) {
+        if (gameStarted && !hasLost) {
             jeu.getPlayer()->wake();  
             //SDL_Delay(10);
             jeu.collision();
@@ -477,22 +497,24 @@ void sdlJeu::sdlBoucle () {
             else if (events.type == SDL_KEYDOWN && events.key.repeat == 0) {              // Si une touche est enfoncee
                 switch (events.key.keysym.scancode) {
                 case SDL_SCANCODE_SPACE :
-                    is_space_pressed =true;
+                    space_time= t;
+                    gameStarted =true;
+                    hasLost =false;
                     break;
                 case SDL_SCANCODE_RIGHT:
-                    if(!is_space_pressed ){
-                            SelectorL = false;
-                            SelectorR = true;
+                    if(!gameStarted ){
+                            PlayerSelectorL = false;
+                            
                         }
                     break;
                 case SDL_SCANCODE_LEFT:
-                    if( !is_space_pressed ) {
-                            SelectorL = true;
-                            SelectorR = false;
+                    if( !gameStarted ) {
+                            PlayerSelectorL = true;
+                            
                         }
                     break;
                 case SDL_SCANCODE_DOWN:
-                    if(is_space_pressed ) {jeu.getPlayer()->dive();}
+                    if(gameStarted ) {jeu.getPlayer()->dive();}
                     break;
                 case SDL_SCANCODE_ESCAPE:
                     quit=true;
@@ -503,10 +525,11 @@ void sdlJeu::sdlBoucle () {
         }
         // on affiche le jeu sur le buffer cach
         sdlAff();
-         if (SelectorL && !SelectorR  && !is_space_pressed) {
+        drawMenu();
+         if (PlayerSelectorL   && !gameStarted) {
             playerSpriteSelector('l');
         }
-        if (!SelectorL && SelectorR && !is_space_pressed ) {
+        if (!PlayerSelectorL && !gameStarted ) {
             playerSpriteSelector('r');
         }
         //im_playerSelector.draw(renderer,(SCREEN_WIDTH/2)-100*1.4, SCREEN_HEIGHT/30, 100*1.4, 30*1.4, 0);
