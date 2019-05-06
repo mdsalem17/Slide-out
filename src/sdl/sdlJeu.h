@@ -100,6 +100,7 @@ private:
     void drawPlayer();
     void drawMenu();
     void drawText(string text, SDL_Rect rect, SDL_Color color);
+    string formatNbtoText(int nb);
     float computeZoomPlayer();
 
     float angle;
@@ -137,13 +138,11 @@ private:
     Image im_espace;
 
     int seconds;
-    int start_timer;
-    void initTimer(unsigned int editTimer);
-    void updateTimer(uint32 t);
 
+    int currentLevel;
+    float freqLevel[5]; //frequence du bruit de perlin
     void updateLevel();
-    double freqLevel; //frequence du bruit de perlin
-    
+     
     bool hasLost;
     bool gameStarted;
     bool PlayerSelectorL;

@@ -119,7 +119,7 @@ b2Vec2& Game::getRelativePlayerPos()
 
 b2Vec2& Game::getRelativeTerrainPos()
 {
-    return ter->tabHillPoints.at((unsigned int) ((player->playerBody->GetPosition().x)/ter->terrainResolution) %8000);
+    return ter->tabHillPoints.at((unsigned int) ((player->playerBody->GetPosition().x)/ter->terrainResolution) %ter->tabHillPoints.size());
 } 
 
 Player* Game::getPlayer(){

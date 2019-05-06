@@ -129,9 +129,12 @@ sdlJeu::sdlJeu () : jeu() {
     gameStarted =false;
     PlayerSelectorL = true;
     ResetGame=false;
-    freqLevel = 9/1000;
-    // TEMPS
-    //initTimer(5);
+    currentLevel = 0;
+    freqLevel[0] = .0005;
+    freqLevel[1] = .0007;
+    freqLevel[2] = .001;
+    freqLevel[3] = .0012;
+    freqLevel[4] = .0014;
 
     angle = 0;
     player_frame = 0;
@@ -187,7 +190,7 @@ sdlJeu::sdlJeu () : jeu() {
     im_gameover.loadFromFile("data/gameover.png", renderer);
     im_avatar.loadFromFile("data/avatar.png", renderer);
     im_astuce.loadFromFile("data/astuce.png", renderer);
-    im_espace.loadFromFile("data/espcae.png", renderer);
+    im_espace.loadFromFile("data/espace.png", renderer);
 
     // FONTS
     font = TTF_OpenFont("data/DejaVuSansCondensed.ttf",40);
@@ -227,12 +230,24 @@ sdlJeu::~sdlJeu () {
 }
 
 void sdlJeu::playerSpriteSelector(char RoL){
-    //bool amLeft = true; // par defaut le joueur a gauche est choisie
+    // par defaut le joueur a gauche est choisie
     if (RoL == (char)'r'){
-        im_player_selector.draw(renderer, 3*SCREEN_WIDTH/4 -200, SCREEN_HEIGHT-220, 300, 75, 0);
+        //im_ladyplayer[0].draw(renderer, (SCREEN_WIDTH/2), SCREEN_HEIGHT/2-100, SPRITE_SIZE*2.5, SPRITE_SIZE*2.5);
+        //im_player[0].draw(renderer, SPRITE_SIZE*5, SCREEN_HEIGHT/2-100, SPRITE_SIZE*2.5, SPRITE_SIZE*2.5);
+        im_player_selector.draw(renderer, SCREEN_WIDTH/2-SPRITE_SIZE/2, SCREEN_HEIGHT/2-100, SPRITE_SIZE*3.5, SPRITE_SIZE*3);
     }else if (RoL == (char)'l'){
-        im_player_selector.draw(renderer, 50, SCREEN_HEIGHT-220, 300, 75, 0);
+        im_player_selector.draw(renderer, SPRITE_SIZE*5-SPRITE_SIZE/2, SCREEN_HEIGHT/2-100, SPRITE_SIZE*3.5, SPRITE_SIZE*3);
     }
+}
+
+string sdlJeu::formatNbtoText(int nb){
+    string text ;
+    if(nb <= 9) text = "    "+std::to_string(nb);
+    else if(nb >= 10 && nb <= 99) text = "   "+std::to_string(nb);
+    else if(nb >= 100 && nb <= 999) text = "  "+std::to_string(nb);
+    else if(nb >= 1000 && nb <= 9999) text = " "+std::to_string(nb);
+    else text = std::to_string(nb);
+    return text;
 }
 
 void sdlJeu::drawText(string text, SDL_Rect rect, SDL_Color color){
@@ -256,17 +271,6 @@ float sdlJeu::computeZoomPlayer(){
     return zoom;
 }
 
-void sdlJeu::initTimer(unsigned int editTimer)
-{
-    seconds = editTimer;
-    start_timer = editTimer;
-}
-
-void sdlJeu::updateTimer(uint32 t)
-{
-    seconds = start_timer - t/1000;
-}
-
 void sdlJeu::updatePlayerStatus()
 {
     if(seconds <= 0)
@@ -281,7 +285,6 @@ void sdlJeu::updateLevel()
 {
     if(jeu.isLevelFinished() && !hasLost)
     {
-        //initTimer(15);
         hasLost = false;
         jeu.getPlayer()->applyForce(b2Vec2(400,-150));
 
@@ -304,11 +307,10 @@ void sdlJeu::updateLevel()
             
             //Regénération du Terrain
             //la frequence du terrain augmente petit à petit
-            freqLevel = (1/1000.0f - 1/5000.0f);
-            std::cout << "FREQ : " << freqLevel << std::endl;
-            jeu.getTerrain()->generateHillPoints(3,freqLevel,2);
+            jeu.getTerrain()->generateHillPoints(3,freqLevel[currentLevel%5],2);
             jeu.getTerrain()->initTerrain(jeu.world);
             jeu.addBonusPoints();
+            currentLevel++;
 
         }
         
@@ -316,19 +318,16 @@ void sdlJeu::updateLevel()
 }
 
 
-void sdlJeu::ResetLevel()
-{std::cout<<"resetlevelCALLED-"<<ResetGame<<endl;
+void sdlJeu::ResetLevel(){
     if( ResetGame && hasLost)
     {
         jeu.destroyTerrain();
-        //initTimer(15);
-        std::cout<<"tassa"<<ResetGame<<endl;
 
+        currentLevel = 0;
         jeu.score = 0; 
         jeu.bonus_score = 0;
         
-        
-        //jeu.getPlayer()->applyForce(b2Vec2(400,-150));
+        jeu.getPlayer()->applyForce(b2Vec2(400,-150));
 
         if( (jeu.getPlayer()->getPosition().y < 0) || ResetGame) {
             jeu.getPlayer()->initPlayer(jeu.world);
@@ -349,9 +348,7 @@ void sdlJeu::ResetLevel()
             
             //Regénération du Terrain
             //la frequence du terrain augmente petit à petit
-            freqLevel = (1/1000.0f - 1/5000.0f);
-            std::cout << "FREQ : " << freqLevel << std::endl;
-            jeu.getTerrain()->generateHillPoints(3,freqLevel,2);
+            jeu.getTerrain()->generateHillPoints(3,freqLevel[currentLevel%5],2);
             jeu.getTerrain()->initTerrain(jeu.world);
             jeu.addBonusPoints();
 
@@ -400,19 +397,8 @@ void sdlJeu::drawBackground()
     else if(sec <= 0) text_seconds ="00 : 00";
     else text_seconds = "0"+std::to_string(min)+" : 0"+ std::to_string(sec);
 
-    string text_score ;
-    if(jeu.score <= 9) text_score = "    "+std::to_string(jeu.score);
-    else if(jeu.score >= 10 && jeu.score <= 99) text_score = "   "+std::to_string(jeu.score);
-    else if(jeu.score >= 100 && jeu.score <= 999) text_score = "  "+std::to_string(jeu.score);
-    else if(jeu.score >= 1000 && jeu.score <= 9999) text_score = " "+std::to_string(jeu.score);
-    else text_score = std::to_string(jeu.score);
-
-    string text_bonus_score ;
-    if(jeu.bonus_score <= 9) text_bonus_score = "    "+std::to_string(jeu.bonus_score);
-    else if(jeu.bonus_score >= 10 && jeu.bonus_score <= 99) text_bonus_score = "   "+std::to_string(jeu.bonus_score);
-    else if(jeu.bonus_score >= 100 && jeu.bonus_score <= 999) text_bonus_score = "   "+std::to_string(jeu.bonus_score);
-    else if(jeu.bonus_score >= 1000 && jeu.bonus_score <= 9999) text_bonus_score = " "+std::to_string(jeu.bonus_score);
-    else text_bonus_score = std::to_string(jeu.bonus_score);
+    string text_score = formatNbtoText(jeu.score);
+    string text_bonus_score = formatNbtoText(jeu.bonus_score);
 
     drawText(text_seconds,positionTime, white);
     drawText(text_score,positionScore, white);
@@ -480,29 +466,41 @@ void sdlJeu::sdlAff () {
     drawBackground();
     drawTerrain();
     drawPlayer();
-
-    // Ecrire un titre par dessus
-    SDL_Rect positionTime;
-    positionTime.x = (SCREEN_WIDTH/2) -35; positionTime.y = SCREEN_HEIGHT/25*1.2; positionTime.w = 70; positionTime.h = 30;
-
-    SDL_Rect positionScore;
-    positionScore.x = SCREEN_WIDTH-100; positionScore.y = SCREEN_HEIGHT/25*1.2; positionScore.w = 60; positionScore.h = 30;
-
-    SDL_RenderCopy(renderer,font_im.getTexture(),NULL,&positionTime);
-    SDL_RenderCopy(renderer,font_score.getTexture(),NULL,&positionScore);
 }
+
 void sdlJeu::drawMenu(){
     if( ! gameStarted )
     {
-        
         im_sky[sprite_frame].draw(renderer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        im_player[0].draw(renderer, (SCREEN_WIDTH/2)+100, SCREEN_HEIGHT/2, SPRITE_SIZE*3,SPRITE_SIZE*3);
-        im_ladyplayer[0].draw(renderer, (SCREEN_WIDTH/2)-100, SCREEN_HEIGHT/2, SPRITE_SIZE*3,SPRITE_SIZE*3);
-        if( hasLost )//gameOver.draw(...);
-        {   //ici on affiche le "time's up"    
-            im_player[0].draw(renderer, (SCREEN_WIDTH/2)+250, SCREEN_HEIGHT/3, SPRITE_SIZE*3,SPRITE_SIZE*3);
-        }else{//ici le joeur n'a pas encore commence de jouer;
+        im_ladyplayer[0].draw(renderer, (SCREEN_WIDTH/2), SCREEN_HEIGHT/2-100, SPRITE_SIZE*2.5, SPRITE_SIZE*2.5);
+        im_player[0].draw(renderer, SPRITE_SIZE*5, SCREEN_HEIGHT/2-100, SPRITE_SIZE*2.5, SPRITE_SIZE*2.5);
+        im_avatar.draw(renderer, (SCREEN_WIDTH/2)-560/2, SCREEN_HEIGHT/4-60/2, 1000/2, 125/2);
+        im_espace.draw(renderer, (SCREEN_WIDTH/2)-540/2, SCREEN_HEIGHT-100, 1000/2, 90/2);
+        im_cloud.draw(renderer, 50, 20, 200, 200);
+        im_cloud.draw(renderer, 0, 180, 400, 400);
+        im_cloud.draw(renderer, SCREEN_WIDTH-280, 40, 300, 300);
+        if( hasLost ){
+            im_gameover.draw(renderer, (SCREEN_WIDTH/2)-250, SCREEN_HEIGHT/8-75, 400, 150);
+            im_score_bg.draw(renderer, (SCREEN_WIDTH/2), SCREEN_HEIGHT/2+75, SPRITE_SIZE*3, SPRITE_SIZE);
+            im_score_bg.draw(renderer, SPRITE_SIZE*5, SCREEN_HEIGHT/2+75, SPRITE_SIZE*3, SPRITE_SIZE);
+            im_bonus.draw(renderer,(SCREEN_WIDTH/2)+10, SCREEN_HEIGHT/2+85, 25, 25);
 
+            SDL_Rect positionScore;
+            positionScore.x = SPRITE_SIZE*5+30; positionScore.y = SCREEN_HEIGHT/2+75+10; positionScore.w = 70; positionScore.h = 30;
+
+            SDL_Rect positionBonusScore;
+            positionBonusScore.x = SCREEN_WIDTH/2+30; positionBonusScore.y = SCREEN_HEIGHT/2+75+10; positionBonusScore.w = 70; positionBonusScore.h = 30;
+
+            SDL_Color white = {255, 255, 255};
+            string text_score = formatNbtoText(jeu.score);
+            string text_bonus_score = formatNbtoText(jeu.bonus_score);
+
+            drawText(text_score,positionScore, white);
+            drawText(text_bonus_score,positionBonusScore, white);
+        }
+        else{//ici le joeur n'a pas encore commence de jouer;
+            im_title.draw(renderer, (SCREEN_WIDTH/2)-250, SCREEN_HEIGHT/8-75, 400, 150);
+            im_astuce.draw(renderer, (SCREEN_WIDTH/2)-570/2, SCREEN_HEIGHT-200, 1050/2, 170/2);
         }
     }
 }
@@ -511,8 +509,6 @@ void sdlJeu::drawMenu(){
 void sdlJeu::sdlBoucle () {
     SDL_Event events;
     bool quit = false;
-    
-    
     
     // RANDOMS
     srand(time(0));
@@ -524,7 +520,6 @@ void sdlJeu::sdlBoucle () {
  
     // tant que ce n'est pas la fin ...
     while (!quit) {
- 
         nt = SDL_GetTicks();
         if (nt-t>500) {
             t = nt;
@@ -536,18 +531,15 @@ void sdlJeu::sdlBoucle () {
             if(player_frame > 4) player_frame = 0;
         }
         //calcul et affichage temps en seconds
-        //TODO: if(seconds > 0 && playerLost()) must stop game and inform user
-        seconds = 7 - t/1000 + space_time/1000;
+        seconds = 120 - t/1000 + space_time/1000;
         updatePlayerStatus();
         updateLevel();
-        //updateTimer(t);
        
         playerPos = jeu.getPlayer()->getPosition();
         playerSpriteSelector('r');
        
         if (gameStarted && !hasLost) {
             jeu.getPlayer()->wake();  
-            //SDL_Delay(10);
             jeu.collision();
             jeu.updateBox2dWorld();
         }
@@ -593,9 +585,7 @@ void sdlJeu::sdlBoucle () {
         }
         if (!PlayerSelectorL && !gameStarted ) {
             playerSpriteSelector('r');
-        }
-        //im_playerSelector.draw(renderer,(SCREEN_WIDTH/2)-100*1.4, SCREEN_HEIGHT/30, 100*1.4, 30*1.4, 0);
- 
+        } 
         // on permute les deux buffers (cette fonction ne doit se faire qu'une seule fois dans la boucle)
         SDL_RenderPresent(renderer);
     }
