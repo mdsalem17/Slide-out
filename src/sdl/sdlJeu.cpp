@@ -193,17 +193,10 @@ sdlJeu::sdlJeu () : jeu() {
     im_espace.loadFromFile("data/espace.png", renderer);
 
     // FONTS
-    /*font = TTF_OpenFont("data/DejaVuSansCondensed.ttf",40);
+    font = TTF_OpenFont("data/ttf/DejaVuSansCondensed.ttf",40);
     if (font == NULL) {
             cout << "Failed to load DejaVuSansCondensed.ttf! SDL_TTF Error: " << TTF_GetError() << endl; SDL_Quit(); exit(1);
-	}*/
-	/*font_color.r = 255;font_color.g = 255;font_color.b = 255;
-	font_im.setSurface(TTF_RenderText_Solid(font,"00:00",font_color));
-	font_im.loadFromCurrentSurface(renderer);
-
-    score_color.r = 220;score_color.g = 70;score_color.b = 20;
-	font_score.setSurface(TTF_RenderText_Solid(font,"0123",score_color));
-	font_score.loadFromCurrentSurface(renderer);*/
+	}
 
     // SONS
      if (withSound)
@@ -246,8 +239,6 @@ sdlJeu::~sdlJeu () {
 void sdlJeu::playerSpriteSelector(char RoL){
     // par defaut le joueur a gauche est choisie
     if (RoL == (char)'r'){
-        //im_ladyplayer[0].draw(renderer, (SCREEN_WIDTH/2), SCREEN_HEIGHT/2-100, SPRITE_SIZE*2.5, SPRITE_SIZE*2.5);
-        //im_player[0].draw(renderer, SPRITE_SIZE*5, SCREEN_HEIGHT/2-100, SPRITE_SIZE*2.5, SPRITE_SIZE*2.5);
         im_player_selector.draw(renderer, SCREEN_WIDTH/2-SPRITE_SIZE/2, SCREEN_HEIGHT/2-100, SPRITE_SIZE*3.5, SPRITE_SIZE*3);
     }else if (RoL == (char)'l'){
         im_player_selector.draw(renderer, SPRITE_SIZE*5-SPRITE_SIZE/2, SCREEN_HEIGHT/2-100, SPRITE_SIZE*3.5, SPRITE_SIZE*3);
