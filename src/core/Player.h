@@ -5,20 +5,30 @@
 
 
 /** \defgroup modulePlayer module de getsion du jouer(l'oiseau)
- *
- * \brief Un joueur est un corps physique box2D soumis à la gravité. 
+ *   \brief Un joueur est un corps physique box2D soumis à la gravité. 
  * cette classe permet de regouper les differents composants physique permettant de contrôler les mouvements du joueur
  */
   
 class Player {
     public:
+        /**
+         * @brief lien sur un b2Body de box2d
+         */
+        b2Body *playerBody;
+
+        /**
+         * @brief permet de savoir si le joueur est en plein air
+         * \return bool
+         */
+        bool isInAir;
+
         /** @brief Constructeur par défaut de la classe Player: 
          * initialise la position initiale "in air" car le jouer commence en plein
          * */
         Player();
         
          /** @brief Inits le player et  l'ajoute aux monde physiques box2D world
-         * autrement dit, c'est avec l'init qu'On commence à appliquer les contraintes physiques+gravité
+         * autrement dit, c'est avec l'init qu'on commence à appliquer les contraintes physiques+gravité
          * */
         void initPlayer(b2World *w);
 
@@ -35,15 +45,17 @@ class Player {
      */
         const b2Vec2& getVelocity() const;
 
+    /**
+     * @brief Accesseur : permet d'appliquer une force sur le joueur
+     */
         void applyForce(b2Vec2 force);
-        void setPosition(b2Vec2 pos, float32 angle);
-        b2Body *playerBody;
 
     /**
-     * @brief permet de savoir si le joueur est en plein air
-     * \return bool
+     * @brief Accesseur : permet de modifier la position acutelle de joueur
+     * \param pos: b2Vec2 correspond à la position du joueur, angle: l'angle du joueur
      */
-        bool isInAir;
+        void setPosition(b2Vec2 pos, float32 angle);
+
     /**
      * @brief impulsion linéaire pour que le joueur descende
      */
@@ -70,6 +82,8 @@ class Player {
      * isInAir est mis à ture
      */
         void endContact();
+
+
         ~Player();
 
     private:

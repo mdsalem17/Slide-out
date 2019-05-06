@@ -7,11 +7,8 @@
 
 #include <Box2D/Box2D.h>
 
-#define HILLSTEP 20
-
 
 /** \defgroup moduleTerrain module de getsion du Terrain
- *
  * \brief Le terrain est le modulde qui genere les collines(hills) en utilisant le bruit de perlin
  */
 
