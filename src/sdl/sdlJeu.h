@@ -115,7 +115,6 @@ private:
     Image im_player_selector;
     //Images Timer
     Image im_timer_bg;
-    Image im_time_up;
     //Images Sky
     Image im_sky[5];
     Image im_sun;

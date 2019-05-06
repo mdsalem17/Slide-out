@@ -153,7 +153,6 @@ sdlJeu::sdlJeu () : jeu() {
     im_player[5].loadFromFile("data/bird5.png", renderer);
     im_player[6].loadFromFile("data/bird6.png", renderer);
     im_timer_bg.loadFromFile("data/timer.png", renderer);
-    im_time_up.loadFromFile("data/time_up.png", renderer);
     im_score_bg.loadFromFile("data/bg_score.png", renderer);
     im_sky[0].loadFromFile("data/sky.png", renderer);
     im_sky[1].loadFromFile("data/sky2.png", renderer);
