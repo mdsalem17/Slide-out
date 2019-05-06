@@ -19,8 +19,8 @@
 ├── doc                     - contient la documentation du code source du jeu.
 |
 └── src                     - contient les fichiers sources (.cpp) et entêtes (.h).
-    ├── core                - contient les fmodules principaux du jeu (Terrain, Player, Game).
-        └── Box2D
+    ├── core                - contient les modules principaux du jeu (Terrain, Player, Game).
+        └── Box2D           - librairie moteur physique Box2D
     ├── grapic              - contient les modules pour l'affichage Grapic.
     ├── sdl                 - contient les modules pour l'affichage SDL.
     └── txt                 - contient les modules pour l'affichage Txt.
