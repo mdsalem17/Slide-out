@@ -60,6 +60,9 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-types">Private Types</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="classb2World-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -68,6 +71,13 @@ $(function() {
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="b2World_8h_source.html">b2World.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for b2World:</div>
+<div class="dyncontent">
+<div class="center"><img src="classb2World__coll__graph.png" border="0" usemap="#b2World_coll__map" alt="Collaboration graph"/></div>
+<map name="b2World_coll__map" id="b2World_coll__map">
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -206,6 +216,86 @@ const <a class="el" href="structb2Profile.html">b2Profile</a> &amp;&#160;</td><t
 <tr class="separator:aec4fb0a888e69e0db7f37a4921761711"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73c1fec260d460514edd335d4c235893"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classb2World.html#a73c1fec260d460514edd335d4c235893">Dump</a> ()</td></tr>
 <tr class="separator:a73c1fec260d460514edd335d4c235893"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-types"></a>
+Private Types</h2></td></tr>
+<tr class="memitem:a4f7243fc660ab7441065969a882240eb"><td class="memItemLeft" align="right" valign="top"><a id="a4f7243fc660ab7441065969a882240eb"></a>enum &#160;</td><td class="memItemRight" valign="bottom">{ <b>e_newFixture</b> = 0x0001, 
+<b>e_locked</b> = 0x0002, 
+<b>e_clearForces</b> = 0x0004
+ }</td></tr>
+<tr class="separator:a4f7243fc660ab7441065969a882240eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a6cac2e86197dd42f05ed135e7bea41e0"><td class="memItemLeft" align="right" valign="top"><a id="a6cac2e86197dd42f05ed135e7bea41e0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Solve</b> (const <a class="el" href="structb2TimeStep.html">b2TimeStep</a> &amp;step)</td></tr>
+<tr class="separator:a6cac2e86197dd42f05ed135e7bea41e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9524ce16eb46732d15df9148e715e0e"><td class="memItemLeft" align="right" valign="top"><a id="ae9524ce16eb46732d15df9148e715e0e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SolveTOI</b> (const <a class="el" href="structb2TimeStep.html">b2TimeStep</a> &amp;step)</td></tr>
+<tr class="separator:ae9524ce16eb46732d15df9148e715e0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3d7aaf71b4cbb99760a7cd2f2ba43d7"><td class="memItemLeft" align="right" valign="top"><a id="af3d7aaf71b4cbb99760a7cd2f2ba43d7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>DrawJoint</b> (<a class="el" href="classb2Joint.html">b2Joint</a> *joint)</td></tr>
+<tr class="separator:af3d7aaf71b4cbb99760a7cd2f2ba43d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac013bf7fbe36cda452a707ea62a46c39"><td class="memItemLeft" align="right" valign="top"><a id="ac013bf7fbe36cda452a707ea62a46c39"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>DrawShape</b> (<a class="el" href="classb2Fixture.html">b2Fixture</a> *shape, const <a class="el" href="structb2Transform.html">b2Transform</a> &amp;xf, const <a class="el" href="structb2Color.html">b2Color</a> &amp;color)</td></tr>
+<tr class="separator:ac013bf7fbe36cda452a707ea62a46c39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ab02b03963ed73501770f7a89c9186e72"><td class="memItemLeft" align="right" valign="top"><a id="ab02b03963ed73501770f7a89c9186e72"></a>
+<a class="el" href="classb2BlockAllocator.html">b2BlockAllocator</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_blockAllocator</b></td></tr>
+<tr class="separator:ab02b03963ed73501770f7a89c9186e72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c56dd143340d0db681a7bb2f0c937e3"><td class="memItemLeft" align="right" valign="top"><a id="a9c56dd143340d0db681a7bb2f0c937e3"></a>
+<a class="el" href="classb2StackAllocator.html">b2StackAllocator</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_stackAllocator</b></td></tr>
+<tr class="separator:a9c56dd143340d0db681a7bb2f0c937e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b5cd8c24bf3a900dca9a7acec207e60"><td class="memItemLeft" align="right" valign="top"><a id="a1b5cd8c24bf3a900dca9a7acec207e60"></a>
+int32&#160;</td><td class="memItemRight" valign="bottom"><b>m_flags</b></td></tr>
+<tr class="separator:a1b5cd8c24bf3a900dca9a7acec207e60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc5b9e56c3d3c84993901dda29341140"><td class="memItemLeft" align="right" valign="top"><a id="adc5b9e56c3d3c84993901dda29341140"></a>
+<a class="el" href="classb2ContactManager.html">b2ContactManager</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_contactManager</b></td></tr>
+<tr class="separator:adc5b9e56c3d3c84993901dda29341140"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb01b9fe3ae8e3014883d2cd8da5534a"><td class="memItemLeft" align="right" valign="top"><a id="acb01b9fe3ae8e3014883d2cd8da5534a"></a>
+<a class="el" href="classb2Body.html">b2Body</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_bodyList</b></td></tr>
+<tr class="separator:acb01b9fe3ae8e3014883d2cd8da5534a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe24b2f269cec46974c4331bd5418f41"><td class="memItemLeft" align="right" valign="top"><a id="abe24b2f269cec46974c4331bd5418f41"></a>
+<a class="el" href="classb2Joint.html">b2Joint</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_jointList</b></td></tr>
+<tr class="separator:abe24b2f269cec46974c4331bd5418f41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa24704aec207b3ae8359a2ffe6d01411"><td class="memItemLeft" align="right" valign="top"><a id="aa24704aec207b3ae8359a2ffe6d01411"></a>
+int32&#160;</td><td class="memItemRight" valign="bottom"><b>m_bodyCount</b></td></tr>
+<tr class="separator:aa24704aec207b3ae8359a2ffe6d01411"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f722f498830b3fcfc86792555f0f57f"><td class="memItemLeft" align="right" valign="top"><a id="a1f722f498830b3fcfc86792555f0f57f"></a>
+int32&#160;</td><td class="memItemRight" valign="bottom"><b>m_jointCount</b></td></tr>
+<tr class="separator:a1f722f498830b3fcfc86792555f0f57f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c8ec39b73bdec820e03b17ef1d18b28"><td class="memItemLeft" align="right" valign="top"><a id="a3c8ec39b73bdec820e03b17ef1d18b28"></a>
+<a class="el" href="structb2Vec2.html">b2Vec2</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_gravity</b></td></tr>
+<tr class="separator:a3c8ec39b73bdec820e03b17ef1d18b28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a31013145f978e964cfee64c3c46d7e"><td class="memItemLeft" align="right" valign="top"><a id="a5a31013145f978e964cfee64c3c46d7e"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_allowSleep</b></td></tr>
+<tr class="separator:a5a31013145f978e964cfee64c3c46d7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf5abe16bd1ceef5ac15333042e71b4f"><td class="memItemLeft" align="right" valign="top"><a id="abf5abe16bd1ceef5ac15333042e71b4f"></a>
+<a class="el" href="classb2DestructionListener.html">b2DestructionListener</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_destructionListener</b></td></tr>
+<tr class="separator:abf5abe16bd1ceef5ac15333042e71b4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8937d34daab1ec7d2f6ee6dcbf5950a2"><td class="memItemLeft" align="right" valign="top"><a id="a8937d34daab1ec7d2f6ee6dcbf5950a2"></a>
+<a class="el" href="classb2Draw.html">b2Draw</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_debugDraw</b></td></tr>
+<tr class="separator:a8937d34daab1ec7d2f6ee6dcbf5950a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaac593d6db2b19c648202dc326f88ba4"><td class="memItemLeft" align="right" valign="top"><a id="aaac593d6db2b19c648202dc326f88ba4"></a>
+float32&#160;</td><td class="memItemRight" valign="bottom"><b>m_inv_dt0</b></td></tr>
+<tr class="separator:aaac593d6db2b19c648202dc326f88ba4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3c889781c1ad755f9f520f934e69b3d"><td class="memItemLeft" align="right" valign="top"><a id="ab3c889781c1ad755f9f520f934e69b3d"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_warmStarting</b></td></tr>
+<tr class="separator:ab3c889781c1ad755f9f520f934e69b3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6546f4a56849f5635b4ed48f823be9e0"><td class="memItemLeft" align="right" valign="top"><a id="a6546f4a56849f5635b4ed48f823be9e0"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_continuousPhysics</b></td></tr>
+<tr class="separator:a6546f4a56849f5635b4ed48f823be9e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfdc124ba03185a4b15cf220ebbacfe6"><td class="memItemLeft" align="right" valign="top"><a id="abfdc124ba03185a4b15cf220ebbacfe6"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_subStepping</b></td></tr>
+<tr class="separator:abfdc124ba03185a4b15cf220ebbacfe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2a6027e3148f79d1a7598db3941d10a"><td class="memItemLeft" align="right" valign="top"><a id="ad2a6027e3148f79d1a7598db3941d10a"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_stepComplete</b></td></tr>
+<tr class="separator:ad2a6027e3148f79d1a7598db3941d10a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a482ca7842f3e26343fe3091848d1cf3c"><td class="memItemLeft" align="right" valign="top"><a id="a482ca7842f3e26343fe3091848d1cf3c"></a>
+<a class="el" href="structb2Profile.html">b2Profile</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_profile</b></td></tr>
+<tr class="separator:a482ca7842f3e26343fe3091848d1cf3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>

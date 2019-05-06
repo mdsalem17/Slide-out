@@ -61,6 +61,7 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="classTerrain-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Terrain Class Reference</div>  </div>
@@ -113,8 +114,131 @@ std::vector&lt; <a class="el" href="structb2Vec2.html">b2Vec2</a> &gt;&#160;</td
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTerrain.html#ab350faf0b5997fcb415df4ea787bac7a">terrainResolution</a></td></tr>
 <tr class="memdesc:ab350faf0b5997fcb415df4ea787bac7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">entier permettant de définir la résolution du terrain <br /></td></tr>
 <tr class="separator:ab350faf0b5997fcb415df4ea787bac7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a8942fbab4bbaf70a0782ad03354e263a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTerrain.html#a8942fbab4bbaf70a0782ad03354e263a">rand_noise</a> (int t)</td></tr>
+<tr class="memdesc:a8942fbab4bbaf70a0782ad03354e263a"><td class="mdescLeft">&#160;</td><td class="mdescRight">foncion qui genere des entier pseudo-aléatoires.  <a href="#a8942fbab4bbaf70a0782ad03354e263a">More...</a><br /></td></tr>
+<tr class="separator:a8942fbab4bbaf70a0782ad03354e263a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2dee109a696ec452dfd1f8a2e0f70a7"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTerrain.html#aa2dee109a696ec452dfd1f8a2e0f70a7">cosine_interp</a> (double a, double b, double t)</td></tr>
+<tr class="memdesc:aa2dee109a696ec452dfd1f8a2e0f70a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interpolation cosinusoidale.  <a href="#aa2dee109a696ec452dfd1f8a2e0f70a7">More...</a><br /></td></tr>
+<tr class="separator:aa2dee109a696ec452dfd1f8a2e0f70a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1b51027a0d344f610897cb16a7fea8d"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTerrain.html#ab1b51027a0d344f610897cb16a7fea8d">interp_noise</a> (double x)</td></tr>
+<tr class="memdesc:ab1b51027a0d344f610897cb16a7fea8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interpolation cosinusoidale.  <a href="#ab1b51027a0d344f610897cb16a7fea8d">More...</a><br /></td></tr>
+<tr class="separator:ab1b51027a0d344f610897cb16a7fea8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4e4a2a930fa6d2c9d8744691df833a0"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTerrain.html#aa4e4a2a930fa6d2c9d8744691df833a0">computePerlin</a> (int octaves, double frequency, double persistance, double x)</td></tr>
+<tr class="memdesc:aa4e4a2a930fa6d2c9d8744691df833a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">On effectue la somme octave appels à la fonction de bruit lisse (interp_noise), en multipliant a chaque fois la frequence par deux, et l'amplitude par la persistance Pour eviter de sommer chacune d'entre elles, on utilise la formule de la somme des termes d'une suite geometrique (p != 1)  <a href="#aa4e4a2a930fa6d2c9d8744691df833a0">More...</a><br /></td></tr>
+<tr class="separator:aa4e4a2a930fa6d2c9d8744691df833a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="aa4e4a2a930fa6d2c9d8744691df833a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4e4a2a930fa6d2c9d8744691df833a0">&#9670;&nbsp;</a></span>computePerlin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Terrain::computePerlin </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>octaves</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>frequency</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>persistance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>x</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>On effectue la somme octave appels à la fonction de bruit lisse (interp_noise), en multipliant a chaque fois la frequence par deux, et l'amplitude par la persistance Pour eviter de sommer chacune d'entre elles, on utilise la formule de la somme des termes d'une suite geometrique (p != 1) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">octaves</td><td>nombre d'appels à la fonction interp_noise (lissage du bruit) </td></tr>
+    <tr><td class="paramname">frequence</td><td>frequence de la premiere fonction de bruit lisse </td></tr>
+    <tr><td class="paramname">persistence</td><td>facteur modifiant l'amplitude de chaque fonction de bruit lisse </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa2dee109a696ec452dfd1f8a2e0f70a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2dee109a696ec452dfd1f8a2e0f70a7">&#9670;&nbsp;</a></span>cosine_interp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Terrain::cosine_interp </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>t</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Interpolation cosinusoidale. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>nombre de... </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ae460941ca068f5efc9a275e289c0f439"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae460941ca068f5efc9a275e289c0f439">&#9670;&nbsp;</a></span>generateHillPoints()</h2>
 
@@ -177,6 +301,74 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pos</td><td>entier qui définie la position </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab1b51027a0d344f610897cb16a7fea8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1b51027a0d344f610897cb16a7fea8d">&#9670;&nbsp;</a></span>interp_noise()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Terrain::interp_noise </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Interpolation cosinusoidale. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>nombre de... </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8942fbab4bbaf70a0782ad03354e263a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8942fbab4bbaf70a0782ad03354e263a">&#9670;&nbsp;</a></span>rand_noise()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Terrain::rand_noise </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>t</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>foncion qui genere des entier pseudo-aléatoires. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname"></td><td></td></tr>
   </table>
   </dd>
 </dl>

@@ -130,6 +130,12 @@ private:
 	     * @param color: SDL_Color		
 	*/    
     void drawText(string text, SDL_Rect rect, SDL_Color color);
+
+    /**		
+	     * @brief fonction qui converti un nobmre en chaine de charactére 
+	     * @param nb: le nommbre a convertir
+	     * \return string la chaine constitué de l'eniter espacée
+	*/    
     string formatNbtoText(int nb);
 
 
@@ -203,19 +209,24 @@ private:
 	    * @brief procédure qui permet de mettre à jour le status du joueur		
 	*/
     void updatePlayerStatus();
-    
-   /**		
+
+    /**		
 	* @brief procédure qui permet de selection un joueur		
 	* @param RoL(Right or Left): pour décider d'afficher le selecteur à droite ou à gauche		
 	*/
     void playerSpriteSelector(char RoL);
+    
+
 
 public:
 
     sdlJeu ();
     ~sdlJeu ();
+
     void sdlBoucle ();
     void sdlAff ();
+
+       
     
 
 };

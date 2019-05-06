@@ -7,4 +7,14 @@ digraph "b2WorldQueryWrapper"
   Node2 [label="b2QueryCallback",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classb2QueryCallback.html"];
   Node3 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" broadPhase" ,fontname="Helvetica"];
   Node3 [label="b2BroadPhase",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classb2BroadPhase.html"];
+  Node4 -> Node3 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_pairBuffer" ,fontname="Helvetica"];
+  Node4 [label="b2Pair",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structb2Pair.html"];
+  Node5 -> Node3 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_tree" ,fontname="Helvetica"];
+  Node5 [label="b2DynamicTree",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classb2DynamicTree.html"];
+  Node6 -> Node5 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_nodes" ,fontname="Helvetica"];
+  Node6 [label="b2TreeNode",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structb2TreeNode.html",tooltip="A node in the dynamic tree. The client does not interact with this directly. "];
+  Node7 -> Node6 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" aabb" ,fontname="Helvetica"];
+  Node7 [label="b2AABB",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structb2AABB.html",tooltip="An axis aligned bounding box. "];
+  Node8 -> Node7 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" lowerBound\nupperBound" ,fontname="Helvetica"];
+  Node8 [label="b2Vec2",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structb2Vec2.html",tooltip="A 2D column vector. "];
 }

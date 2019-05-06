@@ -60,6 +60,8 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classImage-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Image Class Reference</div>  </div>
@@ -92,6 +94,24 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a833f5d3b4b9f905320c6dffcc9b84b95"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a833f5d3b4b9f905320c6dffcc9b84b95">setSurface</a> (SDL_Surface *surf)</td></tr>
 <tr class="memdesc:a833f5d3b4b9f905320c6dffcc9b84b95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mutateur qui permet de modifier la surface.  <a href="#a833f5d3b4b9f905320c6dffcc9b84b95">More...</a><br /></td></tr>
 <tr class="separator:a833f5d3b4b9f905320c6dffcc9b84b95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a604238fe43438822a1aeb252337a7998"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a604238fe43438822a1aeb252337a7998">file_exists</a> (const std::string &amp;name)</td></tr>
+<tr class="memdesc:a604238fe43438822a1aeb252337a7998"><td class="mdescLeft">&#160;</td><td class="mdescRight">procédure qui charge un fichier pour vérifier son existence  <a href="#a604238fe43438822a1aeb252337a7998">More...</a><br /></td></tr>
+<tr class="separator:a604238fe43438822a1aeb252337a7998"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:aff93ca475f72629289e4ade963de53d7"><td class="memItemLeft" align="right" valign="top"><a id="aff93ca475f72629289e4ade963de53d7"></a>
+SDL_Surface *&#160;</td><td class="memItemRight" valign="bottom"><b>surface</b></td></tr>
+<tr class="separator:aff93ca475f72629289e4ade963de53d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f44588a7d341e02dae82e2de94dfad6"><td class="memItemLeft" align="right" valign="top"><a id="a4f44588a7d341e02dae82e2de94dfad6"></a>
+SDL_Texture *&#160;</td><td class="memItemRight" valign="bottom"><b>texture</b></td></tr>
+<tr class="separator:a4f44588a7d341e02dae82e2de94dfad6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4cb83faeecef0cfb2773813c4757b45"><td class="memItemLeft" align="right" valign="top"><a id="ab4cb83faeecef0cfb2773813c4757b45"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>has_changed</b></td></tr>
+<tr class="separator:ab4cb83faeecef0cfb2773813c4757b45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Pour gerer une image avec SDL2. </p>
@@ -158,6 +178,41 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a604238fe43438822a1aeb252337a7998"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a604238fe43438822a1aeb252337a7998">&#9670;&nbsp;</a></span>file_exists()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Image::file_exists </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>procédure qui charge un fichier pour vérifier son existence </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>Chaîne de caractères contenant le chemin du fichier dont on souhaite vérifier son existence </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
 
 </div>
 </div>

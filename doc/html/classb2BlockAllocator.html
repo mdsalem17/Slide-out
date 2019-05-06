@@ -60,6 +60,8 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="classb2BlockAllocator-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">b2BlockAllocator Class Reference</div>  </div>
@@ -67,6 +69,13 @@ $(function() {
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="b2BlockAllocator_8h_source.html">b2BlockAllocator.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for b2BlockAllocator:</div>
+<div class="dyncontent">
+<div class="center"><img src="classb2BlockAllocator__coll__graph.png" border="0" usemap="#b2BlockAllocator_coll__map" alt="Collaboration graph"/></div>
+<map name="b2BlockAllocator_coll__map" id="b2BlockAllocator_coll__map">
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -81,10 +90,59 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a3d3bac86217eba9d1eb6dff2acee0d77"><td class="memItemLeft" align="right" valign="top"><a id="a3d3bac86217eba9d1eb6dff2acee0d77"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Clear</b> ()</td></tr>
 <tr class="separator:a3d3bac86217eba9d1eb6dff2acee0d77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a340443648b0c00b3e901fd5460759a0c"><td class="memItemLeft" align="right" valign="top"><a id="a340443648b0c00b3e901fd5460759a0c"></a>
+<a class="el" href="structb2Chunk.html">b2Chunk</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_chunks</b></td></tr>
+<tr class="separator:a340443648b0c00b3e901fd5460759a0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f23a8eb32475bf1766ddd94a8c00b99"><td class="memItemLeft" align="right" valign="top"><a id="a6f23a8eb32475bf1766ddd94a8c00b99"></a>
+int32&#160;</td><td class="memItemRight" valign="bottom"><b>m_chunkCount</b></td></tr>
+<tr class="separator:a6f23a8eb32475bf1766ddd94a8c00b99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4861c267d5d9392b10a2a0e44ec93e8"><td class="memItemLeft" align="right" valign="top"><a id="ad4861c267d5d9392b10a2a0e44ec93e8"></a>
+int32&#160;</td><td class="memItemRight" valign="bottom"><b>m_chunkSpace</b></td></tr>
+<tr class="separator:ad4861c267d5d9392b10a2a0e44ec93e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af61bf3e75cc51ddbfbc5d10681b62df1"><td class="memItemLeft" align="right" valign="top"><a id="af61bf3e75cc51ddbfbc5d10681b62df1"></a>
+<a class="el" href="structb2Block.html">b2Block</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_freeLists</b> [b2_blockSizes]</td></tr>
+<tr class="separator:af61bf3e75cc51ddbfbc5d10681b62df1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:a235f8511a784d4a5611ce45b86057ced"><td class="memItemLeft" align="right" valign="top">static int32&#160;</td><td class="memItemRight" valign="bottom"><b>s_blockSizes</b> [b2_blockSizes]</td></tr>
+<tr class="separator:a235f8511a784d4a5611ce45b86057ced"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a84d0454d9fa81534d7c463b2f24189"><td class="memItemLeft" align="right" valign="top"><a id="a2a84d0454d9fa81534d7c463b2f24189"></a>
+static uint8&#160;</td><td class="memItemRight" valign="bottom"><b>s_blockSizeLookup</b> [b2_maxBlockSize+1]</td></tr>
+<tr class="separator:a2a84d0454d9fa81534d7c463b2f24189"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8133162b02c5bb0d8a9abbcadd899524"><td class="memItemLeft" align="right" valign="top"><a id="a8133162b02c5bb0d8a9abbcadd899524"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><b>s_blockSizeLookupInitialized</b></td></tr>
+<tr class="separator:a8133162b02c5bb0d8a9abbcadd899524"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This is a small object allocator used for allocating small objects that persist for more than one time step. See: <a href="http://www.codeproject.com/useritems/Small_Block_Allocator.asp">http://www.codeproject.com/useritems/Small_Block_Allocator.asp</a> </p>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a235f8511a784d4a5611ce45b86057ced"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a235f8511a784d4a5611ce45b86057ced">&#9670;&nbsp;</a></span>s_blockSizes</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32 b2BlockAllocator::s_blockSizes</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= </div><div class="line">{</div><div class="line">    16,     </div><div class="line">    32,     </div><div class="line">    64,     </div><div class="line">    96,     </div><div class="line">    128,    </div><div class="line">    160,    </div><div class="line">    192,    </div><div class="line">    224,    </div><div class="line">    256,    </div><div class="line">    320,    </div><div class="line">    384,    </div><div class="line">    448,    </div><div class="line">    512,    </div><div class="line">    640,    </div><div class="line">}</div></div><!-- fragment -->
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/core/Box2D/Box2D/Common/<a class="el" href="b2BlockAllocator_8h_source.html">b2BlockAllocator.h</a></li>
 <li>src/core/Box2D/Box2D/Common/b2BlockAllocator.cpp</li>
 </ul>

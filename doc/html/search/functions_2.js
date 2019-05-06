@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['calculangle',['calculAngle',['../classsdlJeu.html#a0b711b108de51bf0c3758e9b9d367d93',1,'sdlJeu']]],
   ['clear',['Clear',['../classb2ChainShape.html#a434d4b61ab15726302ec5ad484011c33',1,'b2ChainShape']]],
   ['clearflags',['ClearFlags',['../classb2Draw.html#afc240b71f4ba8c17440d6ed526d4e22e',1,'b2Draw']]],
   ['clearforces',['ClearForces',['../classb2World.html#ac082ab4c4ad0b1c5ec4674315eeec643',1,'b2World']]],
@@ -8,7 +9,10 @@ var searchData=
   ['combine',['Combine',['../structb2AABB.html#ad551edba62d2ad6094672a9ba3e26496',1,'b2AABB::Combine(const b2AABB &amp;aabb)'],['../structb2AABB.html#a34b9c7d824df845c10caa9c12ae90452',1,'b2AABB::Combine(const b2AABB &amp;aabb1, const b2AABB &amp;aabb2)']]],
   ['computeaabb',['ComputeAABB',['../classb2ChainShape.html#ae1d7470ce8d32e92d27c149ab45f5468',1,'b2ChainShape::ComputeAABB()'],['../classb2CircleShape.html#af4a4ea78780af7a7ce40bf5d54affe83',1,'b2CircleShape::ComputeAABB()'],['../classb2EdgeShape.html#a238139ae1736b457d77443133ff16854',1,'b2EdgeShape::ComputeAABB()'],['../classb2PolygonShape.html#ae9bcc185caf4a030003cefc4576e4717',1,'b2PolygonShape::ComputeAABB()'],['../classb2Shape.html#a88e9807fab0c8ca9a98d8926e50a1411',1,'b2Shape::ComputeAABB()']]],
   ['computemass',['ComputeMass',['../classb2ChainShape.html#aad3671d6eab61f6b26e2f1b6ac50bb98',1,'b2ChainShape::ComputeMass()'],['../classb2CircleShape.html#a7dc07891abd015863fbf03076e47eec5',1,'b2CircleShape::ComputeMass()'],['../classb2EdgeShape.html#ac738c1e0ab2f4dfbab26e3942efa60af',1,'b2EdgeShape::ComputeMass()'],['../classb2PolygonShape.html#a908db2a51fc79fd49d6fe06be2cd8474',1,'b2PolygonShape::ComputeMass()'],['../classb2Shape.html#a61b365526241b47f124789b0309cac69',1,'b2Shape::ComputeMass()']]],
+  ['computeperlin',['computePerlin',['../classTerrain.html#aa4e4a2a930fa6d2c9d8744691df833a0',1,'Terrain']]],
+  ['computezoomplayer',['computeZoomPlayer',['../classsdlJeu.html#add8a4ec6059490d4e973595d93953aef',1,'sdlJeu']]],
   ['contains',['Contains',['../structb2AABB.html#acf98175d3a53bca755d5c4852fa85a00',1,'b2AABB']]],
+  ['cosine_5finterp',['cosine_interp',['../classTerrain.html#aa2dee109a696ec452dfd1f8a2e0f70a7',1,'Terrain']]],
   ['createbody',['CreateBody',['../classb2World.html#a2eb36e967e43294bfa03ec3d177c2dae',1,'b2World']]],
   ['createchain',['CreateChain',['../classb2ChainShape.html#aa0977339b743c05f2179939ccc38e7e0',1,'b2ChainShape']]],
   ['createfixture',['CreateFixture',['../classb2Body.html#aa4892301e9b9d62ede5e93dad1743894',1,'b2Body::CreateFixture(const b2FixtureDef *def)'],['../classb2Body.html#a52d971867086d5db79769a62bbb70a60',1,'b2Body::CreateFixture(const b2Shape *shape, float32 density)']]],

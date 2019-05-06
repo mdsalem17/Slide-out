@@ -2,6 +2,7 @@ var searchData=
 [
   ['player',['Player',['../classPlayer.html',1,'Player'],['../classPlayer.html#affe0cc3cb714f6deb4e62f0c0d3f1fd8',1,'Player::Player()']]],
   ['playerbody',['playerBody',['../classPlayer.html#a9591273465051ba70b5081208d5b858f',1,'Player']]],
+  ['playerspriteselector',['playerSpriteSelector',['../classsdlJeu.html#a4a9ac3cf9b178a71e717fe591dab9f4a',1,'sdlJeu']]],
   ['pointa',['pointA',['../structb2DistanceOutput.html#a7e0f1f44a64e596dc7d37570c69eefce',1,'b2DistanceOutput']]],
   ['pointb',['pointB',['../structb2DistanceOutput.html#aa85beca17337a506cd4a924d0c6f92cc',1,'b2DistanceOutput']]],
   ['pointcount',['pointCount',['../structb2Manifold.html#abf59ff6fa36bed34b0242ad54951a696',1,'b2Manifold']]],
