@@ -128,6 +128,7 @@ sdlJeu::sdlJeu () : jeu() {
     hasLost = false;
     gameStarted =false;
     PlayerSelectorL = true;
+    ResetGame=false;
     freqLevel = 9/1000;
     // TEMPS
     //initTimer(5);
@@ -152,6 +153,13 @@ sdlJeu::sdlJeu () : jeu() {
     im_player[4].loadFromFile("data/bird4.png", renderer);
     im_player[5].loadFromFile("data/bird5.png", renderer);
     im_player[6].loadFromFile("data/bird6.png", renderer);
+    im_ladyplayer[0].loadFromFile("data/ladybird0.png", renderer);
+    im_ladyplayer[1].loadFromFile("data/ladybird1.png", renderer);
+    im_ladyplayer[2].loadFromFile("data/ladybird2.png", renderer);
+    im_ladyplayer[3].loadFromFile("data/ladybird3.png", renderer);
+    im_ladyplayer[4].loadFromFile("data/ladybird4.png", renderer);
+    im_ladyplayer[5].loadFromFile("data/ladybird5.png", renderer);
+    im_ladyplayer[6].loadFromFile("data/ladybird6.png", renderer);
     im_timer_bg.loadFromFile("data/timer.png", renderer);
     im_score_bg.loadFromFile("data/bg_score.png", renderer);
     im_sky[0].loadFromFile("data/sky.png", renderer);
@@ -174,7 +182,12 @@ sdlJeu::sdlJeu () : jeu() {
     im_arrow.loadFromFile("data/arrow.png", renderer);
     im_arrow2.loadFromFile("data/arrow2.png", renderer);
     im_bonus.loadFromFile("data/bonus.png", renderer);
-    im_player_selector.loadFromFile("data/bonus.png", renderer);
+    im_player_selector.loadFromFile("data/player_selector.png", renderer);
+    im_title.loadFromFile("data/title.png", renderer);
+    im_gameover.loadFromFile("data/gameover.png", renderer);
+    im_avatar.loadFromFile("data/avatar.png", renderer);
+    im_astuce.loadFromFile("data/astuce.png", renderer);
+    im_espace.loadFromFile("data/espcae.png", renderer);
 
     // FONTS
     font = TTF_OpenFont("data/DejaVuSansCondensed.ttf",40);
@@ -256,10 +269,11 @@ void sdlJeu::updateTimer(uint32 t)
 
 void sdlJeu::updatePlayerStatus()
 {
-    if(seconds < 0)
+    if(seconds <= 0)
     {
         hasLost = true;
         gameStarted =false;
+        ResetGame=true;
     }
 }
 
@@ -267,7 +281,7 @@ void sdlJeu::updateLevel()
 {
     if(jeu.isLevelFinished() && !hasLost)
     {
-        initTimer(15);
+        //initTimer(15);
         hasLost = false;
         jeu.getPlayer()->applyForce(b2Vec2(400,-150));
 
@@ -300,6 +314,54 @@ void sdlJeu::updateLevel()
         
     }
 }
+
+
+void sdlJeu::ResetLevel()
+{std::cout<<"resetlevelCALLED-"<<ResetGame<<endl;
+    if( ResetGame && hasLost)
+    {
+        jeu.destroyTerrain();
+        //initTimer(15);
+        std::cout<<"tassa"<<ResetGame<<endl;
+
+        jeu.score = 0; 
+        jeu.bonus_score = 0;
+        
+        
+        //jeu.getPlayer()->applyForce(b2Vec2(400,-150));
+
+        if( (jeu.getPlayer()->getPosition().y < 0) || ResetGame) {
+            jeu.getPlayer()->initPlayer(jeu.world);
+            jeu.getPlayer()->setPosition(b2Vec2(100,jeu.dimy),0);
+            jeu.getPlayer()->applyForce(b2Vec2(200,0));
+
+            //SPRITE Aléatoire
+            srand(time(0));
+            sprite_frame = rand() % 5;
+            if(prev_sprite_frame == sprite_frame)
+            {
+                srand(time(0));
+                sprite_frame = rand() % 5;
+                prev_sprite_frame = sprite_frame;
+            }
+            
+            jeu.destroyTerrain();
+            
+            //Regénération du Terrain
+            //la frequence du terrain augmente petit à petit
+            freqLevel = (1/1000.0f - 1/5000.0f);
+            std::cout << "FREQ : " << freqLevel << std::endl;
+            jeu.getTerrain()->generateHillPoints(3,freqLevel,2);
+            jeu.getTerrain()->initTerrain(jeu.world);
+            jeu.addBonusPoints();
+
+        }
+        ResetGame = false;
+        hasLost =false;
+        
+    }
+}
+
 
 void sdlJeu::drawBackground()
 {
@@ -406,7 +468,7 @@ void sdlJeu::drawPlayer(){
     SDL_RenderSetScale(renderer, computeZoomPlayer(), computeZoomPlayer());
     calculAngle();
     if (PlayerSelectorL) im_player[player_frame].draw(renderer, playerPos.x-(playerPos.x-SPRITE_SIZE/2),(jeu.dimy - playerPos.y-SPRITE_SIZE),SPRITE_SIZE,SPRITE_SIZE, angle*-50.0f);
-    else  im_player[player_frame].draw(renderer, playerPos.x-(playerPos.x-SPRITE_SIZE/2),(jeu.dimy - playerPos.y-SPRITE_SIZE),SPRITE_SIZE,SPRITE_SIZE, angle*-50.0f);
+    else  im_ladyplayer[player_frame].draw(renderer, playerPos.x-(playerPos.x-SPRITE_SIZE/2),(jeu.dimy - playerPos.y-SPRITE_SIZE),SPRITE_SIZE,SPRITE_SIZE, angle*-50.0f);
 }
 
 void sdlJeu::sdlAff () {
@@ -435,7 +497,7 @@ void sdlJeu::drawMenu(){
         
         im_sky[sprite_frame].draw(renderer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         im_player[0].draw(renderer, (SCREEN_WIDTH/2)+100, SCREEN_HEIGHT/2, SPRITE_SIZE*3,SPRITE_SIZE*3);
-        im_player[0].draw(renderer, (SCREEN_WIDTH/2)-100, SCREEN_HEIGHT/2, SPRITE_SIZE*3,SPRITE_SIZE*3);
+        im_ladyplayer[0].draw(renderer, (SCREEN_WIDTH/2)-100, SCREEN_HEIGHT/2, SPRITE_SIZE*3,SPRITE_SIZE*3);
         if( hasLost )//gameOver.draw(...);
         {   //ici on affiche le "time's up"    
             im_player[0].draw(renderer, (SCREEN_WIDTH/2)+250, SCREEN_HEIGHT/3, SPRITE_SIZE*3,SPRITE_SIZE*3);
@@ -449,6 +511,7 @@ void sdlJeu::drawMenu(){
 void sdlJeu::sdlBoucle () {
     SDL_Event events;
     bool quit = false;
+    
     
     
     // RANDOMS
@@ -498,7 +561,7 @@ void sdlJeu::sdlBoucle () {
                 case SDL_SCANCODE_SPACE :
                     space_time= t;
                     gameStarted =true;
-                    hasLost =false;
+                    ResetLevel();
                     break;
                 case SDL_SCANCODE_RIGHT:
                     if(!gameStarted ){

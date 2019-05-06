@@ -107,11 +107,13 @@ private:
     
     b2Vec2 playerPos;
 
+    //Images Player
     int player_frame;
     int prev_sprite_frame;
     int sprite_frame;
     //Images Player
     Image im_player[7];
+    Image im_ladyplayer[7];
     Image im_player_selector;
     //Images Timer
     Image im_timer_bg;
@@ -127,6 +129,12 @@ private:
     //Images Bonus
     Image im_bonus;
     Image im_score_bg;
+    //Image Menu
+    Image im_title;
+    Image im_gameover;
+    Image im_avatar;
+    Image im_astuce;
+    Image im_espace;
 
     int seconds;
     int start_timer;
@@ -139,7 +147,9 @@ private:
     bool hasLost;
     bool gameStarted;
     bool PlayerSelectorL;
+    bool ResetGame;
 
+    void ResetLevel();
     void updatePlayerStatus();
     
 
