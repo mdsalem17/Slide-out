@@ -1,0 +1,20 @@
+digraph "src/core/Box2D/Box2D" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_c4f1bfea86729b1be0dbbecdbd0d8303 {
+    graph [ bgcolor="#ddddee", pencolor="black", label="Box2D" fontname="Helvetica", fontsize="10", URL="dir_c4f1bfea86729b1be0dbbecdbd0d8303.html"]
+  subgraph clusterdir_7d8d7d5161893fb2a8310fdb4edfb2e0 {
+    graph [ bgcolor="#eeeeff", pencolor="black", label="" URL="dir_7d8d7d5161893fb2a8310fdb4edfb2e0.html"];
+    dir_7d8d7d5161893fb2a8310fdb4edfb2e0 [shape=plaintext label="Box2D"];
+    dir_e2594b00aa3dad32419da6fbb3231296 [shape=box label="Collision" color="red" fillcolor="white" style="filled" URL="dir_e2594b00aa3dad32419da6fbb3231296.html"];
+    dir_6d2d5d7f67fce43e94d78b1cff7d559e [shape=box label="Common" color="black" fillcolor="white" style="filled" URL="dir_6d2d5d7f67fce43e94d78b1cff7d559e.html"];
+    dir_272e10ba97d07545c83a88491822674a [shape=box label="Dynamics" color="red" fillcolor="white" style="filled" URL="dir_272e10ba97d07545c83a88491822674a.html"];
+    dir_d6abe4da55e9853d9faff41e0818a0b1 [shape=box label="Rope" color="black" fillcolor="white" style="filled" URL="dir_d6abe4da55e9853d9faff41e0818a0b1.html"];
+  }
+  }
+  dir_272e10ba97d07545c83a88491822674a->dir_6d2d5d7f67fce43e94d78b1cff7d559e [headlabel="1", labeldistance=1.5 headhref="dir_000007_000006.html"];
+  dir_272e10ba97d07545c83a88491822674a->dir_e2594b00aa3dad32419da6fbb3231296 [headlabel="6", labeldistance=1.5 headhref="dir_000007_000004.html"];
+  dir_7d8d7d5161893fb2a8310fdb4edfb2e0->dir_6d2d5d7f67fce43e94d78b1cff7d559e [headlabel="3", labeldistance=1.5 headhref="dir_000003_000006.html"];
+  dir_e2594b00aa3dad32419da6fbb3231296->dir_6d2d5d7f67fce43e94d78b1cff7d559e [headlabel="1", labeldistance=1.5 headhref="dir_000004_000006.html"];
+}

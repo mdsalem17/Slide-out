@@ -1,0 +1,14 @@
+digraph "b2Joint"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node12 [label="b2Joint",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node13 -> Node12 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_bodyA\nm_bodyB" ,fontname="Helvetica"];
+  Node13 [label="b2Body",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classb2Body.html",tooltip="A rigid body. These are created via b2World::CreateBody. "];
+  Node14 -> Node12 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_edgeB\nm_edgeA" ,fontname="Helvetica"];
+  Node14 [label="b2JointEdge",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structb2JointEdge.html"];
+  Node13 -> Node14 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" other" ,fontname="Helvetica"];
+  Node14 -> Node14 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" prev\nnext" ,fontname="Helvetica"];
+  Node12 -> Node14 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" joint" ,fontname="Helvetica"];
+  Node12 -> Node12 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_prev\nm_next" ,fontname="Helvetica"];
+}

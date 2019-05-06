@@ -24,7 +24,7 @@ private:
     bool has_changed;
 
     /**
-     * @brief Charge un fichier pour vérifier son existence
+     * @brief procédure qui charge un fichier pour vérifier son existence
      * @param filename: Chaîne de caractères contenant le chemin du fichier dont on souhaite vérifier son existence
      * \return bool
     */
@@ -39,14 +39,14 @@ public:
     Image () ;
     
     /**
-     * @brief Charge une image depuis un fichier vers un renderer
+     * @brief procédure qui charge une image depuis un fichier vers un renderer
      * @param filename: Chaîne de caractères contenant le nom du fichier qu'on veut charger
      * @param renderer: Le renderer vers lequel on charge l'image
     */
     void loadFromFile (const char* filename, SDL_Renderer * renderer);
     
     /**
-     * @brief 
+     * @brief procédure qui charge une image d'un renderer 
      * @param renderer: Le renderer depuis lequel on charge
     */
     void loadFromCurrentSurface (SDL_Renderer * renderer);
@@ -68,6 +68,12 @@ public:
      * \return SDL_Texture *
     */
     SDL_Texture * getTexture() const;
+
+    		
+	/**		
+	* @brief Mutateur qui permet de modifier la surface		
+	* \param surf: SDL_Texture *
+	*/
     void setSurface(SDL_Surface * surf);
 };
 
@@ -97,15 +103,48 @@ private:
     bool withSound;
 
     //Affichage terrain
+    /** 
+     * @brief procédure qui permet dessiner le paysage		
+	*/
     void drawBackground();
+
+    /**
+     * @brief procédure qui permet dessiner le terrain
+	*/
     void drawTerrain();
+
+	/**		
+	* @brief procédure qui permet dessiner le joueur		
+	*/
     void drawPlayer();
+
+    /**		
+	* @brief procédure qui permet dessiner le menu, c'est un seul menu qnd on rentre dans le jeu ou quand on perd		
+	*/
     void drawMenu();
+
+   /**		
+	     * @brief procédure qui permet afficher du texte		
+	     * @param text: le texte à afficher		
+	     * @param rect: SDL_Rect		
+	     * @param color: SDL_Color		
+	*/    
     void drawText(string text, SDL_Rect rect, SDL_Color color);
     string formatNbtoText(int nb);
+
+
+    /**
+     * @brief procédure qui permet de faire un zoom sur le joueur
+     * \return float: le coefficient zoom qu'il faut appliquer
+     */
     float computeZoomPlayer();
 
+
     float angle;
+
+    /**	
+     * @brief procédure qui permet de calculer l'angle du joueur
+     */
     void calculAngle();
     
     b2Vec2 playerPos;
@@ -143,6 +182,11 @@ private:
 
     int currentLevel;
     float freqLevel[5]; //frequence du bruit de perlin
+
+
+    /**
+     *@brief procédure qui permet de mettre à jour le niveau
+    */
     void updateLevel();
      
     bool hasLost;
@@ -150,10 +194,20 @@ private:
     bool PlayerSelectorL;
     bool ResetGame;
 
+    /**		     
+	* @brief procédure qui permet de réinitialiser le niveau quand on perd
+	*/
     void ResetLevel();
+
+    /**		
+	    * @brief procédure qui permet de mettre à jour le status du joueur		
+	*/
     void updatePlayerStatus();
     
-
+   /**		
+	* @brief procédure qui permet de selection un joueur		
+	* @param RoL(Right or Left): pour décider d'afficher le selecteur à droite ou à gauche		
+	*/
     void playerSpriteSelector(char RoL);
 
 public:
