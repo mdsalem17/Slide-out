@@ -120,6 +120,7 @@ private:
     Image im_cloud;
     //Images Terrain
     Image im_sprite[5];
+    Image im_background[5];
     Image im_arrow;
     Image im_arrow2;
     //Images Bonus

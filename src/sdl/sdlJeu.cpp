@@ -164,6 +164,11 @@ sdlJeu::sdlJeu () : jeu() {
     im_sprite[2].loadFromFile("data/sprite3.png", renderer);
     im_sprite[3].loadFromFile("data/sprite4.png", renderer);
     im_sprite[4].loadFromFile("data/sprite5.png", renderer);
+    im_background[0].loadFromFile("data/background.png", renderer);
+    im_background[1].loadFromFile("data/background2.png", renderer);
+    im_background[2].loadFromFile("data/background3.png", renderer);
+    im_background[3].loadFromFile("data/background4.png", renderer);
+    im_background[4].loadFromFile("data/background5.png", renderer);
     im_arrow.loadFromFile("data/arrow.png", renderer);
     im_arrow2.loadFromFile("data/arrow2.png", renderer);
     im_bonus.loadFromFile("data/bonus.png", renderer);
@@ -274,7 +279,7 @@ void sdlJeu::updateLevel()
             if(prev_sprite_frame == sprite_frame)
             {
                 srand(time(0));
-                sprite_frame = rand() % 4;
+                sprite_frame = rand() % 5;
                 prev_sprite_frame = sprite_frame;
             }
             
@@ -309,6 +314,8 @@ void sdlJeu::drawBackground()
     im_score_bg.draw(renderer, SCREEN_WIDTH -120 , SCREEN_HEIGHT/25*1.2-4, 100*1.4, 35, 0);
     im_score_bg.draw(renderer, SCREEN_WIDTH -120, (SCREEN_HEIGHT/25*1.2)+40-4, 100*1.4, 35, 0);
     im_bonus.draw(renderer, SCREEN_WIDTH -110, (SCREEN_HEIGHT/25*1.2)+40, 25, 25);
+
+    im_background[sprite_frame].draw(renderer, 0, SCREEN_HEIGHT/2, SCREEN_WIDTH, SCREEN_HEIGHT/2);
 
     SDL_Rect positionTime;
     positionTime.x = (SCREEN_WIDTH/2) -40; positionTime.y = SCREEN_HEIGHT/25*1.2; positionTime.w = 80; positionTime.h = 35;
