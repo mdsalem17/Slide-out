@@ -197,13 +197,6 @@ sdlJeu::sdlJeu () : jeu() {
     if (font == NULL) {
             cout << "Failed to load DejaVuSansCondensed.ttf! SDL_TTF Error: " << TTF_GetError() << endl; SDL_Quit(); exit(1);
 	}
-	/*font_color.r = 255;font_color.g = 255;font_color.b = 255;
-	font_im.setSurface(TTF_RenderText_Solid(font,"00:00",font_color));
-	font_im.loadFromCurrentSurface(renderer);
-
-    score_color.r = 220;score_color.g = 70;score_color.b = 20;
-	font_score.setSurface(TTF_RenderText_Solid(font,"0123",score_color));
-	font_score.loadFromCurrentSurface(renderer);*/
 
     // SONS
      if (withSound)
