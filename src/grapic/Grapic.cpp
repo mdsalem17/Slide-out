@@ -124,7 +124,7 @@ Menu::Menu() : m_select(0), m_visible(true) {}
 
 void Menu::change(int i, const std::string& str)
 {
-    if ((i>=0) && (i<m_txt.size()))
+    if (((unsigned int)i>=0) && ((unsigned int)i<m_txt.size()))
         m_txt[i] = str;
     else
         std::cerr<<"menu_change(...): i is not in the range of the menu"<<std::endl;
@@ -134,7 +134,7 @@ void Menu::change(int i, const std::string& str)
 
     void Plot::clear()
     {
-        for(int i=0; i<m_dat.size(); ++i)
+        for(unsigned int i=0; i<m_dat.size(); ++i)
             m_dat[i].clear();
         m_dat.clear();
     }
@@ -153,7 +153,7 @@ int Menu::select() const
 void Menu::setSelect(int s)
 {
     assert(s>=0);
-    assert(s<m_txt.size());
+    assert((unsigned int)s<m_txt.size());
     m_select=s;
 }
 int Menu::caseToPixel(int c, int ymin, int ymax) const
@@ -1162,14 +1162,11 @@ void image_set(SDL_Surface *surface, int x, int y, Uint32 pixel)
 void Image::set(int x, int y, unsigned char r, unsigned char g, unsigned b, unsigned char a)
 {
     assert(m_surface);
-    SDL_PixelFormat *fmt = m_surface->format;
     Uint32 pixel;
     Uint8 *p = (Uint8*)(&pixel);
 
     if ((x<0) || (y<0) || (x>=m_surface->w) || (y>=m_surface->h)) return;
     SDL_LockSurface(m_surface);
-    //pixel = SDL_MapRGBA(fmt, r,g,b,a);
-    //pixel = SDL_MapRGBA(fmt, a,r,g,b);
     p[0] = b;
     p[1] = g;
     p[2] = r;
@@ -1370,7 +1367,7 @@ void Menu::draw(int xmin, int ymin, int xmax, int ymax)
 {
     if (m_txt.size()==0) return;
     if (ymax<0) ymax = 25*m_txt.size();
-    int i;
+    unsigned int i;
     const int fontsize = 12;
 
     if (isKeyPressed( SDLK_F1))
@@ -1406,7 +1403,7 @@ void Menu::draw(int xmin, int ymin, int xmax, int ymax)
     fontSize(fontsize);                                           // Change the default size of the font
     for(i=0; i<m_txt.size(); ++i)
     {
-        if (i==m_select) color(255,55,124);
+        if ((signed int)i==m_select) color(255,55,124);
         else color(255,255,255);
         rectangleFill( xmin, caseToPixel(i,ymin,ymax), xmax, caseToPixel(i+1,ymin,ymax) );
 
@@ -1433,9 +1430,9 @@ void Plot::add(float x, float y, int curve_n)
         cerr<<"error==> plot_add: curve number invalid"<<endl;
         return;
     }
-    if (curve_n>=m_dat.size()) m_dat.resize(curve_n+1);
+    if ((unsigned int)curve_n>=m_dat.size()) m_dat.resize(curve_n+1);
     Curve& curve = m_dat[curve_n];
-    if ((m_nb_plot_max<0) || (curve.size()<m_nb_plot_max))
+    if ((m_nb_plot_max<0) || (curve.size()<(unsigned int)m_nb_plot_max))
     {
         curve.push_back( std::make_pair(x,y) );
         std::sort(curve.begin(), curve.end(), sort_pred() );
@@ -1450,7 +1447,7 @@ void Plot::add(float x, float y, int curve_n)
 
 void Plot::minMax(float& fxmin, float& fymin, float& fxmax, float& fymax, int& maxsize) const
 {
-    int i,j;
+    unsigned int i,j;
     if (m_dat.size()==0) return;
 
     fxmin = fxmax = m_dat[0][0].first;
@@ -1459,7 +1456,7 @@ void Plot::minMax(float& fxmin, float& fymin, float& fxmax, float& fymax, int& m
     for(j=0; j<m_dat.size(); ++j)
     {
         const Curve& cu = m_dat[j];
-        if (cu.size()>maxsize) maxsize = cu.size();
+        if (cu.size()>(unsigned int)maxsize) maxsize = cu.size();
         for(i=0; i<cu.size(); ++i)
         {
             if (cu[i].first>fxmax) fxmax = cu[i].first;
@@ -1472,7 +1469,7 @@ void Plot::minMax(float& fxmin, float& fymin, float& fxmax, float& fymax, int& m
 
 void Plot::draw( const Curve& cu, int xmin, int ymin, int xmax, int ymax, float fxmin, float fymin, float fxmax, float fymax) const
 {
-    int i;
+    unsigned int i;
     float x1, y1, x2, y2;
     if (cu.size()<2) return;
     for(i=0; i<cu.size()-1; ++i)
@@ -1533,7 +1530,7 @@ void Plot::draw(int xmin, int ymin, int xmax, int ymax, bool clearOrNot) const
     SDL_Color save = gr.getColor();
     const int N = 5;
     static const SDL_Color colcu[] = { {0,255,255, 255}, {0,255,0, 255}, {0,0,255, 255}, {255,255,0, 255}, {255,0,255, 255} };
-    int i;
+    unsigned int i;
     for(i=0; i<m_dat.size(); ++i)
     {
         color( colcu[i%N].r, colcu[i%N].g, colcu[i%N].b, colcu[i%N].a );
@@ -1835,7 +1832,7 @@ void polygonFill(int p[][2], unsigned int number)
     int x2, y2;
     int x3, y3;
 
-    for(int k = 0; k < tgs.size(); k++)
+    for(unsigned int k = 0; k < tgs.size(); k++)
     {
         if(k % 3 == 0)
         {
@@ -1867,7 +1864,7 @@ void polygonFill(int p[][2], unsigned int number)
 
 void polygon(int p[][2], unsigned int number)
 {
-    for(int i = 0; i < number; i++)
+    for(unsigned int i = 0; i < number; i++)
     {
         grapic::line(p[i % number][0], p[i % number][1], p[(i + 1) % number][0], p[(i + 1)% number][1]);
     }
