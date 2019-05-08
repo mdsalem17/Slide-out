@@ -38,7 +38,7 @@ Sous ubuntu/debian  ``` sudo apt-get install libbox2d2.3.0 ```
 sous fedora/centos  vous pouvez utlisez la version pré-compilé en changeant ``INCLUDE_DIR = -IBox2D`` par ``INCLUDE_DIR = -I$(CORE_DIR)Box2D``
 et ``LIBS_BOX2D = -LBox2D -lBox2D`` par ``LIBS_BOX2D = -L$(CORE_DIR)Box2D -lBox2D``
 
-ce jeu est destiné au système d’exploitation Unix, il vous faudra des étapes supplémentaire pour la compilation sous Windows/linux.
+ce jeu est destiné au système d’exploitation Unix, il vous faudra des étapes supplémentaire pour la compilation sous Windows/MAC.
 
 ### Étapes
 1. Extraire l’archive.  
